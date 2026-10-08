@@ -1,0 +1,10 @@
+{
+  "name": "app-shell",
+  "title": "App shell",
+  "description": "Sidebar navigation, top bar and content region for a signed-in product. Collapses to an icon rail, becomes a drawer on phones.",
+  "categories": ["layout", "navigation"],
+  "dependencies": ["lucide-react", "motion"],
+  "registryDependencies": ["arc-motion-tokens"],
+  "files": ["app-shell.tsx", "app-shell.module.css"],
+  "tags": ["layout", "navigation", "sidebar"]
+}

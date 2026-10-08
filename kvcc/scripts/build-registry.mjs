@@ -37,7 +37,23 @@ write("kvcc-theme", {
   files: [{ path: "kvcc/theme.css", type: "registry:component", target: "@components/arc/kvcc-theme.css", content: readFileSync(path.join(root, "kvcc/theme.css"), "utf8") }],
 });
 
-// 3. Index.
+// 3. Extensions: kvcc/extensions/<id>/item.json lists the files; contents are inlined here.
+const extDir = path.join(root, "kvcc/extensions");
+for (const id of readdirSync(extDir, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name)) {
+  const manifestPath = path.join(extDir, id, "item.json");
+  let manifest;
+  try { manifest = JSON.parse(readFileSync(manifestPath, "utf8")); } catch { console.warn(`skip extensions/${id}: no readable item.json`); continue; }
+  write(manifest.name, {
+    $schema: "https://ui.shadcn.com/schema/registry-item.json",
+    name: manifest.name, type: "registry:ui", title: manifest.title, description: manifest.description,
+    categories: manifest.categories ?? [], dependencies: manifest.dependencies ?? [],
+    registryDependencies: (manifest.registryDependencies ?? []).map(dep => `${base}/r/${dep}.json`),
+    files: manifest.files.map(f => ({ path: `kvcc/extensions/${id}/${f}`, type: "registry:component", target: `@components/arc/${manifest.name}/${f}`, content: readFileSync(path.join(extDir, id, f), "utf8") })),
+    meta: { tier: "kvcc", kind: "extension", tags: manifest.tags ?? [] },
+  });
+}
+
+// 4. Index.
 writeFileSync(path.join(out, "r/registry.json"), JSON.stringify({
   $schema: "https://ui.shadcn.com/schema/registry.json", name: "kvcc", homepage: base,
   items: written.map(({ files, ...meta }) => ({ ...meta, files: files.map(({ content, ...f }) => f) })),

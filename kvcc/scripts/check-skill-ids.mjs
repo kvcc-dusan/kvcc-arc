@@ -19,5 +19,11 @@ for (const f of readdirSync(dir).filter(f => f.endsWith(".md") && f === "compone
     if (!ids.has(id)) { console.log(`UNKNOWN in ${f}: ${id}`); bad++; }
   }
 }
+// Every extension directory must be listed in references/extensions.md.
+const extList = readFileSync(path.join(dir, "extensions.md"), "utf8");
+for (const d of readdirSync(path.join(root, "kvcc/extensions"), { withFileTypes: true }).filter(d => d.isDirectory())) {
+  checked++;
+  if (!extList.includes(`\`${d.name}\``)) { console.log(`MISSING from extensions.md: ${d.name}`); bad++; }
+}
 console.log(`checked ${checked} id references, ${bad} unknown`);
 process.exit(bad ? 1 : 0);

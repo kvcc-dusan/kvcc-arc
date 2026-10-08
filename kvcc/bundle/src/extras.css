@@ -66,6 +66,15 @@
 .kv-sparkline__end { transition: stroke var(--duration-standard) var(--ease-standard), stroke-width var(--duration-fast) var(--ease-standard); }
 .kv-sparkline__cursor { transition: opacity var(--duration-fast) var(--ease-standard); }
 
+/* app shell (kvcc extension): width transition and a single moving highlight, both in place of Motion */
+.kv-app-shell__sidebar { width: 248px; transition: width var(--duration-standard) var(--ease-standard); }
+.kv-app-shell__shell[data-rail] .kv-app-shell__sidebar { width: 68px; }
+.kv-app-shell__sidebar[data-drawer] { width: 248px; }
+.kv-app-shell__nav { position: relative; }
+.kv-app-shell__indicator { inset: auto; left: var(--space-3); right: var(--space-3); top: 0; height: var(--h, 0); transform: translateY(var(--y, 0)); transition: transform var(--duration-spring) var(--ease-spring), height var(--duration-standard) var(--ease-standard); }
+.kv-app-shell__item { background: transparent; }
+.kv-app-shell__icon, .kv-app-shell__iconButton svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
 /* shared helpers */
 .kv-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .kv-icon { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
@@ -73,6 +82,7 @@
 @media (prefers-reduced-motion: reduce) {
   .kv-switch__thumb, .kv-checkbox__fill, .kv-checkbox__mark path, .kv-progress__fill, .kv-tabs__selection, .kv-sortable-data-table__selectFill, .kv-sortable-data-table__selectMark path { transition: none; }
   .kv-bar-chart__figure[data-intro] .kv-bar-chart__bar { animation: none; }
+  .kv-app-shell__sidebar, .kv-app-shell__indicator { transition: none; }
   .kv-button__button:active:not(:disabled) { transform: none; }
   .kv-toast__toast { animation: kv-toast-fade var(--duration-instant) linear both; }
   .kv-toast__toast[data-state="closed"] { animation: kv-toast-fade-out var(--duration-instant) linear both; }

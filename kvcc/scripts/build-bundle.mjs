@@ -14,6 +14,7 @@ const COMPONENTS = [
   "button", "input", "textarea", "checkbox", "switch", "badge", "card", "tabs",
   "alert", "progress", "skeleton", "metric-card", "dialog", "toast", "tooltip",
   "select", "sortable-data-table", "bar-chart", "sparkline",
+  "app-shell",
 ];
 
 const FONTS_URL = "https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Inter:wght@400;500&display=swap";
@@ -37,8 +38,9 @@ const scope = (id, css) => {
 };
 
 const componentCss = COMPONENTS.map(id => {
-  const path = join(root, "registry", "components", id, `${id}.module.css`);
-  if (!existsSync(path)) throw new Error(`Missing registry CSS for "${id}"`);
+  // Extensions live beside the skill; everything else comes from the upstream registry.
+  const path = [join(root, "registry", "components", id, `${id}.module.css`), join(root, "kvcc", "extensions", id, `${id}.module.css`)].find(existsSync);
+  if (!path) throw new Error(`Missing CSS for "${id}"`);
   return `/* ${id} */\n${scope(id, read(path))}`;
 }).join("\n\n");
 
@@ -51,7 +53,7 @@ const css = [
 ].join("\n\n");
 
 // behaviors.js defines window.kvcc; the rest extend it, so order matters.
-const JS_FILES = ["behaviors.js", "select.js", "table.js", "charts.js"];
+const JS_FILES = ["behaviors.js", "select.js", "table.js", "charts.js", "app-shell.js"];
 const js = JS_FILES.map(f => read(join(src, f))).join("\n");
 const demo = read(join(src, "demo.html"));
 const demoJs = read(join(src, "demo-data.js"));
@@ -79,5 +81,11 @@ const designSystem = read(join(src, "design-system.html"))
   .replace("<!--__KVCC_SECTIONS__-->", () => sections)
   .replace("<!--__KVCC_DIALOG__-->", () => dialog);
 writeFileSync(join(dist, "design-system.html"), designSystem);
+
+// App template: a full-page starter (shell, stats, charts, table) for mini apps.
+writeFileSync(join(dist, "template-app.html"), read(join(src, "template-app.html"))
+  .replace("/*__KVCC_CSS__*/", () => css.replace(fontImport + "\n\n", ""))
+  .replace("/*__KVCC_JS__*/", () => js)
+  .replace("<!--__KVCC_FONTS__-->", `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${FONTS_URL}">`));
 
 console.log(`bundle: ${COMPONENTS.length} components, css ${(css.length / 1024).toFixed(1)}KB, js ${(js.length / 1024).toFixed(1)}KB -> ${dist}`);

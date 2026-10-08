@@ -825,6 +825,55 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
 .kv-sparkline__end { transition: stroke var(--duration-standard) var(--ease-standard); }
 @media (prefers-reduced-motion: reduce) { .kv-sparkline__line, .kv-sparkline__end, .kv-sparkline__caption small { transition: none; } }
 
+/* app-shell */
+.kv-app-shell__shell { display: flex; min-height: 100dvh; background: var(--background); color: var(--foreground); }
+.kv-app-shell__skip { position: absolute; left: var(--space-3); top: var(--space-3); z-index: 100; padding: var(--space-2) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-raised); color: var(--foreground); font-size: var(--text-sm); font-weight: 500; transform: translateY(-200%); }
+.kv-app-shell__skip:focus-visible { transform: none; }
+.kv-app-shell__sidebar { position: sticky; top: 0; z-index: 20; display: flex; flex: none; flex-direction: column; height: 100dvh; overflow: hidden; border-right: 1px solid var(--border); background: var(--surface); }
+.kv-app-shell__brand { display: flex; align-items: center; gap: var(--space-3); min-height: 56px; padding: 0 var(--space-5); font-size: var(--text-sm); font-weight: 500; white-space: nowrap; overflow: hidden; }
+.kv-app-shell__nav { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-2) var(--space-3) var(--space-4); display: grid; align-content: start; gap: var(--space-5); }
+.kv-app-shell__group { display: grid; gap: var(--space-1); }
+.kv-app-shell__groupLabel { margin: 0; padding: 0 var(--space-3) var(--space-1); color: var(--text-muted); font-size: var(--text-xs); line-height: var(--leading-body); white-space: nowrap; overflow: hidden; }
+.kv-app-shell__groupLabel[data-hidden] { visibility: hidden; height: var(--space-1); padding: 0; }
+.kv-app-shell__list { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.kv-app-shell__item { position: relative; display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: var(--control-height-sm); padding: 0 var(--space-3); border: 0; border-radius: calc(var(--radius-control) - 4px); background: transparent; color: var(--text-secondary); font: inherit; font-size: var(--text-sm); font-weight: 500; text-align: left; text-decoration: none; white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard); }
+.kv-app-shell__item[data-active] { color: var(--foreground); }
+.kv-app-shell__item:active { color: var(--foreground); background: var(--surface-muted); }
+.kv-app-shell__indicator { position: absolute; inset: 0; z-index: 0; border-radius: inherit; background: var(--accent-subtle); }
+.kv-app-shell__icon { position: relative; z-index: 1; flex: none; }
+.kv-app-shell__item[data-active] .kv-app-shell__icon { color: var(--accent-strong); }
+.kv-app-shell__label { position: relative; z-index: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.kv-app-shell__badge { position: relative; z-index: 1; margin-left: auto; padding: 1px var(--space-2); border-radius: var(--radius-pill); background: var(--surface-muted); color: var(--text-secondary); font-size: var(--text-xs); font-variant-numeric: tabular-nums; }
+@media (hover: hover) and (pointer: fine) { .kv-app-shell__item:not([data-active]):hover { color: var(--foreground); background: var(--surface-muted); } }
+.kv-app-shell__footer { border-top: 1px solid var(--border); padding: var(--space-3); }
+.kv-app-shell__shell[data-rail] .kv-app-shell__brand { padding: 0 var(--space-5); }
+.kv-app-shell__shell[data-rail] .kv-app-shell__label, .kv-app-shell__shell[data-rail] .kv-app-shell__badge { display: none; }
+.kv-app-shell__shell[data-rail] .kv-app-shell__item { justify-content: center; padding: 0; }
+.kv-app-shell__shell[data-rail] .kv-app-shell__item[data-tip]::after { content: attr(data-tip); position: absolute; left: calc(100% + var(--space-3)); top: 50%; z-index: 30; padding: var(--space-2) var(--space-3); border-radius: var(--radius-control); background: var(--foreground); color: var(--background); font-size: var(--text-xs); white-space: nowrap; opacity: 0; pointer-events: none; transform: translate(-4px, -50%); transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-enter); }
+.kv-app-shell__shell[data-rail] .kv-app-shell__nav { overflow: visible; }
+.kv-app-shell__shell[data-rail] .kv-app-shell__sidebar { overflow: visible; }
+@media (hover: hover) and (pointer: fine) { .kv-app-shell__shell[data-rail] .kv-app-shell__item:hover::after { opacity: 1; transform: translate(0, -50%); } }
+.kv-app-shell__shell[data-rail] .kv-app-shell__item:focus-visible::after { opacity: 1; transform: translate(0, -50%); }
+.kv-app-shell__column { display: flex; flex: 1; flex-direction: column; min-width: 0; }
+.kv-app-shell__topbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: var(--space-3); min-height: 56px; padding: 0 var(--space-4); border-bottom: 1px solid var(--border); background: var(--background); }
+.kv-app-shell__title { margin: 0; min-width: 0; flex: 1; overflow: hidden; font-family: var(--font-body); font-size: var(--text-base); font-weight: 500; letter-spacing: var(--tracking-body); text-overflow: ellipsis; white-space: nowrap; }
+.kv-app-shell__actions { display: flex; align-items: center; gap: var(--space-2); flex: none; }
+.kv-app-shell__iconButton { display: grid; place-items: center; width: var(--control-height-sm); height: var(--control-height-sm); flex: none; border: 0; border-radius: calc(var(--radius-control) - 4px); background: transparent; color: var(--text-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard); }
+.kv-app-shell__iconButton:active { color: var(--foreground); background: var(--surface-muted); }
+@media (hover: hover) and (pointer: fine) { .kv-app-shell__iconButton:hover { color: var(--foreground); background: var(--surface-muted); } }
+.kv-app-shell__main { flex: 1; min-width: 0; padding: var(--space-6) var(--space-8); }
+.kv-app-shell__main:focus { outline: none; }
+.kv-app-shell__backdrop { position: fixed; inset: 0; z-index: 40; background: oklch(10% 0 0 / .46); animation: kv-app-shell__backdrop-in var(--duration-standard) var(--ease-enter) both; }
+.kv-app-shell__sidebar[data-drawer] { position: fixed; left: 0; top: 0; z-index: 50; width: 248px; border-right-color: var(--border); box-shadow: none; transform: translateX(-100%); visibility: hidden; transition: transform var(--duration-standard) var(--ease-enter), visibility 0s linear var(--duration-standard); }
+.kv-app-shell__sidebar[data-drawer][data-open] { transform: none; visibility: visible; box-shadow: var(--shadow-floating); transition: transform var(--duration-standard) var(--ease-enter), visibility 0s; }
+@media (max-width: 767px) { .kv-app-shell__main { padding: var(--space-4); } }
+@keyframes kv-app-shell__backdrop-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .kv-app-shell__sidebar[data-drawer], .kv-app-shell__sidebar[data-drawer][data-open] { transition: none; }
+  .kv-app-shell__backdrop { animation: none; }
+  .kv-app-shell__item, .kv-app-shell__iconButton { transition: none; }
+}
+
 /* Bridges: states the React components drive with Motion or Radix, expressed in CSS. Hand-written. Reduced motion handled at the end. */
 
 /* switch: thumb travel and press stretch (no overshoot, it reports state) */
@@ -893,6 +942,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
 .kv-sparkline__end { transition: stroke var(--duration-standard) var(--ease-standard), stroke-width var(--duration-fast) var(--ease-standard); }
 .kv-sparkline__cursor { transition: opacity var(--duration-fast) var(--ease-standard); }
 
+/* app shell (kvcc extension): width transition and a single moving highlight, both in place of Motion */
+.kv-app-shell__sidebar { width: 248px; transition: width var(--duration-standard) var(--ease-standard); }
+.kv-app-shell__shell[data-rail] .kv-app-shell__sidebar { width: 68px; }
+.kv-app-shell__sidebar[data-drawer] { width: 248px; }
+.kv-app-shell__nav { position: relative; }
+.kv-app-shell__indicator { inset: auto; left: var(--space-3); right: var(--space-3); top: 0; height: var(--h, 0); transform: translateY(var(--y, 0)); transition: transform var(--duration-spring) var(--ease-spring), height var(--duration-standard) var(--ease-standard); }
+.kv-app-shell__item { background: transparent; }
+.kv-app-shell__icon, .kv-app-shell__iconButton svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
 /* shared helpers */
 .kv-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .kv-icon { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
@@ -900,6 +958,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
 @media (prefers-reduced-motion: reduce) {
   .kv-switch__thumb, .kv-checkbox__fill, .kv-checkbox__mark path, .kv-progress__fill, .kv-tabs__selection, .kv-sortable-data-table__selectFill, .kv-sortable-data-table__selectMark path { transition: none; }
   .kv-bar-chart__figure[data-intro] .kv-bar-chart__bar { animation: none; }
+  .kv-app-shell__sidebar, .kv-app-shell__indicator { transition: none; }
   .kv-button__button:active:not(:disabled) { transform: none; }
   .kv-toast__toast { animation: kv-toast-fade var(--duration-instant) linear both; }
   .kv-toast__toast[data-state="closed"] { animation: kv-toast-fade-out var(--duration-instant) linear both; }
@@ -1814,6 +1873,138 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
   };
 
   Object.assign(window.kvcc ??= {}, { barChart, sparkline });
+})();
+
+/* kvcc.appShell(host, { brand, groups, activeId, title, onNavigate, actions, footer, navLabel }) -> { main, setActive, setTitle }.
+   Vanilla port of the kvcc app-shell extension: same markup and classes, so kvcc/extensions/app-shell/app-shell.module.css styles it.
+   brand and footer are Nodes or (state: { rail }) => Node. Icons are lucide 24px path data (string or array of strings). Hand-written. */
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const A = "kv-app-shell__";
+  const MOBILE_QUERY = "(max-width: 767px)";
+  const FOCUSABLE = "a[href], button:not(:disabled), [tabindex]:not([tabindex='-1'])";
+  const ICONS = {
+    menu: ["M4 6h16M4 12h16M4 18h16"],
+    close: ["M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z", "M9 3v18", "m16 15-3-3 3-3"],
+    open: ["M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z", "M9 3v18", "m14 9 3 3-3 3"],
+  };
+  const el = (tag, cls = "", props = {}) => Object.assign(Object.assign(document.createElement(tag), cls ? { className: cls } : {}), props);
+  const icon = (paths, cls) => {
+    const s = document.createElementNS(NS, "svg");
+    s.setAttribute("class", cls); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("aria-hidden", "true");
+    s.setAttribute("width", 20); s.setAttribute("height", 20);
+    [].concat(paths).forEach(d => { const p = document.createElementNS(NS, "path"); p.setAttribute("d", d); s.append(p); });
+    return s;
+  };
+  const slot = (value, state) => typeof value === "function" ? value(state) : value;
+  let uid = 0;
+
+  const appShell = (host, { brand, groups, activeId, title, onNavigate, actions, footer, navLabel = "Main" }) => {
+    const mainId = `kvcc-shell-main-${++uid}`;
+    const media = matchMedia(MOBILE_QUERY);
+    let rail = false, drawerOpen = false, active = activeId;
+
+    const shell = el("div", `${A}shell`);
+    const skip = el("a", `${A}skip`, { href: `#${mainId}`, textContent: "Skip to content" });
+    const sidebar = el("aside", `${A}sidebar`);
+    const brandEl = el("div", `${A}brand`);
+    const nav = el("nav", `${A}nav`); nav.setAttribute("aria-label", navLabel);
+    const indicator = el("span", `${A}indicator`);
+    nav.append(indicator);
+    const items = new Map();
+    groups.forEach(group => {
+      const g = el("div", `${A}group`);
+      if (group.label) g.append(el("p", `${A}groupLabel`, { textContent: group.label }));
+      const list = el("ul", `${A}list`);
+      group.items.forEach(item => {
+        const node = el(item.href ? "a" : "button", `${A}item`);
+        if (item.href) node.href = item.href; else node.type = "button";
+        node.dataset.id = item.id;
+        node.dataset.label = item.label;
+        node.append(icon(item.icon, `${A}icon`), el("span", `${A}label`, { textContent: item.label }));
+        if (item.badge !== undefined) node.append(el("span", `${A}badge`, { textContent: String(item.badge) }));
+        node.addEventListener("click", () => { setActive(item.id); onNavigate?.(item.id); if (media.matches) closeDrawer(); });
+        const li = el("li"); li.append(node); list.append(li);
+        items.set(item.id, node);
+      });
+      g.append(list); nav.append(g);
+    });
+    const footerEl = footer ? el("div", `${A}footer`) : null;
+    sidebar.append(brandEl, nav, ...(footerEl ? [footerEl] : []));
+
+    const column = el("div", `${A}column`);
+    const topbar = el("header", `${A}topbar`);
+    const toggle = el("button", `${A}iconButton`, { type: "button" });
+    const heading = el("h1", `${A}title`, { textContent: title });
+    const actionsEl = el("div", `${A}actions`);
+    if (actions) actionsEl.append(actions);
+    topbar.append(toggle, heading, actionsEl);
+    const main = el("main", `${A}main`, { id: mainId, tabIndex: -1 });
+    column.append(topbar, main);
+    shell.append(skip, sidebar, column);
+    host.replaceChildren(shell);
+
+    const place = () => {
+      const node = items.get(active);
+      if (!node) return;
+      indicator.style.setProperty("--y", `${node.offsetTop}px`);
+      indicator.style.setProperty("--h", `${node.offsetHeight}px`);
+    };
+    function setActive(id) {
+      active = id;
+      items.forEach((node, key) => {
+        if (key === id) { node.setAttribute("aria-current", "page"); node.setAttribute("data-active", ""); }
+        else { node.removeAttribute("aria-current"); node.removeAttribute("data-active"); }
+      });
+      place();
+    }
+    const paintSlots = () => {
+      brandEl.replaceChildren(...[].concat(slot(brand, { rail }) ?? []));
+      if (footerEl) footerEl.replaceChildren(...[].concat(slot(footer, { rail }) ?? []));
+    };
+    const paint = () => {
+      const mobile = media.matches;
+      const showRail = !mobile && rail;
+      shell.toggleAttribute("data-rail", showRail);
+      sidebar.toggleAttribute("data-drawer", mobile);
+      sidebar.toggleAttribute("data-open", mobile && drawerOpen);
+      sidebar.inert = mobile && !drawerOpen;
+      items.forEach(node => {
+        showRail ? (node.setAttribute("data-tip", node.dataset.label), node.setAttribute("aria-label", node.dataset.label)) : (node.removeAttribute("data-tip"), node.removeAttribute("aria-label"));
+      });
+      sidebar.querySelectorAll(`.${A}groupLabel`).forEach(n => n.toggleAttribute("data-hidden", showRail));
+      toggle.replaceChildren(icon(mobile ? ICONS.menu : showRail ? ICONS.open : ICONS.close, ""));
+      toggle.setAttribute("aria-label", mobile ? "Open navigation" : showRail ? "Expand sidebar" : "Collapse sidebar");
+      toggle.setAttribute("aria-expanded", String(mobile ? drawerOpen : !showRail));
+      shell.querySelector(`.${A}backdrop`)?.remove();
+      if (mobile && drawerOpen) { const b = el("div", `${A}backdrop`); b.setAttribute("aria-hidden", "true"); b.addEventListener("click", closeDrawer); shell.prepend(b); }
+      paintSlots();
+      place();
+    };
+    function closeDrawer() { drawerOpen = false; paint(); toggle.focus(); }
+
+    toggle.addEventListener("click", () => {
+      if (media.matches) { drawerOpen = true; paint(); (items.get(active) ?? sidebar.querySelector(FOCUSABLE))?.focus(); }
+      else { rail = !rail; paint(); }
+    });
+    sidebar.addEventListener("keydown", event => {
+      if (!drawerOpen) return;
+      if (event.key === "Escape") { event.stopPropagation(); return closeDrawer(); }
+      if (event.key !== "Tab") return;
+      const focusable = [...sidebar.querySelectorAll(FOCUSABLE)];
+      const [first, last] = [focusable[0], focusable[focusable.length - 1]];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+    media.addEventListener("change", () => { drawerOpen = false; paint(); });
+    addEventListener("resize", place);
+
+    setActive(active);
+    paint();
+    return { main, setActive, setTitle: text => { heading.textContent = text; } };
+  };
+
+  Object.assign(window.kvcc ??= {}, { appShell });
 })();
 
 /* Sample data for the demo and design-system pages. All values are made up. */
