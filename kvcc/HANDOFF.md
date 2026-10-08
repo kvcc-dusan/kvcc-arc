@@ -1,6 +1,6 @@
 # Handoff: kvcc-arc
 
-Context transfer from a claude.ai chat session (2026-10-08) to Claude Code. Self-contained: read this file, `CLAUDE.md`, and `kvcc/README.md`, then continue from "Next steps".
+Context transfer from a claude.ai chat session (2026-10-08) to Claude Code. Updated 2026-10-08 after the first Claude Code session (registry deployed, skill installed, bundle and design system page built). Self-contained: read this file, `CLAUDE.md`, and `kvcc/README.md`, then continue from "Next steps".
 
 ## 1. Goal
 
@@ -49,6 +49,10 @@ Commits on `main` (pushed to `origin/main`):
 
 - `833dd1f` Add kvcc layer on top of Arc.
 - `4ab4116` Add self-hosted registry builder.
+- `988b087` Fix skill installer clobbering `components.md` (macOS is case-insensitive; the generated index is now `references/component-index.md`).
+- `e9844b1` README status: registry deployed, skill installed.
+- `2a9b99d` Single-file bundle (`kvcc/bundle/`).
+- `9025e76` Design system reference page.
 
 Contents of the kvcc layer:
 
@@ -63,6 +67,9 @@ Contents of the kvcc layer:
 | `kvcc/scripts/check-skill-ids.mjs` | Verifies component ids named in `references/components.md` exist in `registry.json` (currently 0 unknown). |
 | `kvcc/scripts/install-skill.sh` | Copies the skill plus generated references into `~/.claude/skills/kvcc-arc`. Tested against a temp HOME only. |
 | `kvcc/scripts/build-registry.mjs` | `node kvcc/scripts/build-registry.mjs --base <url>` writes `kvcc/registry-dist/` (132 items, `registry.json` index, `_headers`, `index.html`). Output is gitignored via `kvcc/.gitignore`. |
+| `kvcc/scripts/build-bundle.mjs` | Writes `kvcc/bundle/dist/{kvcc.css,kvcc.js,kvcc-bundle.html,design-system.html}`. CSS is derived from `registry/foundation.css`, `kvcc/theme.css` and 15 registry CSS modules (classes scoped to `kv-<id>__<class>`). |
+| `kvcc/bundle/src/` | Hand-written inputs: `extras.css` (CSS versions of Motion/Radix states), `behaviors.js` (vanilla `window.kvcc`: theme, accent, toast, dialog, tooltip, tabs, progress, toggles), `demo.html` (starter template with markup per component), `design-system.html` (reference page shell). |
+| `kvcc/bundle/dist/` | Generated, committed. Components: button, input, textarea, checkbox, switch, badge, card, tabs, alert, progress, skeleton, metric-card, dialog, toast, tooltip. |
 | `kvcc/extensions/` | Home for components not in the free set. Empty. |
 | `kvcc/upstream-skills/README.md` | How to fetch verbatim upstream skill files. |
 | `CLAUDE.md` | Repo-level agent instructions. |
@@ -72,50 +79,37 @@ Verified:
 - Registry build: no `uiarc.dev/r/` references remain in output.
 - Against a local HTTP registry, the real shadcn CLI fetched items, resolved transitive registry dependencies, and installed npm dependencies (`motion`, `lucide-react`) into the target project's `package.json`.
 
+Verified since:
+- Registry is live at https://kvcc-arc-registry.netlify.app. A real `npx shadcn@latest add https://kvcc-arc-registry.netlify.app/r/button.json` in a scratch project created the 4 files and added `motion` to `package.json`.
+- Skill installed to `~/.claude/skills/kvcc-arc` (listed as available in a session). Not yet confirmed to auto-load in a fresh project.
+- Bundle rendered in the browser pane (light theme); dialog, toast, switch, tabs verified by script. Dark theme and accents verified by computed values only (pane does not repaint snapshots). No phone-width or keyboard-flow check beyond tab arrows.
+- Design system page published as a private artifact: https://claude.ai/artifact/CmxhiyWeLiS3ULcAVGnDnB (version 1).
+
 Not verified:
-- The final file-write step of `shadcn add` from the self-hosted registry (the sandbox could not reach ui.shadcn.com, which the CLI calls for base-color data). Upstream `target` paths (`@components/arc/...`) are unchanged.
-- The skill installer on the user's real `~/.claude`.
-- Skill content fidelity: Arc's skill files were read through a summarizing fetch, not copied byte for byte. `references/` is a rewrite. Verbatim originals can be fetched with the `npx shadcn@latest add https://uiarc.dev/r/arc-skill.json` command.
+- Whether Claude Design applies the design system page to a new design. Test: link the artifact in a Claude Design prompt, ask for a small screen, check radii, weights, copy against the rules.
+- Skill content fidelity: Arc's skill files were read through a summarizing fetch, not copied byte for byte. `references/` is a rewrite. Verbatim originals: `npx shadcn@latest add https://uiarc.dev/r/arc-skill.json`.
+- Bundle markup in `demo.html` is hand-ported; it can drift if Arc renames CSS module classes. No automated check yet.
 
-## 5. Current state and blocker
+## 5. Current state
 
-Netlify project exists (created through the Netlify connector):
-
-- Name `kvcc-arc-registry`, site id `ad391246-b854-48dc-9394-74b47e4867e5`, team id `697741bc58aa54ce03f355c0`.
-- No deploy yet: `https://kvcc-arc-registry.netlify.app` does not serve anything.
-- `kvcc/registry-dist/` was built with base `https://kvcc-arc-registry.netlify.app` (rebuild any time with the command above).
-
-Blocker: deploy failed because `netlify-cli` is not authenticated on the user's Mac. `npx netlify-cli login` opens the browser, and authorizing with GitHub reports that the account is already in use (the Netlify account was created through GitHub sign-in; the CLI OAuth flow trips on it). Do not try to fix the OAuth login. Separate issue: `npx netlify-cli` currently resolves to `27.12.0`, which does not exist on npm (ETARGET); pin `netlify-cli@27.11.2`.
-
-Workarounds, in order of preference:
-
-1. **Personal access token, no OAuth.** In Netlify: User settings, Applications, Personal access tokens, create one. Then:
-   ```bash
-   NETLIFY_AUTH_TOKEN=<token> npx netlify-cli@27.11.2 deploy --prod --dir kvcc/registry-dist --site ad391246-b854-48dc-9394-74b47e4867e5
-   ```
-   The token must never be written into the repo or committed.
-2. Netlify MCP deploy: its `deploy-site` operation returns an `npx -y @netlify/mcp@latest --site-id <id> --proxy-path <url>` command to run from the directory to deploy. It needs outbound access to `netlify-mcp.netlify.app`, which is available on the user's Mac but not in the cloud sandbox.
-3. Manual: drag `kvcc/registry-dist` onto https://app.netlify.com/projects/kvcc-arc-registry (Deploys).
-
-After deploying, verify:
-
-```bash
-curl -s https://kvcc-arc-registry.netlify.app/r/button.json | head -c 300
-# scratch project with components.json:
-npx shadcn@latest add https://kvcc-arc-registry.netlify.app/r/button.json
-```
-
-Register the namespace for name-based installs in a project's `components.json`: `"registries": { "@kvcc": "https://kvcc-arc-registry.netlify.app/r/{name}.json" }`, then `npx shadcn@latest add @kvcc/button`.
+- Registry deployed. Netlify site `kvcc-arc-registry`, id `ad391246-b854-48dc-9394-74b47e4867e5`. Deploy command that works (needs a Netlify personal access token in `NETLIFY_AUTH_TOKEN`, never written to the repo; revoke it afterwards):
+  ```bash
+  node kvcc/scripts/build-registry.mjs --base https://kvcc-arc-registry.netlify.app
+  npx netlify-cli@27.11.2 deploy --prod --no-build --dir kvcc/registry-dist --site ad391246-b854-48dc-9394-74b47e4867e5
+  ```
+  `--no-build` is required: without it the CLI detects the repo root as Next.js (upstream Arc) and tries `next build`. `netlify-cli` OAuth login fails (GitHub account already in use); do not try to fix it. The Netlify MCP `deploy-site` command (`npx @netlify/mcp`) is blocked by the Claude Code auto-mode classifier in this setup.
+- Name-based installs: add `"registries": { "@kvcc": "https://kvcc-arc-registry.netlify.app/r/{name}.json" }` to a project's `components.json`, then `npx shadcn@latest add @kvcc/button`.
+- The Artifact tool's "Design System" type is not offered on this account (`action: list, scope: types` returned empty). The design system page is a regular HTML artifact instead.
+- macOS filesystem is case-insensitive: never name two generated files that differ only by case.
 
 ## 6. Next steps
 
-1. Deploy the registry (section 5), verify a real install end to end, then set the README status row to done and commit.
-2. Install the skill locally: `bash kvcc/scripts/install-skill.sh`. Confirm it loads in a fresh Claude Code project. Also propose it as a claude.ai account skill (single `SKILL.md` containing the rules) so it applies in chats.
-3. Build the **single-file bundle** for artifacts and mini apps, in `kvcc/bundle/`: inlined token CSS (`:root`, dark, 8 accents), Google Fonts (Geist, Inter), CSS-only motion via `--ease-*`, `--duration-*`, `--ease-spring`, and hand-ported versions of the most-used components (button, input, select, switch, tabs, card, dialog, toast, badge, table, metric card, charts basics). Follow `kvcc/skill/kvcc-arc/references/rules.md`. Add a generator script so the bundle derives from `registry/` rather than being hand-maintained where possible. Artifact constraints: scripts only from allowlisted CDNs with pinned versions, stylesheets only from Google Fonts, no npm.
-4. Generate the **Claude Design System artifact** from `kvcc/tokens/` plus the rules (Artifact tool, "Design System" type, listed via `action: list, scope: types`). Then test how Claude Design applies it to a new design.
-5. **Extensions**: components absent from the free set (data grid, app shell, sidebar, settings page, AI chat, advanced charts, command-heavy dashboards) built natively to the rules in `kvcc/extensions/<id>/`, and added to the registry build.
-6. Optional: fetch verbatim upstream skill files into `kvcc/upstream-skills/` and diff against `references/` for drift.
-7. Add an upstream sync routine: `git fetch upstream && git merge upstream/main`, rerun the three generators, rebuild and redeploy the registry.
+1. Test the design system page in Claude Design (see "Not verified"). Adjust `kvcc/bundle/src/design-system.html` based on what Claude Design actually picks up, rebuild, republish to the same URL.
+2. Finish the bundle: select, data table, chart basics (the original step 3 list). Add a check that classes used in `demo.html` exist in the generated CSS.
+3. Propose the skill as a claude.ai account skill (single `SKILL.md` with the rules) so it applies in chats. Confirm the local skill auto-loads in a fresh Claude Code project.
+4. **Extensions**: components absent from the free set (data grid, app shell, sidebar, settings page, AI chat, advanced charts, command-heavy dashboards) built natively to the rules in `kvcc/extensions/<id>/`, and added to the registry build and the bundle.
+5. Optional: fetch verbatim upstream skill files into `kvcc/upstream-skills/` and diff against `references/` for drift.
+6. Upstream sync routine: `git fetch upstream && git merge upstream/main`, rerun `extract-tokens`, `build-index`, `build-bundle`, `build-registry`, redeploy the registry, republish the design system artifact.
 
 ## 6b. Open questions
 
@@ -124,7 +118,7 @@ Register the namespace for name-based installs in a project's `components.json`:
 
 ## 7. Operational notes
 
-- Tool environment from the previous session: cloud sandbox blocked outbound access to uiarc.dev, netlify, ui.shadcn.com. On the user's Mac these are reachable.
+- Earlier chat session ran in a cloud sandbox that blocked uiarc.dev, netlify and ui.shadcn.com. Claude Code on the user's Mac reaches them.
 - Git identity is set repo-locally (not global): `Dušan Kovačić <dusankvcc@gmail.com>`. Commit trailers used: `Co-Authored-By: Claude ...`.
 - Do not edit `registry/foundation.css` or other upstream paths. Regenerate generated files instead of editing them.
 - Do not reproduce Arc Pro source. Compose from free items and the rules.
