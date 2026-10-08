@@ -14,7 +14,7 @@ Design system derived from Arc (MIT, uiarc.dev). One visual language across ever
 | Tokens (light, dark, 8 accents, motion) | `references/tokens.md`, generated from `registry/foundation.css` |
 | Component index (107 components, 22 blocks) | `references/component-index.md` |
 | Component source | repo `registry/components/<id>/`, or installed under `components/arc/` |
-| Rules | `references/rules.md` |
+| Rules (color, type, shape, motion, responsive, menus, charts, tables, destructive actions) | `references/rules.md` |
 | Which component for which job | `references/components.md` |
 | Components outside the Arc free set (app shell, more as added) | `references/extensions.md` |
 | Page layout, states, responsive | `references/composition.md` |

@@ -91,6 +91,20 @@ Condensed from the Arc agent skill files (uiarc.dev, MIT). Wording is rewritten;
 - Hover is an enhancement: anything shown on hover is also reachable by tap or focus. Gestures always have a button path. On phones prefer `bottom-sheet` for tasks and long menus, `popover` for small choices.
 - Read an item's "Responsive behavior" section before putting it in a narrow column, and pass its props (`stackBelow`, `stickyTop`) instead of wrapping it in your own media queries.
 
+## Menus, popovers, charts, tables, stat cards
+
+Verified against Claude Design output (dashboard test, rounds 4 and 5).
+
+- **Menus and popovers**: container `--surface-raised`, 1px `--border`, `--radius-panel` (26px), padding `--space-1`, `--shadow-floating`. Items are `--control-height-sm` (36px) tall with radius `calc(var(--radius-panel) - 6px)`; hover and keyboard highlight use `--surface-muted`. A destructive item has `--danger` text and a faint danger tint highlight. Arrow keys move between items, Enter picks, Escape closes and returns focus to the trigger, Tab closes. Items use roving focus (`tabindex="-1"`).
+- **Charts**: colors only from `--series-1` to `--series-4`, never the accent as decoration. Gridlines `--border`, baseline `--border-strong`, the average as a 1px dashed `--text-secondary` line with an "Avg N" label. Axis text `--text-xs` in `--text-muted` with tabular numerals. Bars have a 4px rounded top. A bar's value is readable by hover, focus or arrow keys, never only through a tooltip attribute. Give the chart an `aria-label` that states the measure and the average.
+- **Tables**: header cells `--text-sm` in `--text-muted`, weight 500. Rows at least `--control-height-lg` tall, divided by 1px `--border-subtle`. Numbers right-aligned with tabular numerals. Status is a pill with a dot in `--success`, `--warning` or `--danger` and always a text label. A selected row uses `--accent-subtle`. Sortable headers are buttons with `aria-sort`. Row actions are a 44px icon button with `aria-haspopup="menu"` and `aria-expanded`.
+- **Stat cards**: label `--text-sm` in `--text-secondary`, value in Geist `--text-3xl` with tabular numerals, then a change line with an arrow and text. Color the change `--success` only when the change is good and `--danger` only when it is bad. An up arrow on overdue tasks is bad, so the direction of the arrow never decides the color.
+- **Destructive actions**: never delete on the first click. Open a modal dialog that names the object and the consequence ("Delete Partner portal? Its 19 open tasks are removed for everyone.") with a secondary Cancel (focused first) and a `--danger` button that repeats the verb and object. The dialog traps focus, closes on Escape and returns focus to the trigger.
+
+## Fonts outside React
+
+The tokens expect next/font (`--font-inter`, `--font-geist`) or fontsource names ("Inter Variable"). Google Fonts serve the plain names "Inter" and "Geist", so in single-file work map them explicitly: `:root { --font-display: "Geist", sans-serif; --font-body: "Inter", sans-serif; }` and load weights 400 and 500 only. Without the mapping the text silently falls back to the system font.
+
 ## Accessibility
 
 - No hand-written focus rings, outlines, or box-shadow rings. Keyboard focus uses the one shared `:focus-visible` outline from `foundation.css` (tune via `--focus-outline`, `--focus-outline-width`, `--focus-outline-offset`).
