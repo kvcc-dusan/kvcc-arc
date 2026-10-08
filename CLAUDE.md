@@ -1,6 +1,6 @@
 # kvcc-arc
 
-Personal design system. Fork of Arc (kuratlielia/arc-library, MIT) with a kvcc layer. Spec and architecture: `kvcc/README.md`.
+Personal design system. Fork of Arc (kuratlielia/arc-library, MIT) with a kvcc layer. Spec and architecture: `kvcc/README.md`. Project context, decisions, links, current status, and next steps: `kvcc/HANDOFF.md` (read first).
 
 ## Layout
 
