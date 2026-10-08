@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-accent="neutral">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kvcc starter</title>
+<!--__KVCC_FONTS__-->
+<style>
+/*__KVCC_CSS__*/
+.demo { max-width: 56rem; margin: 0 auto; padding: var(--space-8) var(--space-4) var(--space-16); display: grid; gap: var(--space-12); }
+.demo h1 { margin: 0; font-size: var(--text-3xl); }
+.demo h2 { margin: 0 0 var(--space-4); font-family: var(--font-body); font-size: var(--text-lg); letter-spacing: var(--tracking-body); }
+.demo p { margin: var(--space-2) 0 0; color: var(--text-secondary); font-size: var(--text-sm); max-width: 65ch; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.grid { display: grid; align-items: start; gap: var(--space-6); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+.bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-4); }
+.swatch { width: 1.5rem; height: 1.5rem; border-radius: var(--radius-pill); border: 1px solid var(--border-strong); cursor: pointer; padding: 0; }
+</style>
+</head>
+<body>
+<main class="demo">
+  <header class="bar">
+    <div>
+      <h1>kvcc starter</h1>
+      <p>Sample content. Copy the markup you need; keep the class names.</p>
+    </div>
+    <div class="row">
+      <button type="button" class="kv-button__button kv-button__secondary kv-button__sm" onclick="kvcc.setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark')">Toggle theme</button>
+      <span class="row" role="group" aria-label="Accent color" id="accents"></span>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-buttons">
+    <h2 id="h-buttons">Buttons and badges</h2>
+    <div class="row">
+      <button type="button" class="kv-button__button kv-button__primary kv-button__md">Save changes</button>
+      <button type="button" class="kv-button__button kv-button__secondary kv-button__md">Cancel</button>
+      <button type="button" class="kv-button__button kv-button__ghost kv-button__md">Skip for now</button>
+      <button type="button" class="kv-button__button kv-button__danger kv-button__md">Delete project</button>
+      <button type="button" class="kv-button__button kv-button__primary kv-button__md" disabled>Disabled</button>
+    </div>
+    <div class="row" style="margin-top: var(--space-4)">
+      <span class="kv-badge__badge kv-badge__md kv-badge__neutral"><span class="kv-badge__content">Draft</span></span>
+      <span class="kv-badge__badge kv-badge__md kv-badge__success"><span class="kv-badge__content">Published</span></span>
+      <span class="kv-badge__badge kv-badge__md kv-badge__info"><span class="kv-badge__content">In review</span></span>
+      <span class="kv-badge__badge kv-badge__md kv-badge__warning"><span class="kv-badge__content">Needs attention</span></span>
+      <span class="kv-badge__badge kv-badge__md kv-badge__danger"><span class="kv-badge__content">Failed</span></span>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-forms">
+    <h2 id="h-forms">Form controls</h2>
+    <div class="grid">
+      <div class="kv-input__field">
+        <label class="kv-input__label" for="name">Project name</label>
+        <input class="kv-input__input" id="name" placeholder="Atrium">
+        <span class="kv-input__messageSlot"><span class="kv-input__description">Shown in the sidebar.</span></span>
+      </div>
+      <div class="kv-input__field">
+        <label class="kv-input__label" for="email">Email</label>
+        <input class="kv-input__input" id="email" value="not-an-email" aria-invalid="true" aria-describedby="email-err">
+        <span class="kv-input__messageSlot"><span class="kv-input__error" id="email-err">Enter an address like name@company.com.</span></span>
+      </div>
+      <div class="kv-textarea__field">
+        <label for="notes">Notes</label>
+        <textarea class="kv-textarea__control" id="notes" placeholder="Add context for your team"></textarea>
+      </div>
+      <div style="display:grid; gap: var(--space-2); align-content:start">
+        <div class="kv-checkbox__field">
+          <button type="button" role="checkbox" class="kv-checkbox__box" data-kv-toggle data-state="checked" aria-checked="true" aria-labelledby="c1-l">
+            <span class="kv-checkbox__visual"><span class="kv-checkbox__fill"></span><svg class="kv-checkbox__mark" viewBox="0 0 18 18" fill="none" focusable="false"><path data-glyph="check" d="M4.25 9.25 L7.25 12.25 L13.75 5.75" pathLength="1"/><path data-glyph="dash" d="M4.75 9 L13.25 9" pathLength="1"/></svg></span>
+          </button>
+          <span class="kv-checkbox__copy"><label id="c1-l">Email me weekly summaries</label><span>Every Monday morning.</span></span>
+        </div>
+        <button type="button" role="switch" class="kv-switch__switch" data-kv-toggle data-state="unchecked" aria-checked="false">
+          <span class="kv-switch__track"><span class="kv-switch__thumb"></span></span><span class="kv-switch__label">Public project</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-tabs">
+    <h2 id="h-tabs">Tabs</h2>
+    <div class="kv-tabs__root" data-kv-tabs>
+      <div class="kv-tabs__listShell"><div class="kv-tabs__viewport"><div class="kv-tabs__list" role="tablist" aria-label="Project sections">
+        <span class="kv-tabs__selection"></span>
+        <button type="button" role="tab" class="kv-tabs__trigger" aria-controls="p-overview" data-state="active"><span class="kv-tabs__triggerLabel">Overview</span></button>
+        <button type="button" role="tab" class="kv-tabs__trigger" aria-controls="p-activity"><span class="kv-tabs__triggerLabel">Activity</span></button>
+        <button type="button" role="tab" class="kv-tabs__trigger" aria-controls="p-settings"><span class="kv-tabs__triggerLabel">Settings</span></button>
+      </div></div></div>
+      <div class="kv-tabs__content" role="tabpanel" id="p-overview" tabindex="0">Sample overview content.</div>
+      <div class="kv-tabs__content" role="tabpanel" id="p-activity" tabindex="0" hidden>Sample activity content.</div>
+      <div class="kv-tabs__content" role="tabpanel" id="p-settings" tabindex="0" hidden>Sample settings content.</div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-data">
+    <h2 id="h-data">Cards, metrics, progress, alerts</h2>
+    <div class="grid">
+      <article class="kv-metric-card__card">
+        <div class="kv-metric-card__top"><span>Active users</span><small data-trend="up">+12%</small></div>
+        <span class="kv-metric-card__value">2,481</span>
+        <p>Sample data, last 30 days.</p>
+      </article>
+      <article class="kv-card__card">
+        <div class="kv-card__content">
+          <h3 class="kv-card__title">Quarterly report</h3>
+          <p class="kv-card__description">Sample card. Use a card only for a real boundary.</p>
+          <div class="kv-card__footer"><span class="kv-card__byline"><span class="kv-card__bylineText"><span class="kv-card__meta">Sample author</span><span class="kv-card__status">Updated 2 hours ago</span></span></span></div>
+        </div>
+      </article>
+      <div>
+        <div class="kv-progress__progress" role="progressbar" aria-label="Upload" aria-valuemin="0" aria-valuemax="100" data-value="64">
+          <div class="kv-progress__meta"><span class="kv-progress__label">Uploading files</span><span class="kv-progress__value"><span class="kv-progress__count" data-kv-count></span></span></div>
+          <div class="kv-progress__track"><span class="kv-progress__fill"></span></div>
+        </div>
+        <div class="kv-skeleton__root" style="margin-top: var(--space-6)" aria-busy="true"><span class="kv-skeleton__avatar"></span><span class="kv-skeleton__lines"><span class="kv-skeleton__line" style="--index:0"></span><span class="kv-skeleton__line" style="--index:1"></span><span class="kv-skeleton__line" style="--index:2"></span></span></div>
+      </div>
+    </div>
+    <div class="kv-alert__alert kv-alert__info" role="status" style="margin-top: var(--space-6)">
+      <span class="kv-alert__icon"><svg class="kv-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+      <div class="kv-alert__copy"><span class="kv-alert__title">Billing moves to annual on Nov 1</span><p class="kv-alert__description">You can switch back to monthly from Settings until then.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-overlays">
+    <h2 id="h-overlays">Dialog, toast, tooltip</h2>
+    <div class="row">
+      <button type="button" class="kv-button__button kv-button__secondary kv-button__md" data-kv-open="demo-dialog">Delete project</button>
+      <button type="button" class="kv-button__button kv-button__secondary kv-button__md" onclick="kvcc.toast({ title: 'Changes saved', description: 'Sample toast.' })">Save changes</button>
+      <button type="button" class="kv-button__button kv-button__ghost kv-button__md" data-kv-tooltip="Copies the share link">Copy link</button>
+    </div>
+  </section>
+</main>
+
+<div data-kv-dialog id="demo-dialog" hidden>
+  <div class="kv-dialog__overlay kv-dialog__keyframes" data-state="closed"></div>
+  <div class="kv-dialog__content kv-dialog__keyframes" role="dialog" aria-modal="true" aria-labelledby="dd-title" aria-describedby="dd-desc" tabindex="-1" data-state="closed">
+    <div class="kv-dialog__header">
+      <div><h2 class="kv-dialog__title" id="dd-title">Delete “Atrium”?</h2><p class="kv-dialog__description" id="dd-desc">This removes the project and its 14 files. You can’t undo this.</p></div>
+      <button type="button" class="kv-dialog__close" data-kv-close aria-label="Close dialog"><svg class="kv-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="kv-dialog__body row" style="justify-content:flex-end">
+      <button type="button" class="kv-button__button kv-button__secondary kv-button__md" data-kv-close data-kv-autofocus>Keep project</button>
+      <button type="button" class="kv-button__button kv-button__danger kv-button__md" data-kv-close>Delete project</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/*__KVCC_JS__*/
+document.getElementById("accents").append(...kvcc.accents.map(name => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "swatch"; b.setAttribute("aria-label", `Accent: ${name}`);
+  b.style.background = `var(--sw-${name}, ${{neutral:"#333",violet:"#7747ff",blue:"#0562ef",green:"#0db879",amber:"#f3ad20",orange:"#f48120",coral:"#f15f55",rose:"#ed4e9d"}[name]})`;
+  b.onclick = () => kvcc.setAccent(name);
+  return b;
+}));
+</script>
+</body>
+</html>

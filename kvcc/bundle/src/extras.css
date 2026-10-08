@@ -1,0 +1,63 @@
+/* Bridges: states the React components drive with Motion or Radix, expressed in CSS. Hand-written. Reduced motion handled at the end. */
+
+/* switch: thumb travel and press stretch (no overshoot, it reports state) */
+.kv-switch__thumb { transition: transform var(--duration-standard) var(--ease-standard), width var(--duration-fast) var(--ease-standard), background-color var(--duration-standard) var(--ease-standard); }
+.kv-switch__switch[data-state="checked"] .kv-switch__thumb { transform: translateX(18px); }
+.kv-switch__switch:active:not(:disabled) .kv-switch__thumb { width: 23px; }
+.kv-switch__switch[data-state="checked"]:active:not(:disabled) .kv-switch__thumb { transform: translateX(13px); }
+
+/* checkbox: fill scales in, check draws on */
+.kv-checkbox__fill { opacity: 0; transform: scale(.6); transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-standard) var(--ease-standard); }
+.kv-checkbox__box[data-state="checked"] .kv-checkbox__fill, .kv-checkbox__box[data-state="indeterminate"] .kv-checkbox__fill { opacity: 1; transform: none; }
+.kv-checkbox__mark { color: var(--control-glyph); }
+.kv-checkbox__mark path { stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; transition: stroke-dashoffset var(--duration-standard) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard); }
+/* Two paths (check and dash) instead of morphing `d`, which Safari cannot animate in CSS. */
+.kv-checkbox__box[data-state="checked"] .kv-checkbox__mark path[data-glyph="check"], .kv-checkbox__box[data-state="indeterminate"] .kv-checkbox__mark path[data-glyph="dash"] { stroke-dashoffset: 0; opacity: 1; }
+.kv-checkbox__box { border: 0; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+/* button: press scale (Motion whileTap in React). Anchors of popovers never scale. */
+.kv-button__button { transition-property: color, background, border-color, opacity, box-shadow, transform; }
+.kv-button__button:active:not(:disabled):not([aria-haspopup]) { transform: scale(.97); transition-duration: var(--duration-instant); }
+
+/* card: lift on hover when the card is interactive */
+.kv-card__card[data-interactive] { cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .kv-card__card[data-interactive]:hover { border-color: var(--border-strong); box-shadow: var(--shadow-raised); } }
+
+/* tabs: one selection pill that slides under the active trigger; JS sets --x and --w */
+.kv-tabs__list { position: relative; }
+.kv-tabs__selection { inset: auto; top: var(--space-1); bottom: var(--space-1); left: 0; width: var(--w, 0); transform: translateX(var(--x, 0)); transition: transform var(--duration-spring) var(--ease-spring), width var(--duration-spring) var(--ease-spring); }
+.kv-tabs__selection[data-ready="false"] { transition: none; }
+.kv-tabs__content[hidden] { display: none; }
+
+/* progress: fill slides on transform, 100% width translated left by the remainder */
+.kv-progress__fill { transform: translateX(calc((var(--value, 0) - 100) * 1%)); transition: transform var(--duration-considered) var(--ease-standard), background-color var(--duration-standard) var(--ease-standard); }
+
+/* metric card */
+.kv-metric-card__value { display: block; color: var(--foreground); font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1; font-variant-numeric: tabular-nums; }
+
+/* dialog: markup is [data-kv-dialog] > overlay + content; JS flips data-state and hides after the exit animation */
+[data-kv-dialog][hidden] { display: none; }
+
+/* toast: stack bottom right, newest at the bottom */
+.kv-toaster { position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: 95; display: grid; justify-items: end; gap: var(--space-3); width: min(calc(100vw - var(--space-8)), 26rem); pointer-events: none; }
+.kv-toaster > * { pointer-events: auto; }
+.kv-toast__toast { animation: kv-toast-in var(--duration-spring) var(--ease-spring) both; }
+.kv-toast__toast[data-state="closed"] { animation: kv-toast-out var(--duration-fast) var(--ease-exit) both; }
+@keyframes kv-toast-in { from { opacity: 0; transform: translateY(12px) scale(.97); } }
+@keyframes kv-toast-out { to { opacity: 0; transform: translateY(4px) scale(.98); } }
+
+/* tooltip: positioned by JS */
+.kv-tooltip__tooltip { position: fixed; pointer-events: none; }
+
+/* shared helpers */
+.kv-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.kv-icon { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (prefers-reduced-motion: reduce) {
+  .kv-switch__thumb, .kv-checkbox__fill, .kv-checkbox__mark path, .kv-progress__fill, .kv-tabs__selection { transition: none; }
+  .kv-button__button:active:not(:disabled) { transform: none; }
+  .kv-toast__toast { animation: kv-toast-fade var(--duration-instant) linear both; }
+  .kv-toast__toast[data-state="closed"] { animation: kv-toast-fade-out var(--duration-instant) linear both; }
+  @keyframes kv-toast-fade { from { opacity: 0; } }
+  @keyframes kv-toast-fade-out { to { opacity: 0; } }
+}

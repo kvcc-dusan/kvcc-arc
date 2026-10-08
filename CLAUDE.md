@@ -12,6 +12,7 @@ Personal design system. Fork of Arc (kuratlielia/arc-library, MIT) with a kvcc l
 
 - `node kvcc/scripts/extract-tokens.mjs`: regenerate `kvcc/tokens/` from `registry/foundation.css`.
 - `node kvcc/scripts/build-index.mjs`: regenerate `kvcc/COMPONENTS.md` and `kvcc/components.json`.
+- `node kvcc/scripts/build-bundle.mjs`: regenerate `kvcc/bundle/dist/` (single-file `kvcc-bundle.html`, `kvcc.css`, `kvcc.js`). Hand-written inputs live in `kvcc/bundle/src/`.
 - `node kvcc/scripts/check-skill-ids.mjs`: verify every component id named in the skill exists in `registry.json`.
 - `npm run check`: upstream typecheck, lint, registry check (requires `npm install`).
 

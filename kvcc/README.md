@@ -10,7 +10,7 @@ Personal design system. Fork of Arc (https://github.com/kuratlielia/arc-library,
 | Token reference, component index (generated) | Done |
 | Agent skill (`kvcc/skill/kvcc-arc/`) | Installed to `~/.claude/skills/kvcc-arc` |
 | Self-hosted shadcn registry (`@kvcc`) | Done. Live at https://kvcc-arc-registry.netlify.app; `shadcn add` verified end to end |
-| Single-file bundle for artifacts and mini apps | Not started |
+| Single-file bundle for artifacts and mini apps (`kvcc/bundle/`) | First slice done: 15 components (CSS derived from registry, vanilla JS behaviors). Missing: select, table, charts |
 | Claude Design System artifact | Not started |
 | Extensions (components absent from free set) | Not started |
 
