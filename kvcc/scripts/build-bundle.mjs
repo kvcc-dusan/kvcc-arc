@@ -14,7 +14,7 @@ const COMPONENTS = [
   "button", "input", "textarea", "checkbox", "switch", "badge", "card", "tabs",
   "alert", "progress", "skeleton", "metric-card", "dialog", "toast", "tooltip",
   "select", "sortable-data-table", "bar-chart", "sparkline",
-  "app-shell",
+  "app-shell", "dropdown-menu", "popover",
 ];
 
 const FONTS_URL = "https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Inter:wght@400;500&display=swap";
@@ -53,7 +53,7 @@ const css = [
 ].join("\n\n");
 
 // behaviors.js defines window.kvcc; the rest extend it, so order matters.
-const JS_FILES = ["behaviors.js", "select.js", "table.js", "charts.js", "app-shell.js"];
+const JS_FILES = ["behaviors.js", "select.js", "table.js", "charts.js", "app-shell.js", "menu.js"];
 const js = JS_FILES.map(f => read(join(src, f))).join("\n");
 const demo = read(join(src, "demo.html"));
 const demoJs = read(join(src, "demo-data.js"));
@@ -116,4 +116,20 @@ writeFileSync(join(dist, "template-app.html"), read(join(src, "template-app.html
   .replace("/*__KVCC_JS__*/", () => js)
   .replace("<!--__KVCC_FONTS__-->", `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${FONTS_URL}">`));
 
-console.log(`bundle: ${COMPONENTS.length} components, css ${(css.length / 1024).toFixed(1)}KB, js ${(js.length / 1024).toFixed(1)}KB -> ${dist}`);
+// Every kv-* class the demos, templates and JS builders emit must exist in the generated CSS, or a renamed upstream class would break them silently.
+const used = new Set();
+// Each JS file is its own IIFE, so prefix constants (M, P, S...) are resolved per file, never across the concatenated bundle.
+for (const text of [demo, demoJs, ...JS_FILES.map(f => read(join(src, f))), read(join(src, "design-system.html")), read(join(src, "template-app.html"))]) {
+  for (const [name] of text.matchAll(/kv-[a-z0-9-]+__[A-Za-z0-9_-]+/g)) used.add(name);
+  // JS builders assemble names from a prefix constant: const M = "kv-x__"; `${M}part`. Expand those too.
+  for (const [, constant, prefix] of text.matchAll(/const (\w+) = "(kv-[a-z0-9-]+__)"/g)) {
+    for (const [, part] of text.matchAll(new RegExp(`\\$\\{${constant}\\}([A-Za-z0-9_-]+)`, "g"))) used.add(prefix + part);
+  }
+}
+const missing = [...used].filter(name => !css.includes(`.${name}`) && !css.includes(`@keyframes ${name}`));
+if (missing.length) {
+  console.error(`Classes used but not defined in the generated CSS:\n${missing.map(m => `  ${m}`).join("\n")}`);
+  process.exit(1);
+}
+
+console.log(`bundle: ${COMPONENTS.length} components, ${used.size} classes checked, css ${(css.length / 1024).toFixed(1)}KB, js ${(js.length / 1024).toFixed(1)}KB -> ${dist}`);

@@ -29,10 +29,12 @@ Single-file build of the kvcc design system for places with no npm: Claude artif
 | `select(host, { label, options, value, placeholder, hint, onChange })` | Combobox-pattern select. |
 | `table(host, { caption, columns, rows, selectable, sort, itemName, onSelectionChange })` | Sortable table with optional row selection. |
 | `barChart(host, { data, label, period, unit })`, `sparkline(host, { values, label, headline, labels })` | SVG charts with scrub by pointer or arrow keys. |
+| `dropdownMenu(host, { label, items, icon, onSelect })` | Menu button with roving focus, gliding highlight, typeahead. Items: `{ id, label, icon, destructive, disabled }` or `{ separator: true }`. |
+| `popover(trigger, panelOrId, { side })` | Anchors any hidden panel to a trigger. Also wired by `[data-kv-popover="panel-id"]`. Escape and outside click close it and return focus. |
 | `appShell(host, { brand, groups, activeId, title, onNavigate, actions, footer })` | Sidebar, top bar, content region. Returns `{ main, setActive, setTitle }`. |
 
 Wired by attributes: tabs (`[data-kv-tabs]`), switch and checkbox (`[data-kv-toggle]`), tooltip (`[data-kv-tooltip="text"]`).
 
 ## Not covered
 
-Line chart with axes, donut, command palette, dropdown menu, popover, date pickers, rich text. Build those to `kvcc/skill/kvcc-arc/references/rules.md` or use the React registry.
+Line chart with axes, donut, command palette, date pickers, rich text. Build those to `kvcc/skill/kvcc-arc/references/rules.md` or use the React registry.

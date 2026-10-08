@@ -75,14 +75,21 @@
 .kv-app-shell__item { background: transparent; }
 .kv-app-shell__icon, .kv-app-shell__iconButton svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 
-/* shared helpers */
+/* dropdown menu and popover: one highlight glides between items; panels are positioned fixed by JS */
+.kv-dropdown-menu__menu { max-height: min(24rem, calc(100dvh - 16px)); overflow-y: auto; }
+.kv-dropdown-menu__highlight { transition: transform var(--duration-fast) var(--ease-standard), height var(--duration-fast) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
+.kv-dropdown-menu__highlight[data-tone=""] { background: var(--surface-muted); }
+.kv-dropdown-menu__item { z-index: 1; }
+.kv-dropdown-menu__icon svg, .kv-dropdown-menu__triggerIcon svg { width: 16px; height: 16px; }
+.kv-popover__content[hidden] { display: none; }
+
 .kv-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .kv-icon { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 
 @media (prefers-reduced-motion: reduce) {
   .kv-switch__thumb, .kv-checkbox__fill, .kv-checkbox__mark path, .kv-progress__fill, .kv-tabs__selection, .kv-sortable-data-table__selectFill, .kv-sortable-data-table__selectMark path { transition: none; }
   .kv-bar-chart__figure[data-intro] .kv-bar-chart__bar { animation: none; }
-  .kv-app-shell__sidebar, .kv-app-shell__indicator { transition: none; }
+  .kv-app-shell__sidebar, .kv-app-shell__indicator, .kv-dropdown-menu__highlight { transition: none; }
   .kv-button__button:active:not(:disabled) { transform: none; }
   .kv-toast__toast { animation: kv-toast-fade var(--duration-instant) linear both; }
   .kv-toast__toast[data-state="closed"] { animation: kv-toast-fade-out var(--duration-instant) linear both; }

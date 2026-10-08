@@ -139,9 +139,17 @@
       <button type="button" class="kv-button__button kv-button__secondary kv-button__md" data-kv-open="demo-dialog">Delete project</button>
       <button type="button" class="kv-button__button kv-button__secondary kv-button__md" onclick="kvcc.toast({ title: 'Changes saved', description: 'Sample toast.' })">Save changes</button>
       <button type="button" class="kv-button__button kv-button__ghost kv-button__md" data-kv-tooltip="Copies the share link">Copy link</button>
+      <span id="demo-menu"></span>
+      <button type="button" class="kv-button__button kv-button__secondary kv-button__md" data-kv-popover="demo-popover">Project details</button>
     </div>
   </section>
 </main>
+
+<div id="demo-popover" hidden style="width: min(20rem, calc(100vw - 32px))">
+  <h3 style="margin: 0; font-family: var(--font-body); font-size: var(--text-base); font-weight: 500">Northline redesign</h3>
+  <p style="margin: var(--space-2) 0 var(--space-4); color: var(--text-secondary); font-size: var(--text-sm)">Sample project. Due Oct 24, 14 open tasks.</p>
+  <button type="button" class="kv-button__button kv-button__primary kv-button__sm">Open project</button>
+</div>
 
 <div data-kv-dialog id="demo-dialog" hidden>
   <div class="kv-dialog__overlay kv-dialog__keyframes" data-state="closed"></div>

@@ -57,7 +57,7 @@ Rules for single-file work:
 
 1. Inline the CSS and JS; never link them. Only Google Fonts and allowlisted CDNs load externally.
 2. Set theme with `kvcc.setTheme("light" | "dark")`, following `prefers-color-scheme` unless the host sets one. Accent with `kvcc.setAccent(name)`.
-3. Builders (`kvcc.select`, `kvcc.table`, `kvcc.barChart`, `kvcc.sparkline`, `kvcc.appShell`) render the same markup as the React components. Behaviors (tabs, dialog, toast, tooltip, switch, checkbox, progress) wire from data attributes.
+3. Builders (`kvcc.select`, `kvcc.table`, `kvcc.barChart`, `kvcc.sparkline`, `kvcc.dropdownMenu`, `kvcc.popover`, `kvcc.appShell`) render the same markup as the React components. Behaviors (tabs, dialog, toast, tooltip, switch, checkbox, progress) wire from data attributes.
 4. For anything the bundle lacks, build to `rules.md` with semantic tokens only. Do not claim a hand-built control is the Arc component.
 5. Sample data stays labeled as sample data.
 

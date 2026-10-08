@@ -12,7 +12,7 @@ Personal design system. Fork of Arc (https://github.com/kuratlielia/arc-library,
 | Self-hosted shadcn registry (`@kvcc`) | Done. Live at https://kvcc-arc-registry.netlify.app; `shadcn add` verified end to end |
 | Design System reference page (`kvcc/bundle/dist/design-system.html`, published as a private artifact) | Done. The Artifact "Design System" type is not offered on this account |
 | Design brief (`kvcc/bundle/dist/design-brief.md`): rules plus exact token CSS as one attachable file, for tools that cannot open the artifact link | Done |
-| Single-file bundle for artifacts and mini apps (`kvcc/bundle/`) | 19 components: CSS derived from registry, vanilla JS (`kvcc.select`, `kvcc.table`, `kvcc.barChart`, `kvcc.sparkline`). Not yet: line chart with axes, donut, command palette |
+| Single-file bundle for artifacts and mini apps (`kvcc/bundle/`) | 22 components: CSS derived from registry, vanilla JS (`kvcc.select`, `table`, `barChart`, `sparkline`, `dropdownMenu`, `popover`, `appShell`). Not yet: line chart with axes, donut, command palette |
 | Claude Design System artifact | Not started |
 | Extensions (components absent from free set, `kvcc/extensions/`) | Started: `app-shell` (React + registry item + bundle port + `template-app.html`), `settings-page`, `ai-chat` (React + registry items). Next: data grid, advanced charts |
 

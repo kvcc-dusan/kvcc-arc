@@ -875,6 +875,72 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
   .kv-app-shell__item, .kv-app-shell__iconButton { transition: none; }
 }
 
+/* dropdown-menu */
+.kv-dropdown-menu__trigger { display: inline-flex; max-width: 100%; min-height: var(--control-height-sm); align-items: center; gap: var(--space-2); padding: 0 var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface); color: var(--foreground); font: inherit; font-size: var(--text-sm); font-weight: 500; cursor: pointer; transition: background-color var(--duration-instant) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .kv-dropdown-menu__trigger:hover { border-color: var(--border-strong); background: var(--surface-muted); box-shadow: var(--shadow-resting); } }
+.kv-dropdown-menu__trigger[data-state="open"] { border-color: var(--border-strong); background: var(--surface-muted); box-shadow: none; }
+.kv-dropdown-menu__trigger:active { border-color: var(--border-strong); background: color-mix(in oklab, var(--surface-muted), var(--border) 55%); box-shadow: none; }
+.kv-dropdown-menu__item:focus-visible { outline: none; }
+.kv-dropdown-menu__triggerIcon { display: inline-flex; flex: none; color: var(--text-secondary); }
+.kv-dropdown-menu__label { position: relative; display: inline-flex; min-width: 0; flex: 0 1 auto; overflow-x: clip; }
+.kv-dropdown-menu__labelMeasure { position: absolute; top: 0; left: 0; visibility: hidden; white-space: nowrap; pointer-events: none; }
+.kv-dropdown-menu__labelText { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kv-dropdown-menu__chevron { flex: none; color: var(--text-muted); transition: transform var(--duration-spring) var(--ease-spring), color var(--duration-fast) var(--ease-standard); }
+.kv-dropdown-menu__trigger[data-state="open"] .kv-dropdown-menu__chevron { transform: rotate(180deg); }
+.kv-dropdown-menu__menu { --menu-x: 0px; --menu-y: -5px; position: relative; z-index: 60; min-width: min(12rem, var(--radix-dropdown-menu-content-available-width)); max-width: var(--radix-dropdown-menu-content-available-width); padding: 5px; border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface-raised); box-shadow: var(--shadow-floating); transform-origin: var(--radix-dropdown-menu-content-transform-origin); transition: opacity var(--duration-fast) var(--ease-enter), transform var(--duration-spring) var(--ease-spring); }
+.kv-dropdown-menu__menu[data-side="top"] { --menu-y: 5px; }
+.kv-dropdown-menu__menu[data-side="left"] { --menu-x: 5px; --menu-y: 0px; }
+.kv-dropdown-menu__menu[data-side="right"] { --menu-x: -5px; --menu-y: 0px; }
+@starting-style {
+  .kv-dropdown-menu__menu[data-state="open"] { opacity: 0; transform: translate(var(--menu-x), var(--menu-y)) scale(.97); }
+  .kv-dropdown-menu__menu[data-state="open"] .kv-dropdown-menu__item { opacity: 0; transform: translate(calc(var(--menu-x) * .4), calc(var(--menu-y) * .4)); }
+}
+.kv-dropdown-menu__menu[data-state="closed"] { opacity: 0; transform: translate(calc(var(--menu-x) * .5), calc(var(--menu-y) * .5)) scale(.985); transition: opacity 130ms var(--ease-standard), transform 130ms var(--ease-standard); animation: kv-dropdown-menu__menu-exit 130ms linear both; pointer-events: none; }
+.kv-dropdown-menu__highlight { position: absolute; top: 0; right: 5px; left: 5px; border-radius: calc(var(--radius-panel) - 6px); background: var(--surface-muted); opacity: 0; pointer-events: none; transition: background-color var(--duration-fast) var(--ease-standard); }
+.kv-dropdown-menu__highlight[data-tone="danger"] { background: color-mix(in oklab, var(--danger) 8%, var(--surface)); }
+.kv-dropdown-menu__item { position: relative; display: flex; min-height: 36px; align-items: center; gap: 10px; padding: 0 11px; border-radius: calc(var(--radius-panel) - 6px); color: var(--foreground); font-size: var(--text-sm); cursor: pointer; outline: none; transition: color var(--duration-fast) var(--ease-standard), opacity var(--duration-standard) var(--ease-enter) calc(min(var(--i, 0), 4) * 35ms), transform var(--duration-standard) var(--ease-enter) calc(min(var(--i, 0), 4) * 35ms); }
+.kv-dropdown-menu__icon { display: inline-flex; width: 17px; color: var(--text-secondary); }
+.kv-dropdown-menu__separator { height: 1px; margin: var(--space-1) calc(var(--space-1) * -1); background: var(--border-subtle); }
+.kv-dropdown-menu__destructive { color: var(--danger); }
+.kv-dropdown-menu__destructive .kv-dropdown-menu__icon { color: var(--danger); }
+.kv-dropdown-menu__item[data-disabled] { opacity: .45; cursor: default; }
+@keyframes kv-dropdown-menu__menu-exit { to { --menu-exit: 1; } }
+@media (prefers-reduced-transparency: reduce) { .kv-dropdown-menu__menu { background: var(--surface-raised); backdrop-filter: none; -webkit-backdrop-filter: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .kv-dropdown-menu__trigger, .kv-dropdown-menu__chevron, .kv-dropdown-menu__item, .kv-dropdown-menu__highlight { transition: none; }
+  .kv-dropdown-menu__menu, .kv-dropdown-menu__menu[data-state="closed"] { transform: none; transition: opacity var(--duration-instant) linear; }
+}
+
+/* popover */
+.kv-popover__anchor:active:not(:disabled) { transform: none; }
+.kv-popover__content {
+  --popover-x: 0px;
+  --popover-y: -5px;
+  z-index: 80;
+  min-width: 12rem;
+  max-width: min(22rem, calc(100vw - 20px));
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--surface-raised);
+  color: var(--foreground);
+  box-shadow: var(--shadow-floating);
+  transform-origin: var(--radix-popover-content-transform-origin);
+  transition: opacity var(--duration-fast) var(--ease-enter), transform var(--duration-spring) var(--ease-spring);
+}
+.kv-popover__content[data-side="top"] { --popover-y: 5px; }
+.kv-popover__content[data-side="left"] { --popover-x: 5px; --popover-y: 0px; }
+.kv-popover__content[data-side="right"] { --popover-x: -5px; --popover-y: 0px; }
+@starting-style {
+  .kv-popover__content[data-state="open"] { opacity: 0; transform: translate(var(--popover-x), var(--popover-y)) scale(.97); }
+}
+.kv-popover__content[data-state="closed"] { opacity: 0; transform: translate(calc(var(--popover-x) * .5), calc(var(--popover-y) * .5)) scale(.98); transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard); animation: kv-popover__popover-exit var(--duration-fast) linear both; pointer-events: none; }
+.kv-popover__content:focus { outline: none; }
+@keyframes kv-popover__popover-exit { to { --popover-exit: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .kv-popover__content, .kv-popover__content[data-state="closed"] { transform: none; transition: opacity var(--duration-instant) var(--ease-standard); }
+}
+
 /* Bridges: states the React components drive with Motion or Radix, expressed in CSS. Hand-written. Reduced motion handled at the end. */
 
 /* switch: thumb travel and press stretch (no overshoot, it reports state) */
@@ -952,14 +1018,21 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
 .kv-app-shell__item { background: transparent; }
 .kv-app-shell__icon, .kv-app-shell__iconButton svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 
-/* shared helpers */
+/* dropdown menu and popover: one highlight glides between items; panels are positioned fixed by JS */
+.kv-dropdown-menu__menu { max-height: min(24rem, calc(100dvh - 16px)); overflow-y: auto; }
+.kv-dropdown-menu__highlight { transition: transform var(--duration-fast) var(--ease-standard), height var(--duration-fast) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
+.kv-dropdown-menu__highlight[data-tone=""] { background: var(--surface-muted); }
+.kv-dropdown-menu__item { z-index: 1; }
+.kv-dropdown-menu__icon svg, .kv-dropdown-menu__triggerIcon svg { width: 16px; height: 16px; }
+.kv-popover__content[hidden] { display: none; }
+
 .kv-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .kv-icon { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 
 @media (prefers-reduced-motion: reduce) {
   .kv-switch__thumb, .kv-checkbox__fill, .kv-checkbox__mark path, .kv-progress__fill, .kv-tabs__selection, .kv-sortable-data-table__selectFill, .kv-sortable-data-table__selectMark path { transition: none; }
   .kv-bar-chart__figure[data-intro] .kv-bar-chart__bar { animation: none; }
-  .kv-app-shell__sidebar, .kv-app-shell__indicator { transition: none; }
+  .kv-app-shell__sidebar, .kv-app-shell__indicator, .kv-dropdown-menu__highlight { transition: none; }
   .kv-button__button:active:not(:disabled) { transform: none; }
   .kv-toast__toast { animation: kv-toast-fade var(--duration-instant) linear both; }
   .kv-toast__toast[data-state="closed"] { animation: kv-toast-fade-out var(--duration-instant) linear both; }
@@ -1869,6 +1942,190 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
   };
 
   Object.assign(window.kvcc ??= {}, { appShell });
+})();
+
+/* kvcc.dropdownMenu(host, { label, items, icon, onSelect }) and kvcc.popover(trigger, content, { side }). Hand-written.
+   Menu: roving focus on items, arrows, Home and End, letters jump, Enter or Space picks, Escape closes and returns focus. One highlight glides between items.
+   Popover: any content panel anchored to a trigger. [data-kv-popover="panel-id"] on a button wires it by attribute. */
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const M = "kv-dropdown-menu__";
+  const P = "kv-popover__";
+  const GAP = 6;
+  const EXIT_MS = 140;
+  const TYPEAHEAD_MS = 600;
+  const el = (tag, cls = "", props = {}) => Object.assign(Object.assign(document.createElement(tag), cls ? { className: cls } : {}), props);
+  const icon = (paths, size = 16) => {
+    const s = document.createElementNS(NS, "svg");
+    s.setAttribute("class", "kv-icon"); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("aria-hidden", "true");
+    s.setAttribute("width", size); s.setAttribute("height", size);
+    [].concat(paths).forEach(d => { const p = document.createElementNS(NS, "path"); p.setAttribute("d", d); s.append(p); });
+    return s;
+  };
+  const CHEVRON = "m6 9 6 6 6-6";
+  let uid = 0;
+
+  // Places a fixed panel under (or over, when short of room) its trigger, clamped to the viewport.
+  const place = (trigger, panel, { minWidth = 0 } = {}) => {
+    const rect = trigger.getBoundingClientRect();
+    panel.style.position = "fixed";
+    if (minWidth) panel.style.minWidth = `${Math.max(rect.width, minWidth)}px`;
+    const box = panel.getBoundingClientRect();
+    const below = innerHeight - rect.bottom - GAP - 8;
+    const flip = below < box.height && rect.top > below;
+    panel.dataset.side = flip ? "top" : "bottom";
+    panel.style.top = `${flip ? rect.top - GAP - box.height : rect.bottom + GAP}px`;
+    panel.style.left = `${Math.min(Math.max(rect.left, 8), innerWidth - box.width - 8)}px`;
+  };
+
+  const dropdownMenu = (host, { label, items, icon: triggerIcon, onSelect }) => {
+    const key = `kvcc-menu-${++uid}`;
+    const trigger = el("button", `${M}trigger`, { type: "button", id: key });
+    trigger.setAttribute("aria-haspopup", "menu");
+    trigger.setAttribute("aria-expanded", "false");
+    if (triggerIcon) { const i = el("span", `${M}triggerIcon`); i.append(icon(triggerIcon)); trigger.append(i); }
+    const name = el("span", `${M}label`); name.append(el("span", `${M}labelText`, { textContent: label }));
+    const chevron = el("span", `${M}chevron`); chevron.append(icon(CHEVRON));
+    trigger.append(name, chevron);
+    host.append(trigger);
+
+    let menu = null;
+    let nodes = [];
+    // Focus and paint the highlight in one step, so it never depends on focus events (which a background tab does not deliver).
+    const focusItem = node => {
+      if (!node || !menu) return;
+      node.focus();
+      const highlight = menu.querySelector(`.${M}highlight`);
+      highlight.style.transform = `translateY(${node.offsetTop}px)`;
+      highlight.style.height = `${node.offsetHeight}px`;
+      highlight.style.opacity = 1;
+      highlight.dataset.tone = node.classList.contains(`${M}destructive`) ? "danger" : "";
+    };
+    const actionable = () => nodes.filter(n => n.getAttribute("role") === "menuitem" && !n.hasAttribute("data-disabled"));
+
+    const close = ({ refocus = false } = {}) => {
+      if (!menu) return;
+      const gone = menu;
+      menu = null;
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.removeAttribute("data-state");
+      gone.dataset.state = "closed";
+      setTimeout(() => gone.remove(), EXIT_MS);
+      document.removeEventListener("pointerdown", outside, true);
+      if (refocus) trigger.focus();
+    };
+    const outside = event => { if (!menu?.contains(event.target) && !trigger.contains(event.target)) close(); };
+
+    const open = (focusLast = false) => {
+      if (menu) return;
+      menu = el("div", `${M}menu`, { id: `${key}-menu` });
+      menu.setAttribute("role", "menu");
+      menu.setAttribute("aria-labelledby", key);
+      menu.dataset.state = "open";
+      const highlight = el("span", `${M}highlight`);
+      highlight.setAttribute("aria-hidden", "true");
+      menu.append(highlight);
+      nodes = [];
+      let order = 0;
+      items.forEach(item => {
+        if (item.separator) { const s = el("div", `${M}separator`); s.setAttribute("role", "separator"); menu.append(s); return; }
+        const node = el("div", `${M}item${item.destructive ? ` ${M}destructive` : ""}`, { tabIndex: -1 });
+        node.setAttribute("role", "menuitem");
+        node.dataset.id = item.id;
+        node.style.setProperty("--i", order++);
+        if (item.disabled) { node.setAttribute("data-disabled", ""); node.setAttribute("aria-disabled", "true"); }
+        if (item.icon) { const i = el("span", `${M}icon`); i.append(icon(item.icon)); node.append(i); }
+        node.append(el("span", "", { textContent: item.label }));
+        node.addEventListener("pointermove", () => { if (!item.disabled && document.activeElement !== node) focusItem(node); });
+        node.addEventListener("click", () => { if (item.disabled) return; close({ refocus: true }); onSelect?.(item.id); });
+        menu.append(node);
+        nodes.push(node);
+      });
+      document.body.append(menu);
+      trigger.setAttribute("aria-expanded", "true");
+      trigger.setAttribute("data-state", "open");
+      place(trigger, menu, { minWidth: 192 });
+      const list = actionable();
+      focusItem(focusLast ? list[list.length - 1] : list[0]);
+      document.addEventListener("pointerdown", outside, true);
+    };
+
+    let typed = "";
+    let typedTimer = 0;
+    trigger.addEventListener("click", () => menu ? close() : open());
+    trigger.addEventListener("keydown", event => {
+      if (["ArrowDown", "ArrowUp"].includes(event.key)) { event.preventDefault(); open(event.key === "ArrowUp"); }
+    });
+    host.addEventListener("keydown", event => {
+      // Keys on the trigger itself open the menu (handled above); only keys inside the open menu navigate it.
+      if (!menu || event.target === trigger || !menu.contains(document.activeElement)) return;
+      const list = actionable();
+      const at = list.indexOf(document.activeElement);
+      const go = index => { event.preventDefault(); focusItem(list[(index + list.length) % list.length]); };
+      switch (event.key) {
+        case "ArrowDown": return go(at + 1);
+        case "ArrowUp": return go(at - 1);
+        case "Home": return go(0);
+        case "End": return go(list.length - 1);
+        case "Escape": event.preventDefault(); return close({ refocus: true });
+        case "Tab": return close();
+        case "Enter": case " ": event.preventDefault(); return document.activeElement.click();
+        default:
+          if (event.key.length === 1 && !event.metaKey && !event.ctrlKey) {
+            typed += event.key.toLowerCase();
+            clearTimeout(typedTimer);
+            typedTimer = setTimeout(() => { typed = ""; }, TYPEAHEAD_MS);
+            focusItem(list.find(n => n.textContent.toLowerCase().startsWith(typed)));
+          }
+      }
+    });
+    // The menu is portaled to <body>, so key events from it bubble to document, not host.
+    document.addEventListener("keydown", event => { if (menu?.contains(event.target)) host.dispatchEvent(new KeyboardEvent("keydown", { key: event.key, metaKey: event.metaKey, ctrlKey: event.ctrlKey, bubbles: false })); });
+    return { trigger, close };
+  };
+
+  // Popover: content is an existing element (hidden) or a Node; shown anchored to the trigger.
+  const popover = (trigger, content, { side } = {}) => {
+    const panel = typeof content === "string" ? document.getElementById(content) : content;
+    panel.classList.add(`${P}content`);
+    panel.hidden = true;
+    panel.tabIndex = -1;
+    trigger.setAttribute("aria-haspopup", "dialog");
+    trigger.setAttribute("aria-expanded", "false");
+    let isOpen = false;
+
+    const close = ({ refocus = false } = {}) => {
+      if (!isOpen) return;
+      isOpen = false;
+      trigger.setAttribute("aria-expanded", "false");
+      panel.dataset.state = "closed";
+      setTimeout(() => { if (!isOpen) panel.hidden = true; }, EXIT_MS);
+      document.removeEventListener("pointerdown", outside, true);
+      document.removeEventListener("keydown", onKey, true);
+      if (refocus) trigger.focus();
+    };
+    const outside = event => { if (!panel.contains(event.target) && !trigger.contains(event.target)) close(); };
+    const onKey = event => { if (event.key === "Escape") { event.stopPropagation(); close({ refocus: true }); } };
+    const open = () => {
+      if (isOpen) return;
+      isOpen = true;
+      panel.hidden = false;
+      panel.dataset.state = "open";
+      place(trigger, panel);
+      if (side) panel.dataset.side = side;
+      trigger.setAttribute("aria-expanded", "true");
+      (panel.querySelector("[autofocus], input, button, [href]") ?? panel).focus();
+      document.addEventListener("pointerdown", outside, true);
+      document.addEventListener("keydown", onKey, true);
+    };
+    trigger.addEventListener("click", () => isOpen ? close() : open());
+    return { open, close };
+  };
+
+  const init = () => document.querySelectorAll("[data-kv-popover]").forEach(t => popover(t, t.dataset.kvPopover));
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", init) : init();
+
+  Object.assign(window.kvcc ??= {}, { dropdownMenu, popover });
 })();
 
 (() => {

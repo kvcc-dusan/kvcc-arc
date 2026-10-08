@@ -39,6 +39,18 @@
     ],
   });
 
+  kvcc.dropdownMenu($("demo-menu"), {
+    label: "Actions",
+    items: [
+      { id: "rename", label: "Rename project", icon: "M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" },
+      { id: "duplicate", label: "Duplicate project", icon: ["M8 8h12v12H8z", "M4 16V4h12"] },
+      { id: "archive", label: "Archive project", disabled: true, icon: ["M3 4h18v4H3z", "M5 8v12h14V8", "M10 12h4"] },
+      { separator: true },
+      { id: "delete", label: "Delete project", destructive: true, icon: ["M3 6h18", "M8 6V4h8v2", "M6 6l1 14h10l1-14"] },
+    ],
+    onSelect: id => kvcc.toast({ title: `Selected: ${id}`, description: "Sample action, nothing changed." }),
+  });
+
   const values = [42, 58, 51, 73, 66, 38, 29, 61, 77, 69, 84, 72, 45, 33];
   kvcc.barChart($("demo-bars"), {
     label: "Active minutes",

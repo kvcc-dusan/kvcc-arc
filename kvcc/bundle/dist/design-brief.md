@@ -7,31 +7,34 @@ Apply this system exactly when designing any screen. Do not approximate: use the
 1. Paste the token CSS as is
 Including the last block, which maps --font-display and --font-body to the plain family names Geist and Inter. Load both from Google Fonts (400 and 500) under those names, or the text falls back to the system font. Use the variable names and values from the token reference below. Do not invent your own variables or pick colors by eye. Every color, radius, space, shadow and font comes from a token.
 
-2. Type only from the scale
+2. Sizes from tokens, not literals
+Heights are --control-height-sm (36px), --control-height-md (44px, the default) and --control-height-lg (50px). Gaps and padding are --space-N. Radii are --radius-control, --radius-panel, --radius-surface, --radius-pill. Never write 44px, 12px or 26px as a literal when a token exists.
+
+3. Type only from the scale
 Sizes are 12, 14, 16, 18, 22, 28, 36, 52 and 72px (--text-xs to --text-5xl). Body text is 14 or 16px, never 15 or 13. Weights 400 and 500 only. Geist for headings of 30px and up, Inter for everything else.
 
-3. Primary button
+4. Primary button
 Background --foreground, text --background, radius --radius-control (18px), height 44px, weight 500. Secondary: --surface with a 1px --border. Ghost: transparent, --text-secondary. One primary per screen, and it is the main action (Save changes, not Discard). The accent is not a button fill.
 
-4. Fields
+5. Fields
 Visible label above, 44px tall, 18px radius, 1px --border-strong, background --surface. Focus is the border going to --foreground.
 
-5. Switch and checkbox
+6. Switch and checkbox
 Use --control-on for the on track, --control-track for off, --control-thumb and --control-thumb-on for the thumb, --control-glyph for a check. Track 42 by 24px, thumb 18px. Never --accent for these.
 
-6. Surfaces
+7. Surfaces
 Panels are --surface with a 1px --border and --radius-panel (26px), no shadow. Shadow (--shadow-floating) only on floating layers: menus, dialogs, a sticky save bar.
 
-7. Accent
+8. Accent
 Use --accent for the active nav item, selected rows, links and small cues only. Active nav item: --accent-subtle background with --accent-strong text.
 
-8. Keyboard and motion
+9. Keyboard and motion
 Visible focus on every control using the shared outline in the token CSS. Every transition has a prefers-reduced-motion branch. State changes (switch, drawer) never overshoot.
 
-9. Copy
+10. Copy
 Sentence case, no em dashes, verb plus object on buttons, label sample data as sample data.
 
-10. Phones
+11. Phones
 Controls 44px tall, 16px gutters, one column, no sideways scroll. Navigation is a drawer or a bottom bar with 44px targets.
 
 ## Token CSS
