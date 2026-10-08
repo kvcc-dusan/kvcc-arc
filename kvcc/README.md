@@ -9,7 +9,7 @@ Personal design system. Fork of Arc (https://github.com/kuratlielia/arc-library,
 | Fork of Arc free set (107 components, 22 blocks, tokens, motion presets) | Done |
 | Token reference, component index (generated) | Done |
 | Agent skill (`kvcc/skill/kvcc-arc/`) | Drafted, not yet installed |
-| Self-hosted shadcn registry (`@kvcc`) | Not started |
+| Self-hosted shadcn registry (`@kvcc`) | Builder done (`build-registry.mjs`); resolution and dependency install verified against local server; hosting pending |
 | Single-file bundle for artifacts and mini apps | Not started |
 | Claude Design System artifact | Not started |
 | Extensions (components absent from free set) | Not started |
@@ -65,8 +65,8 @@ Copies the skill and fresh generated references to `~/.claude/skills/kvcc-arc`.
 
 ## Open items
 
-1. Create the GitHub repository and add it as `origin`.
-2. Host the registry (static JSON from `public/r/` with `uiarc.dev` URLs rewritten to the new host).
+1. Push to `origin` (https://github.com/kvcc-dusan/kvcc-arc, private).
+2. Host the registry: `node kvcc/scripts/build-registry.mjs --base <url>`, deploy `kvcc/registry-dist/` as a static site.
 3. Build the single-file bundle (foundation CSS plus selected component ports).
 4. Generate the Claude Design System artifact from `kvcc/tokens/`.
 5. Verify how Claude Design applies a Design System artifact and whether the skill loads in claude.ai chats.
