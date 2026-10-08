@@ -1,0 +1,2505 @@
+[
+  {
+    "id": "arc-foundation",
+    "title": "Arc foundation",
+    "kind": "registry:item",
+    "tier": "free",
+    "categories": [
+      "foundation"
+    ],
+    "description": "Arc design tokens (color, surface, radius, shadow, accent, focus, light and dark themes), plus the shared motion presets. Install once per app.",
+    "dependencies": [],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": null,
+    "markdown": null
+  },
+  {
+    "id": "arc-motion-tokens",
+    "title": "Arc motion tokens",
+    "kind": "registry:item",
+    "tier": "free",
+    "categories": [
+      "foundation"
+    ],
+    "description": "The shared motion presets (durations, easings, springs, staggers) Arc components import. Installed automatically with any item that uses them.",
+    "dependencies": [],
+    "registryDependencies": [],
+    "docs": null,
+    "markdown": null
+  },
+  {
+    "id": "button",
+    "title": "Button",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "A clear, responsive action with quiet secondary states.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/button",
+    "markdown": "https://uiarc.dev/components/button/markdown"
+  },
+  {
+    "id": "action-button",
+    "title": "Action button",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "A compact button for frequent toolbar actions.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/action-button",
+    "markdown": "https://uiarc.dev/components/action-button/markdown"
+  },
+  {
+    "id": "split-button",
+    "title": "Split button",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "A primary action with a menu of nearby alternatives.",
+    "dependencies": [
+      "@radix-ui/react-dropdown-menu",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/split-button",
+    "markdown": "https://uiarc.dev/components/split-button/markdown"
+  },
+  {
+    "id": "button-group",
+    "title": "Button group",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Related actions joined into one surface with hairline dividers: a hover highlight glides between segments, the pressed one answers in place, and an attached menu can close the row.",
+    "dependencies": [
+      "@radix-ui/react-dropdown-menu",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/button-group",
+    "markdown": "https://uiarc.dev/components/button-group/markdown"
+  },
+  {
+    "id": "floating-button-group",
+    "title": "Floating button group",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Separate soft buttons in a quiet tray, with one shared highlight that morphs from button to button as you move, and a pressed state that settles in place.",
+    "dependencies": [
+      "@radix-ui/react-tooltip",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "tooltip"
+    ],
+    "docs": "https://uiarc.dev/components/floating-button-group",
+    "markdown": "https://uiarc.dev/components/floating-button-group/markdown"
+  },
+  {
+    "id": "expanding-button-group",
+    "title": "Expanding button group",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Icon buttons in a compact group: the one you point at or focus grows to reveal its label while its neighbours slide aside, and an action confirms in place.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/expanding-button-group",
+    "markdown": "https://uiarc.dev/components/expanding-button-group/markdown"
+  },
+  {
+    "id": "dropdown-menu",
+    "title": "Dropdown menu",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "A focused list of actions anchored to a trigger.",
+    "dependencies": [
+      "@radix-ui/react-dropdown-menu",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/dropdown-menu",
+    "markdown": "https://uiarc.dev/components/dropdown-menu/markdown"
+  },
+  {
+    "id": "context-menu",
+    "title": "Context menu",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Secondary actions kept close to the selected object.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/context-menu",
+    "markdown": "https://uiarc.dev/components/context-menu/markdown"
+  },
+  {
+    "id": "copy-button",
+    "title": "Copy button",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Copy a value with immediate confirmation.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/copy-button",
+    "markdown": "https://uiarc.dev/components/copy-button/markdown"
+  },
+  {
+    "id": "drawer",
+    "title": "Drawer",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "A temporary side surface for focused work.",
+    "dependencies": [
+      "@radix-ui/react-dialog",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/drawer",
+    "markdown": "https://uiarc.dev/components/drawer/markdown"
+  },
+  {
+    "id": "theme-switch",
+    "title": "Theme switcher",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Four smooth ways to move between light and dark appearance.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button"
+    ],
+    "docs": "https://uiarc.dev/components/theme-switch",
+    "markdown": "https://uiarc.dev/components/theme-switch/markdown"
+  },
+  {
+    "id": "theme-switch-eclipse",
+    "title": "Eclipse",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "The next appearance crosses the page like an eclipse.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button"
+    ],
+    "docs": "https://uiarc.dev/components/theme-switch-eclipse",
+    "markdown": "https://uiarc.dev/components/theme-switch-eclipse/markdown"
+  },
+  {
+    "id": "theme-switch-split",
+    "title": "Split",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "The next appearance opens from a slim center seam.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button"
+    ],
+    "docs": "https://uiarc.dev/components/theme-switch-split",
+    "markdown": "https://uiarc.dev/components/theme-switch-split/markdown"
+  },
+  {
+    "id": "theme-switch-rise",
+    "title": "Rise",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "The next appearance rises into place.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button"
+    ],
+    "docs": "https://uiarc.dev/components/theme-switch-rise",
+    "markdown": "https://uiarc.dev/components/theme-switch-rise/markdown"
+  },
+  {
+    "id": "avatar",
+    "title": "Avatar",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A compact identity marker for people and accounts.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/avatar",
+    "markdown": "https://uiarc.dev/components/avatar/markdown"
+  },
+  {
+    "id": "avatar-group",
+    "title": "Avatar group",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Show a team or set of contributors in a small space.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "avatar"
+    ],
+    "docs": "https://uiarc.dev/components/avatar-group",
+    "markdown": "https://uiarc.dev/components/avatar-group/markdown"
+  },
+  {
+    "id": "input",
+    "title": "Input",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A single line field with clear labels and useful states.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/input",
+    "markdown": "https://uiarc.dev/components/input/markdown"
+  },
+  {
+    "id": "textarea",
+    "title": "Textarea",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A multiline field for notes, descriptions, and longer text.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/textarea",
+    "markdown": "https://uiarc.dev/components/textarea/markdown"
+  },
+  {
+    "id": "select",
+    "title": "Select",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A compact choice field with a keyboard friendly menu.",
+    "dependencies": [
+      "@radix-ui/react-select",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/select",
+    "markdown": "https://uiarc.dev/components/select/markdown"
+  },
+  {
+    "id": "combobox",
+    "title": "Combobox",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Search and select from a list without leaving the field.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/combobox",
+    "markdown": "https://uiarc.dev/components/combobox/markdown"
+  },
+  {
+    "id": "checkbox",
+    "title": "Checkbox",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A binary choice with a precise, legible state.",
+    "dependencies": [
+      "@radix-ui/react-checkbox",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/checkbox",
+    "markdown": "https://uiarc.dev/components/checkbox/markdown"
+  },
+  {
+    "id": "switch",
+    "title": "Switch",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A tactile toggle for settings that take effect immediately.",
+    "dependencies": [
+      "@radix-ui/react-switch",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/switch",
+    "markdown": "https://uiarc.dev/components/switch/markdown"
+  },
+  {
+    "id": "multi-select",
+    "title": "Multi-select",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Select several values while keeping the field readable.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/multi-select",
+    "markdown": "https://uiarc.dev/components/multi-select/markdown"
+  },
+  {
+    "id": "number-field",
+    "title": "Number field",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Enter a bounded number with clear increment controls.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/number-field",
+    "markdown": "https://uiarc.dev/components/number-field/markdown"
+  },
+  {
+    "id": "password-field",
+    "title": "Password field",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Capture sensitive text with a visible reveal control.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/password-field",
+    "markdown": "https://uiarc.dev/components/password-field/markdown"
+  },
+  {
+    "id": "search-field",
+    "title": "Search field",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A recognizable search entry point with clear affordances.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/search-field",
+    "markdown": "https://uiarc.dev/components/search-field/markdown"
+  },
+  {
+    "id": "tag-input",
+    "title": "Tag input",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Turn short text values into removable tags.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/tag-input",
+    "markdown": "https://uiarc.dev/components/tag-input/markdown"
+  },
+  {
+    "id": "file-dropzone",
+    "title": "File dropzone",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A generous target for dropping one or more files.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/file-dropzone",
+    "markdown": "https://uiarc.dev/components/file-dropzone/markdown"
+  },
+  {
+    "id": "radio-group",
+    "title": "Radio group",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Choose one option from a visible set.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/radio-group",
+    "markdown": "https://uiarc.dev/components/radio-group/markdown"
+  },
+  {
+    "id": "segmented-control",
+    "title": "Segmented control",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Switch between a small set of related views.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/segmented-control",
+    "markdown": "https://uiarc.dev/components/segmented-control/markdown"
+  },
+  {
+    "id": "calendar",
+    "title": "Calendar",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Browse dates in a clear, compact month view.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/calendar",
+    "markdown": "https://uiarc.dev/components/calendar/markdown"
+  },
+  {
+    "id": "date-picker",
+    "title": "Date picker",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Choose a date without losing context.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "calendar"
+    ],
+    "docs": "https://uiarc.dev/components/date-picker",
+    "markdown": "https://uiarc.dev/components/date-picker/markdown"
+  },
+  {
+    "id": "time-picker",
+    "title": "Time picker",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Choose a time with sensible keyboard behavior.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/time-picker",
+    "markdown": "https://uiarc.dev/components/time-picker/markdown"
+  },
+  {
+    "id": "accordion",
+    "title": "Accordion",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "Progressively reveal supporting information in place.",
+    "dependencies": [
+      "@radix-ui/react-accordion",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/accordion",
+    "markdown": "https://uiarc.dev/components/accordion/markdown"
+  },
+  {
+    "id": "dialog",
+    "title": "Dialog",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "A focused surface for decisions that need attention.",
+    "dependencies": [
+      "@radix-ui/react-dialog",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/dialog",
+    "markdown": "https://uiarc.dev/components/dialog/markdown"
+  },
+  {
+    "id": "popover",
+    "title": "Popover",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "A small anchored surface for contextual information.",
+    "dependencies": [
+      "@radix-ui/react-popover"
+    ],
+    "registryDependencies": [],
+    "docs": "https://uiarc.dev/components/popover",
+    "markdown": "https://uiarc.dev/components/popover/markdown"
+  },
+  {
+    "id": "tooltip",
+    "title": "Tooltip",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "Short supporting text for unfamiliar controls.",
+    "dependencies": [
+      "@radix-ui/react-tooltip",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/tooltip",
+    "markdown": "https://uiarc.dev/components/tooltip/markdown"
+  },
+  {
+    "id": "tabs",
+    "title": "Tabs",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "Switch between related content in the same context.",
+    "dependencies": [
+      "@radix-ui/react-tabs",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/tabs",
+    "markdown": "https://uiarc.dev/components/tabs/markdown"
+  },
+  {
+    "id": "expandable-card",
+    "title": "Expandable card",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "Give a dense card more room when requested.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/expandable-card",
+    "markdown": "https://uiarc.dev/components/expandable-card/markdown"
+  },
+  {
+    "id": "breadcrumb",
+    "title": "Breadcrumb",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "Show where a page sits in a hierarchy.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/breadcrumb",
+    "markdown": "https://uiarc.dev/components/breadcrumb/markdown"
+  },
+  {
+    "id": "alert",
+    "title": "Alert",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "A persistent message that helps people recover or continue.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/alert",
+    "markdown": "https://uiarc.dev/components/alert/markdown"
+  },
+  {
+    "id": "toast",
+    "title": "Toast",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "Brief confirmation for a completed background action.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/toast",
+    "markdown": "https://uiarc.dev/components/toast/markdown"
+  },
+  {
+    "id": "progress",
+    "title": "Progress",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "Show how much of a known task is complete.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/progress",
+    "markdown": "https://uiarc.dev/components/progress/markdown"
+  },
+  {
+    "id": "skeleton",
+    "title": "Skeleton",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "Reserve space while content is still loading.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/skeleton",
+    "markdown": "https://uiarc.dev/components/skeleton/markdown"
+  },
+  {
+    "id": "badge",
+    "title": "Badge",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A small label for status, category, or metadata.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/badge",
+    "markdown": "https://uiarc.dev/components/badge/markdown"
+  },
+  {
+    "id": "card",
+    "title": "Card",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A contained group of related content and actions.",
+    "dependencies": [
+      "@radix-ui/react-dialog",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/card",
+    "markdown": "https://uiarc.dev/components/card/markdown"
+  },
+  {
+    "id": "metric-card",
+    "title": "Metric card",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A compact summary for a number that needs context.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "animated-counter"
+    ],
+    "docs": "https://uiarc.dev/components/metric-card",
+    "markdown": "https://uiarc.dev/components/metric-card/markdown"
+  },
+  {
+    "id": "empty-state",
+    "title": "Empty state",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A useful next step when there is nothing to show yet.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/empty-state",
+    "markdown": "https://uiarc.dev/components/empty-state/markdown"
+  },
+  {
+    "id": "tree-view",
+    "title": "Tree view",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Navigate nested folders and structured content.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/tree-view",
+    "markdown": "https://uiarc.dev/components/tree-view/markdown"
+  },
+  {
+    "id": "pagination",
+    "title": "Pagination",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Move through a long collection with clear bounds.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/pagination",
+    "markdown": "https://uiarc.dev/components/pagination/markdown"
+  },
+  {
+    "id": "filter-toolbar",
+    "title": "Filter toolbar",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Keep collection filters close and easy to reset.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/filter-toolbar",
+    "markdown": "https://uiarc.dev/components/filter-toolbar/markdown"
+  },
+  {
+    "id": "sortable-data-table",
+    "title": "Sortable data table",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Compare structured records with sortable columns.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/sortable-data-table",
+    "markdown": "https://uiarc.dev/components/sortable-data-table/markdown"
+  },
+  {
+    "id": "sparkline",
+    "title": "Sparkline",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Show a compact trend beside a value.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/sparkline",
+    "markdown": "https://uiarc.dev/components/sparkline/markdown"
+  },
+  {
+    "id": "gauge",
+    "title": "Gauge",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Show a value against a known range.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/gauge",
+    "markdown": "https://uiarc.dev/components/gauge/markdown"
+  },
+  {
+    "id": "animated-counter",
+    "title": "Animated counter",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Give changing totals a clear sense of movement.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/animated-counter",
+    "markdown": "https://uiarc.dev/components/animated-counter/markdown"
+  },
+  {
+    "id": "code-block",
+    "title": "Code block",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Present code with legible hierarchy and copy access.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "copy-button"
+    ],
+    "docs": "https://uiarc.dev/components/code-block",
+    "markdown": "https://uiarc.dev/components/code-block/markdown"
+  },
+  {
+    "id": "text-reveal",
+    "title": "Text reveal",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "text"
+    ],
+    "description": "Reveal a short piece of content with restrained motion.",
+    "dependencies": [],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/text-reveal",
+    "markdown": "https://uiarc.dev/components/text-reveal/markdown"
+  },
+  {
+    "id": "in-view-title",
+    "title": "In-view title",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "text"
+    ],
+    "description": "Bring a section title in as it scrolls into view.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/in-view-title",
+    "markdown": "https://uiarc.dev/components/in-view-title/markdown"
+  },
+  {
+    "id": "text-morph",
+    "title": "Text morph",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "text"
+    ],
+    "description": "Morph a label into its next state, letter by letter.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/text-morph",
+    "markdown": "https://uiarc.dev/components/text-morph/markdown"
+  },
+  {
+    "id": "text-shimmer",
+    "title": "Text shimmer",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "text"
+    ],
+    "description": "Show ongoing work with a calm light across the words.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/text-shimmer",
+    "markdown": "https://uiarc.dev/components/text-shimmer/markdown"
+  },
+  {
+    "id": "hold-to-confirm",
+    "title": "Hold to confirm",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Confirm a destructive action by holding, not tapping.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/hold-to-confirm",
+    "markdown": "https://uiarc.dev/components/hold-to-confirm/markdown"
+  },
+  {
+    "id": "swipe-actions",
+    "title": "Swipe actions",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Reveal row actions with a swipe, or from the same actions in a menu.",
+    "dependencies": [
+      "@radix-ui/react-dropdown-menu",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/swipe-actions",
+    "markdown": "https://uiarc.dev/components/swipe-actions/markdown"
+  },
+  {
+    "id": "slider",
+    "title": "Slider",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Pick a value or a range on a track that follows your finger.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/slider",
+    "markdown": "https://uiarc.dev/components/slider/markdown"
+  },
+  {
+    "id": "inline-edit",
+    "title": "Inline edit",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Rename in place: the text becomes a field without moving.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/inline-edit",
+    "markdown": "https://uiarc.dev/components/inline-edit/markdown"
+  },
+  {
+    "id": "expanding-search",
+    "title": "Expanding search",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "An icon that morphs into a search field with results beneath it.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/expanding-search",
+    "markdown": "https://uiarc.dev/components/expanding-search/markdown"
+  },
+  {
+    "id": "chip-group",
+    "title": "Chip group",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Filter by a few facets with chips that morph as you pick them.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/chip-group",
+    "markdown": "https://uiarc.dev/components/chip-group/markdown"
+  },
+  {
+    "id": "password-strength",
+    "title": "Password strength",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Show how strong a new password is while it is typed.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/password-strength",
+    "markdown": "https://uiarc.dev/components/password-strength/markdown"
+  },
+  {
+    "id": "bottom-sheet",
+    "title": "Bottom sheet",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "A sheet that rests at a peek or full height and follows your finger.",
+    "dependencies": [
+      "@radix-ui/react-dialog",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/bottom-sheet",
+    "markdown": "https://uiarc.dev/components/bottom-sheet/markdown"
+  },
+  {
+    "id": "hover-card",
+    "title": "Hover card",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "Preview a person or link on hover or focus without leaving the page.",
+    "dependencies": [
+      "@radix-ui/react-popover",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/hover-card",
+    "markdown": "https://uiarc.dev/components/hover-card/markdown"
+  },
+  {
+    "id": "resizable-panels",
+    "title": "Resizable panels",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "Trade space between panes by dragging the divider between them.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/resizable-panels",
+    "markdown": "https://uiarc.dev/components/resizable-panels/markdown"
+  },
+  {
+    "id": "toast-stack",
+    "title": "Toast stack",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "Stack short results at the edge until you reach for them.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/toast-stack",
+    "markdown": "https://uiarc.dev/components/toast-stack/markdown"
+  },
+  {
+    "id": "usage-meter",
+    "title": "Usage meter",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "Show what fills an allowance and how close it is to the limit.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/usage-meter",
+    "markdown": "https://uiarc.dev/components/usage-meter/markdown"
+  },
+  {
+    "id": "image-compare",
+    "title": "Image compare",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Drag a divider across two images to see what changed.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/image-compare",
+    "markdown": "https://uiarc.dev/components/image-compare/markdown"
+  },
+  {
+    "id": "carousel",
+    "title": "Carousel",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Browse a row of slides by dragging, flicking, or arrowing through them.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/carousel",
+    "markdown": "https://uiarc.dev/components/carousel/markdown"
+  },
+  {
+    "id": "card-stack",
+    "title": "Card stack",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Review a deck one card at a time, with a throw and an undo.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/card-stack",
+    "markdown": "https://uiarc.dev/components/card-stack/markdown"
+  },
+  {
+    "id": "bar-chart",
+    "title": "Bar chart",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Compare one measure across days and scrub any bar for its value.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/bar-chart",
+    "markdown": "https://uiarc.dev/components/bar-chart/markdown"
+  },
+  {
+    "id": "activity-heatmap",
+    "title": "Activity heatmap",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "See a year of activity at a glance, one square per day.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/activity-heatmap",
+    "markdown": "https://uiarc.dev/components/activity-heatmap/markdown"
+  },
+  {
+    "id": "timeline",
+    "title": "Timeline",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Follow what happened, newest first, grouped by day.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/timeline",
+    "markdown": "https://uiarc.dev/components/timeline/markdown"
+  },
+  {
+    "id": "user-menu",
+    "title": "User menu",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "Your account, settings, theme, and sign out behind the avatar. Opens as a bottom sheet on phones.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/user-menu",
+    "markdown": "https://uiarc.dev/components/user-menu/markdown"
+  },
+  {
+    "id": "stepper",
+    "title": "Stepper",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "Show where a person is in a multi-step flow and what is done.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/stepper",
+    "markdown": "https://uiarc.dev/components/stepper/markdown"
+  },
+  {
+    "id": "signature-pad",
+    "title": "Signature pad",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Smooth ink that thins with speed, with undo, replay, and PNG or SVG export.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/signature-pad",
+    "markdown": "https://uiarc.dev/components/signature-pad/markdown"
+  },
+  {
+    "id": "date-range-picker",
+    "title": "Date range picker",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A range picker that grows from its trigger into two months with presets and a stretching range highlight.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/date-range-picker",
+    "markdown": "https://uiarc.dev/components/date-range-picker/markdown"
+  },
+  {
+    "id": "color-picker",
+    "title": "Color picker",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A swatch that grows into a picker with format morphing, eyedropper, saved swatches, and contrast readout.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "text-morph"
+    ],
+    "docs": "https://uiarc.dev/components/color-picker",
+    "markdown": "https://uiarc.dev/components/color-picker/markdown"
+  },
+  {
+    "id": "morph-select",
+    "title": "Morph select",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A select whose trigger grows into the list, with a gliding highlight and type-ahead.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/morph-select",
+    "markdown": "https://uiarc.dev/components/morph-select/markdown"
+  },
+  {
+    "id": "line-chart",
+    "title": "Line chart",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A multi-series line chart with a gliding crosshair, legend toggles, and paths that morph between ranges.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/line-chart",
+    "markdown": "https://uiarc.dev/components/line-chart/markdown"
+  },
+  {
+    "id": "donut-chart",
+    "title": "Donut chart",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A donut whose arcs morph between datasets, with the active value rolling into the center.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/donut-chart",
+    "markdown": "https://uiarc.dev/components/donut-chart/markdown"
+  },
+  {
+    "id": "streamgraph",
+    "title": "Streamgraph",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Layered streams on a wiggle baseline that morph between ranges, with a layer you can isolate and read week by week.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/streamgraph",
+    "markdown": "https://uiarc.dev/components/streamgraph/markdown"
+  },
+  {
+    "id": "brush-chart",
+    "title": "Brush chart",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A dense time series with an overview strip: drag a window to zoom, resize it by its handles, and read events in place.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/brush-chart",
+    "markdown": "https://uiarc.dev/components/brush-chart/markdown"
+  },
+  {
+    "id": "ridgeline",
+    "title": "Ridgeline",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Overlapping distributions, one ridge per group: hover to lift a ridge and read its quartiles, switch datasets and every curve morphs.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/ridgeline",
+    "markdown": "https://uiarc.dev/components/ridgeline/markdown"
+  },
+  {
+    "id": "treemap",
+    "title": "Treemap",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A squarified treemap: click to drill and the tiles grow to fill the view, with a breadcrumb back and metrics that morph every tile.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/treemap",
+    "markdown": "https://uiarc.dev/components/treemap/markdown"
+  },
+  {
+    "id": "waffle-chart",
+    "title": "Waffle chart",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A ten by ten unit chart where every cell is one percent, and cells fly to their new group when the data changes.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/waffle-chart",
+    "markdown": "https://uiarc.dev/components/waffle-chart/markdown"
+  },
+  {
+    "id": "slope-chart",
+    "title": "Slope chart",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Before and after on two axes: lines draw in, rank moves sit beside each value, and switching datasets slides every line to its new slope.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/slope-chart",
+    "markdown": "https://uiarc.dev/components/slope-chart/markdown"
+  },
+  {
+    "id": "countdown",
+    "title": "Countdown",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "A launch countdown with rolling digits that morphs into a live state at zero.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/countdown",
+    "markdown": "https://uiarc.dev/components/countdown/markdown"
+  },
+  {
+    "id": "announcement-bar",
+    "title": "Announcement bar",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "feedback"
+    ],
+    "description": "A top banner that rotates messages, counts down, and collapses smoothly when dismissed.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/announcement-bar",
+    "markdown": "https://uiarc.dev/components/announcement-bar/markdown"
+  },
+  {
+    "id": "json-viewer",
+    "title": "JSON viewer",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A collapsible JSON tree with search, paging for long arrays, and copy value or path.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/json-viewer",
+    "markdown": "https://uiarc.dev/components/json-viewer/markdown"
+  },
+  {
+    "id": "phone-input",
+    "title": "Phone input",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A phone field with a country picker, formatting as you type, and E.164 output.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/phone-input",
+    "markdown": "https://uiarc.dev/components/phone-input/markdown"
+  },
+  {
+    "id": "money-input",
+    "title": "Money input",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A currency field with live grouping, stable width, rolling digits, and minor-unit output.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/money-input",
+    "markdown": "https://uiarc.dev/components/money-input/markdown"
+  },
+  {
+    "id": "shortcut-recorder",
+    "title": "Shortcut recorder",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Record key combinations into key caps, with conflict warnings, Kbd, and a searchable cheatsheet.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/shortcut-recorder",
+    "markdown": "https://uiarc.dev/components/shortcut-recorder/markdown"
+  },
+  {
+    "id": "confirm-morph",
+    "title": "Confirm morph",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "actions"
+    ],
+    "description": "A destructive button that morphs into an inline confirmation, a spinner, and a result with undo.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/confirm-morph",
+    "markdown": "https://uiarc.dev/components/confirm-morph/markdown"
+  },
+  {
+    "id": "mention-input",
+    "title": "Mention input",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A textarea with @people and #channel mentions that act as single tokens, with suggestions at the caret.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/mention-input",
+    "markdown": "https://uiarc.dev/components/mention-input/markdown"
+  },
+  {
+    "id": "chat-thread",
+    "title": "Chat thread",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "A chat thread with grouped messages, reactions, read receipts, typing, and a composer with attachments.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/chat-thread",
+    "markdown": "https://uiarc.dev/components/chat-thread/markdown"
+  },
+  {
+    "id": "rich-text-editor",
+    "title": "Rich text editor",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A lightweight editor with markdown shortcuts, a floating toolbar, a slash menu, and HTML and markdown output.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/rich-text-editor",
+    "markdown": "https://uiarc.dev/components/rich-text-editor/markdown"
+  },
+  {
+    "id": "billing-toggle",
+    "title": "Billing toggle",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "A monthly and yearly switch with a savings badge and prices that roll to the new amount.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "animated-counter"
+    ],
+    "docs": "https://uiarc.dev/components/billing-toggle",
+    "markdown": "https://uiarc.dev/components/billing-toggle/markdown"
+  },
+  {
+    "id": "scroll-area",
+    "title": "Scroll area",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "disclosure"
+    ],
+    "description": "A native scroll container with thin overlay scrollbars and edge fades that appear only when content overflows.",
+    "dependencies": [],
+    "registryDependencies": [],
+    "docs": "https://uiarc.dev/components/scroll-area",
+    "markdown": "https://uiarc.dev/components/scroll-area/markdown"
+  },
+  {
+    "id": "radio-cards",
+    "title": "Radio cards",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "inputs"
+    ],
+    "description": "Selectable option cards with a sliding selection ring, price and description slots, and radio keyboard behavior.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/radio-cards",
+    "markdown": "https://uiarc.dev/components/radio-cards/markdown"
+  },
+  {
+    "id": "comment-thread",
+    "title": "Comment thread",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "data"
+    ],
+    "description": "Threaded comments with replies, reactions, mentions, inline edit, and resolve.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/comment-thread",
+    "markdown": "https://uiarc.dev/components/comment-thread/markdown"
+  },
+  {
+    "id": "slot-text",
+    "title": "Slot text",
+    "kind": "component",
+    "tier": "free",
+    "categories": [
+      "special"
+    ],
+    "description": "Text and numbers that spin into their new value on staggered slot machine reels.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [],
+    "docs": "https://uiarc.dev/components/slot-text",
+    "markdown": "https://uiarc.dev/components/slot-text/markdown"
+  },
+  {
+    "id": "signup-form",
+    "title": "Sign up form",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "An account creation flow with field validation, password strength, and a clear completion state.",
+    "dependencies": [
+      "@radix-ui/react-checkbox",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button",
+      "checkbox",
+      "input",
+      "password-field"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/signup-form",
+    "markdown": "https://uiarc.dev/components/blocks/signup-form/markdown"
+  },
+  {
+    "id": "logo-marquee",
+    "title": "Logo marquee",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A quiet, continuously moving row of brand marks with a pause control.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/logo-marquee",
+    "markdown": "https://uiarc.dev/components/blocks/logo-marquee/markdown"
+  },
+  {
+    "id": "plan-comparison",
+    "title": "Plan comparison",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "Compare meaningful differences between plans and billing periods.",
+    "dependencies": [
+      "@radix-ui/react-switch",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button",
+      "segmented-control",
+      "switch"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/plan-comparison",
+    "markdown": "https://uiarc.dev/components/blocks/plan-comparison/markdown"
+  },
+  {
+    "id": "command-palette",
+    "title": "Command palette",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A complete keyboard driven action surface with search, grouped results, and shortcuts.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/command-palette",
+    "markdown": "https://uiarc.dev/components/blocks/command-palette/markdown"
+  },
+  {
+    "id": "notification-center",
+    "title": "Notification center",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A home for updates with read state, grouped information, and animated disclosure.",
+    "dependencies": [
+      "@radix-ui/react-popover",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "avatar"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/notification-center",
+    "markdown": "https://uiarc.dev/components/blocks/notification-center/markdown"
+  },
+  {
+    "id": "file-upload",
+    "title": "File upload",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A complete file selection flow with constraints, progress, and error feedback.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/file-upload",
+    "markdown": "https://uiarc.dev/components/blocks/file-upload/markdown"
+  },
+  {
+    "id": "otp-input",
+    "title": "OTP input",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A six digit verification flow with paste support and keyboard navigation.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/otp-input",
+    "markdown": "https://uiarc.dev/components/blocks/otp-input/markdown"
+  },
+  {
+    "id": "changelog-feed",
+    "title": "Changelog feed",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "Release notes you can filter, open in place, and scroll through month by month.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "copy-button"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/changelog-feed",
+    "markdown": "https://uiarc.dev/components/blocks/changelog-feed/markdown"
+  },
+  {
+    "id": "sign-in",
+    "title": "Sign in",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A sign in card that morphs from email to a six digit code to your account.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "avatar",
+      "button",
+      "input",
+      "otp-input"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/sign-in",
+    "markdown": "https://uiarc.dev/components/blocks/sign-in/markdown"
+  },
+  {
+    "id": "page-header",
+    "title": "Page header",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A project page header that folds into a compact bar as you scroll, with tabs whose counts roll.",
+    "dependencies": [
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-tabs",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "animated-counter",
+      "avatar",
+      "avatar-group",
+      "badge",
+      "button",
+      "progress"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/page-header",
+    "markdown": "https://uiarc.dev/components/blocks/page-header/markdown"
+  },
+  {
+    "id": "empty-states",
+    "title": "Empty states",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "Four empty states in one illustration whose shapes morph between scenes as you switch tabs.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/empty-states",
+    "markdown": "https://uiarc.dev/components/blocks/empty-states/markdown"
+  },
+  {
+    "id": "login-centered",
+    "title": "Centered login",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A passkey-first login card on a quiet ring backdrop that morphs through email and code.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button",
+      "input",
+      "otp-input"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/login-centered",
+    "markdown": "https://uiarc.dev/components/blocks/login-centered/markdown"
+  },
+  {
+    "id": "site-header",
+    "title": "Site header",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A sticky website header that turns solid on scroll, with a gliding active link, mega menu panels, and a mobile sheet.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "segmented-control"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/site-header",
+    "markdown": "https://uiarc.dev/components/blocks/site-header/markdown"
+  },
+  {
+    "id": "site-footer",
+    "title": "Site footer",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A website footer with link columns and newsletter, a minimal layout, and a large fading Arc mark.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button",
+      "segmented-control"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/site-footer",
+    "markdown": "https://uiarc.dev/components/blocks/site-footer/markdown"
+  },
+  {
+    "id": "hero-section",
+    "title": "Hero section",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "Three full screen SaaS heroes: a live dashboard rising from the bottom edge over a drifting mesh, a workflow graph that routes sample events node by node, and editorial type over a mesh gradient.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "avatar",
+      "button",
+      "copy-button",
+      "line-chart",
+      "segmented-control",
+      "sparkline"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/hero-section",
+    "markdown": "https://uiarc.dev/components/blocks/hero-section/markdown"
+  },
+  {
+    "id": "faq-section",
+    "title": "FAQ section",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "FAQs as an accordion, a topic rail, or a searchable list that highlights matches.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "search-field",
+      "segmented-control"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/faq-section",
+    "markdown": "https://uiarc.dev/components/blocks/faq-section/markdown"
+  },
+  {
+    "id": "contact-section",
+    "title": "Contact section",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A validated contact form that morphs into a confirmation, support channels, and office cards with local times.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "avatar",
+      "button",
+      "copy-button",
+      "input",
+      "segmented-control",
+      "textarea"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/contact-section",
+    "markdown": "https://uiarc.dev/components/blocks/contact-section/markdown"
+  },
+  {
+    "id": "blog-grid",
+    "title": "Blog grid",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A blog index with a featured post, category filter, post cards, pagination and an in-place reader.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/blog-grid",
+    "markdown": "https://uiarc.dev/components/blocks/blog-grid/markdown"
+  },
+  {
+    "id": "comparison-table",
+    "title": "Comparison table",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "An us versus them table with a sticky header, a highlighted column, and a stacked phone view.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/comparison-table",
+    "markdown": "https://uiarc.dev/components/blocks/comparison-table/markdown"
+  },
+  {
+    "id": "stats-band",
+    "title": "Stats band",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "Headline numbers that count up in view, each with a tiny visual that proves it and a context line on hover, plain or in a hairline grid.",
+    "dependencies": [
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "segmented-control"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/stats-band",
+    "markdown": "https://uiarc.dev/components/blocks/stats-band/markdown"
+  },
+  {
+    "id": "cta-section",
+    "title": "CTA section",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "A call to action as a centered closing section, a split beside a setup card that completes itself, or a dismissible banner.",
+    "dependencies": [
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "button",
+      "segmented-control"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/cta-section",
+    "markdown": "https://uiarc.dev/components/blocks/cta-section/markdown"
+  },
+  {
+    "id": "newsletter-signup",
+    "title": "Newsletter signup",
+    "kind": "block",
+    "tier": "free",
+    "categories": [
+      "blocks"
+    ],
+    "description": "An email signup framed by a stack of past issues; subscribing drops the next issue, addressed to you, onto the front.",
+    "dependencies": [
+      "@radix-ui/react-switch",
+      "lucide-react",
+      "motion"
+    ],
+    "registryDependencies": [
+      "arc-motion-tokens",
+      "animated-counter",
+      "segmented-control",
+      "switch"
+    ],
+    "docs": "https://uiarc.dev/components/blocks/newsletter-signup",
+    "markdown": "https://uiarc.dev/components/blocks/newsletter-signup/markdown"
+  }
+]

@@ -1,0 +1,8 @@
+/*
+ * kvcc theme overrides.
+ * Import after components/arc/foundation.css. registry/foundation.css stays identical to upstream so upstream merges stay clean.
+ * Override semantic roles only (see kvcc/tokens/TOKENS.md). Set light and dark values separately and check contrast in both.
+ *
+ * :root { --accent: #0f766e; --accent-strong: #0b5a54; --accent-subtle: rgb(15 118 110 / .12); }
+ * :root[data-theme="dark"] { --accent: #2dd4bf; --accent-strong: #5eead4; }
+ */
