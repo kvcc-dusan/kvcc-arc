@@ -1,0 +1,195 @@
+<title>kvcc design system</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Inter:wght@400;500&display=swap">
+<style>
+/*__KVCC_CSS__*/
+/* Layout: one narrow reading column, tokens and live components stacked by topic. */
+.ds { max-width: 60rem; margin: 0 auto; padding: var(--space-8) var(--space-4) var(--space-20); display: grid; gap: var(--space-16); }
+.ds > * { min-width: 0; }
+.ds h1 { margin: 0; font-size: clamp(var(--text-3xl), 6vw, var(--text-4xl)); }
+.ds h2 { margin: 0; font-size: var(--text-xl); }
+.ds h3 { margin: 0 0 var(--space-3); font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); letter-spacing: var(--tracking-body); }
+.ds p { margin: var(--space-2) 0 0; color: var(--text-secondary); font-size: var(--text-sm); max-width: 65ch; }
+.ds code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .92em; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.grid { display: grid; align-items: start; gap: var(--space-6); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+.bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--space-6); }
+.block { display: grid; gap: var(--space-6); }
+.block > header { display: grid; gap: var(--space-1); }
+.rules { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+.rules li { display: grid; gap: var(--space-1); padding-top: var(--space-3); border-top: 1px solid var(--border); font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-body); }
+.rules strong { color: var(--foreground); font-weight: 500; }
+.swatches { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); }
+.swatch { display: grid; gap: var(--space-2); font-size: var(--text-xs); }
+.swatch i { display: block; height: 3.25rem; border: 1px solid var(--border-strong); border-radius: var(--radius-control); }
+.swatch b { font-weight: 500; font-size: var(--text-xs); color: var(--foreground); }
+.swatch span { color: var(--text-muted); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.accent-dot { width: 1.5rem; height: 1.5rem; padding: 0; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); cursor: pointer; }
+.accent-dot[aria-pressed="true"] { outline: 2px solid var(--foreground); outline-offset: 2px; }
+.type-row { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); align-items: baseline; gap: var(--space-4); padding-block: var(--space-3); border-top: 1px solid var(--border); }
+.type-row small { color: var(--text-muted); font-size: var(--text-xs); font-variant-numeric: tabular-nums; }
+.type-row p { margin: 0; color: var(--foreground); max-width: none; overflow-wrap: anywhere; line-height: 1.15; }
+.shapes { display: flex; flex-wrap: wrap; gap: var(--space-6); }
+.shape { display: grid; gap: var(--space-2); font-size: var(--text-xs); color: var(--text-muted); }
+.shape i { display: block; width: 6rem; height: 4rem; border: 1px solid var(--border-strong); background: var(--surface-muted); }
+.space-row { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); align-items: center; gap: var(--space-3); font-size: var(--text-xs); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.space-row i { display: block; height: .75rem; border-radius: var(--radius-pill); background: var(--accent); }
+.lane { position: relative; height: 2.75rem; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-muted); }
+.lane i { position: absolute; top: 4px; left: 4px; width: 2.25rem; height: calc(100% - 8px); border-radius: calc(var(--radius-control) - 4px); background: var(--accent); }
+.lane[data-on] i { transform: translateX(var(--travel, 12rem)); }
+.lane-label { margin: 0 0 var(--space-2); display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--text-muted); max-width: none; }
+.code { position: relative; display: grid; gap: var(--space-2); }
+.code pre { margin: 0; padding: var(--space-4); overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-muted); font-size: var(--text-xs); line-height: 1.6; }
+@media (max-width: 30rem) { .type-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); } }
+</style>
+
+<div class="ds">
+  <header class="bar">
+    <div>
+      <h1>kvcc design system</h1>
+      <p>Arc-based tokens, rules and components. Everything below renders from the real token file, so change the theme or accent and the whole page follows.</p>
+    </div>
+    <div class="row">
+      <button type="button" class="kv-button__button kv-button__secondary kv-button__sm" id="theme-toggle">Dark theme</button>
+      <span class="row" role="group" aria-label="Accent color" id="accents"></span>
+    </div>
+  </header>
+
+  <section class="block" aria-labelledby="h-rules">
+    <header><h2 id="h-rules">Rules that carry the look</h2><p>Most of the visual language is a handful of constraints. Hold these and almost any layout reads as the same system.</p></header>
+    <ul class="rules">
+      <li><strong>Semantic color roles only</strong>Never raw hex or the neutral ramp in product code. One accent per screen, mostly neutral.</li>
+      <li><strong>Three radii</strong>Controls 18px, panels 26px, surfaces 34px. Nested radius is outer minus padding.</li>
+      <li><strong>Geist at 30px and up, Inter below</strong>Weights 400 and 500 only. Sentence case everywhere, no uppercase labels.</li>
+      <li><strong>Borders over shadows</strong>Cards rest on a hairline. Shadow is for floating layers: menus, popovers, dialogs.</li>
+      <li><strong>State never overshoots</strong>Switches, drawers and progress settle without bounce. Springs for movement, color for press feedback on anchors.</li>
+      <li><strong>One focus ring</strong>A shared outline for keyboard focus only. No hand-written rings. Honor reduced motion everywhere.</li>
+      <li><strong>Copy is part of the system</strong>Verb plus object on buttons, no em dashes, errors say how to fix it, sample data is labeled.</li>
+      <li><strong>4px grid</strong>16px inside a group, 24px between regions, 44px default control height.</li>
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="h-color">
+    <header><h2 id="h-color">Color roles</h2><p>Values are read from the live stylesheet. Flip the theme or accent above to see each role change.</p></header>
+    <div class="swatches" id="swatches"></div>
+  </section>
+
+  <section class="block" aria-labelledby="h-type">
+    <header><h2 id="h-type">Type scale</h2><p>Geist for display sizes, Inter for everything else.</p></header>
+    <div id="type"></div>
+  </section>
+
+  <section class="block" aria-labelledby="h-shape">
+    <header><h2 id="h-shape">Shape, space and size</h2></header>
+    <div class="shapes" id="shapes"></div>
+    <div class="grid">
+      <div><h3>Spacing, 4px grid</h3><div style="display:grid; gap: var(--space-2)" id="spacing"></div></div>
+      <div><h3>Control heights</h3><div style="display:grid; gap: var(--space-3); justify-items: start">
+        <button type="button" class="kv-button__button kv-button__secondary kv-button__sm">Small, 36px</button>
+        <button type="button" class="kv-button__button kv-button__secondary kv-button__md">Medium, 44px</button>
+        <button type="button" class="kv-button__button kv-button__secondary kv-button__lg">Large, 50px</button>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="h-motion">
+    <header><h2 id="h-motion">Motion</h2><p>Compare the easing tokens. State-reporting UI uses the standard curve with no overshoot; the spring keeps a gentle settle for playful moments.</p></header>
+    <div class="row"><button type="button" class="kv-button__button kv-button__primary kv-button__md" id="play">Play</button></div>
+    <div class="grid" id="lanes"></div>
+  </section>
+
+  <div class="block" id="components">
+    <header><h2>Components</h2><p>Live and keyboard-operable. Class names are the contract: copy the markup, keep the names. Sample content only.</p></header>
+    <!--__KVCC_SECTIONS__-->
+  </div>
+
+  <section class="block" aria-labelledby="h-use">
+    <header><h2 id="h-use">Using it</h2><p>One source, three surfaces. The repo is private; the registry is public static JSON.</p></header>
+    <div class="grid">
+      <div class="code"><h3>React apps</h3><pre id="c1">npx shadcn@latest add https://kvcc-arc-registry.netlify.app/r/button.json</pre><button type="button" class="kv-button__button kv-button__secondary kv-button__sm" data-copy="c1" style="justify-self:start">Copy command</button></div>
+      <div class="code"><h3>Claude Code</h3><pre id="c2">bash kvcc/scripts/install-skill.sh</pre><button type="button" class="kv-button__button kv-button__secondary kv-button__sm" data-copy="c2" style="justify-self:start">Copy command</button></div>
+      <div class="code"><h3>Artifacts and mini apps</h3><pre id="c3">Inline kvcc-bundle.html: its style block, its script block, and the Google Fonts link.</pre><button type="button" class="kv-button__button kv-button__secondary kv-button__sm" data-copy="c3" style="justify-self:start">Copy note</button></div>
+    </div>
+  </section>
+</div>
+
+<!--__KVCC_DIALOG__-->
+
+<script>
+/*__KVCC_JS__*/
+(() => {
+  const root = document.documentElement;
+  const media = matchMedia("(prefers-color-scheme: dark)");
+  // The viewer sets data-theme when the person picked one; otherwise follow the system.
+  const followSystem = () => { if (!root.dataset.themeChosen) root.dataset.theme = media.matches ? "dark" : "light"; };
+  if (!root.dataset.theme) followSystem();
+  media.addEventListener("change", followSystem);
+  root.dataset.accent = root.dataset.accent || "neutral";
+
+  const el = (tag, props = {}, ...kids) => { const n = Object.assign(document.createElement(tag), props); n.append(...kids); return n; };
+
+  const ROLES = ["background", "surface", "surface-raised", "surface-muted", "foreground", "text-secondary", "text-muted", "border", "border-strong", "accent", "accent-strong", "accent-subtle", "success", "warning", "danger"];
+  const swatches = document.getElementById("swatches");
+  ROLES.forEach(role => {
+    const chip = el("i"); chip.style.background = `var(--${role})`;
+    const value = el("span"); value.dataset.role = role;
+    swatches.append(el("div", { className: "swatch" }, chip, el("b", { textContent: `--${role}` }), value));
+  });
+  const readColors = () => swatches.querySelectorAll(".swatch").forEach(sw => {
+    sw.querySelector("span").textContent = getComputedStyle(sw.querySelector("i")).backgroundColor.replace(/\s+/g, " ");
+  });
+
+  const TYPE = [["text-5xl", "display"], ["text-4xl", "display"], ["text-3xl", "display"], ["text-2xl", "body"], ["text-xl", "body"], ["text-lg", "body"], ["text-base", "body"], ["text-sm", "body"], ["text-xs", "body"]];
+  const type = document.getElementById("type");
+  TYPE.forEach(([token, face]) => {
+    const sample = el("p", { textContent: face === "display" ? "Quiet interfaces age well" : "The quick brown fox jumps over the lazy dog" });
+    sample.style.cssText = `font-family: var(--font-${face}); font-size: var(--${token}); letter-spacing: var(--tracking-${face === "display" ? "display" : "body"}); font-weight: 500`;
+    type.append(el("div", { className: "type-row" }, el("small", { textContent: `--${token}` }), sample));
+  });
+
+  const shapes = document.getElementById("shapes");
+  [["radius-control", "18px · controls"], ["radius-panel", "26px · panels"], ["radius-surface", "34px · surfaces"], ["radius-pill", "pill"]].forEach(([token, label]) => {
+    const box = el("i"); box.style.borderRadius = `var(--${token})`;
+    shapes.append(el("div", { className: "shape" }, box, el("span", { textContent: label })));
+  });
+  const spacing = document.getElementById("spacing");
+  [1, 2, 3, 4, 6, 8, 12, 16].forEach(n => {
+    const bar = el("i"); bar.style.width = `var(--space-${n})`;
+    spacing.append(el("div", { className: "space-row" }, el("span", { textContent: `space-${n} · ${n * 4}px` }), bar));
+  });
+
+  const EASES = [["ease-standard", "duration-standard"], ["ease-enter", "duration-considered"], ["ease-in-out", "duration-considered"], ["ease-spring", "duration-spring"]];
+  const lanes = document.getElementById("lanes");
+  EASES.forEach(([ease, duration]) => {
+    const dot = el("i"); dot.style.transition = `transform var(--${duration}) var(--${ease})`;
+    const lane = el("div", { className: "lane" }, dot);
+    lanes.append(el("div", {}, el("p", { className: "lane-label" }, el("span", { textContent: `--${ease}` }), el("span", { textContent: `--${duration}` })), lane));
+  });
+  const setTravel = () => lanes.querySelectorAll(".lane").forEach(l => l.style.setProperty("--travel", `${l.clientWidth - 36 - 8}px`));
+  setTravel(); addEventListener("resize", setTravel);
+  document.getElementById("play").addEventListener("click", () => lanes.querySelectorAll(".lane").forEach(l => l.toggleAttribute("data-on")));
+
+  const dots = document.getElementById("accents");
+  const accentColors = { neutral: "#333", violet: "#7747ff", blue: "#0562ef", green: "#0db879", amber: "#f3ad20", orange: "#f48120", coral: "#f15f55", rose: "#ed4e9d" };
+  kvcc.accents.forEach(name => {
+    const b = el("button", { type: "button", className: "accent-dot" }); b.setAttribute("aria-label", `Accent: ${name}`); b.style.background = accentColors[name];
+    b.setAttribute("aria-pressed", String(name === root.dataset.accent));
+    b.addEventListener("click", () => { kvcc.setAccent(name); });
+    dots.append(b);
+  });
+  const syncUi = () => {
+    dots.querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-pressed", String(kvcc.accents[i] === root.dataset.accent)));
+    document.getElementById("theme-toggle").textContent = root.dataset.theme === "dark" ? "Light theme" : "Dark theme";
+    readColors();
+  };
+  new MutationObserver(syncUi).observe(root, { attributes: true, attributeFilter: ["data-theme", "data-accent"] });
+  document.getElementById("theme-toggle").addEventListener("click", () => { root.dataset.themeChosen = "1"; kvcc.setTheme(root.dataset.theme === "dark" ? "light" : "dark"); });
+  syncUi();
+
+  document.querySelectorAll("[data-copy]").forEach(btn => btn.addEventListener("click", async () => {
+    const pre = document.getElementById(btn.dataset.copy);
+    try { await navigator.clipboard.writeText(pre.textContent); kvcc.toast({ title: "Copied", duration: 1800 }); }
+    catch { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  }));
+})();
+</script>

@@ -61,4 +61,15 @@ const page = demo
   .replace("<!--__KVCC_FONTS__-->", `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${FONTS_URL}">`);
 writeFileSync(join(dist, "kvcc-bundle.html"), page);
 
+// Design-system reference page for the Artifact tool: component sections and the dialog are lifted from demo.html so there is one copy of the markup.
+const between = (text, from, to) => text.slice(text.indexOf(from), text.lastIndexOf(to) + to.length);
+const sections = between(demo, "<section", "</section>").replaceAll("<section ", '<section class="block" ');
+const dialog = between(demo, "<div data-kv-dialog", "</div>\n\n<script>").replace(/\n\n<script>$/, "");
+const designSystem = read(join(src, "design-system.html"))
+  .replace("/*__KVCC_CSS__*/", () => css.replace(fontImport + "\n\n", ""))
+  .replace("/*__KVCC_JS__*/", () => js)
+  .replace("<!--__KVCC_SECTIONS__-->", () => sections)
+  .replace("<!--__KVCC_DIALOG__-->", () => dialog);
+writeFileSync(join(dist, "design-system.html"), designSystem);
+
 console.log(`bundle: ${COMPONENTS.length} components, css ${(css.length / 1024).toFixed(1)}KB, js ${(js.length / 1024).toFixed(1)}KB -> ${dist}`);
