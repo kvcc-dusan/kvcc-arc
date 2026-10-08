@@ -39,7 +39,8 @@ Owner: Dušan Kovačić (handle kvcc), designer-developer. Preferences: peer ton
 | Own repo (private) | https://github.com/kvcc-dusan/kvcc-arc |
 | Local path (user's Mac) | `/Users/dusankvcc/Desktop/Atrium/Claude Code/kvcc-arc` |
 | Netlify project | https://app.netlify.com/projects/kvcc-arc-registry |
-| Registry URL (not live until first deploy) | https://kvcc-arc-registry.netlify.app |
+| Registry URL (live) | https://kvcc-arc-registry.netlify.app |
+| Design system page (private artifact) | https://claude.ai/artifact/CmxhiyWeLiS3ULcAVGnDnB |
 
 Arc facts: free set = 107 components + 22 blocks (all items in `registry.json`, tier free). Pro = 45 components + 66 blocks, $199 lifetime / $129 per year / team $599; not part of this project. Tokens: semantic roles, 8 accents (`data-accent`), dark via `data-theme="dark"`, oklch neutrals, Geist (30px and up) + Inter, weights 400 and 500 only.
 
