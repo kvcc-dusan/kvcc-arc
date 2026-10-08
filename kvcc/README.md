@@ -8,8 +8,8 @@ Personal design system. Fork of Arc (https://github.com/kuratlielia/arc-library,
 |---|---|
 | Fork of Arc free set (107 components, 22 blocks, tokens, motion presets) | Done |
 | Token reference, component index (generated) | Done |
-| Agent skill (`kvcc/skill/kvcc-arc/`) | Drafted, not yet installed |
-| Self-hosted shadcn registry (`@kvcc`) | Builder done (`build-registry.mjs`); resolution and dependency install verified against local server; hosting pending |
+| Agent skill (`kvcc/skill/kvcc-arc/`) | Installed to `~/.claude/skills/kvcc-arc` |
+| Self-hosted shadcn registry (`@kvcc`) | Done. Live at https://kvcc-arc-registry.netlify.app; `shadcn add` verified end to end |
 | Single-file bundle for artifacts and mini apps | Not started |
 | Claude Design System artifact | Not started |
 | Extensions (components absent from free set) | Not started |
