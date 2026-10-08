@@ -5,5 +5,6 @@ Components that are not in the Arc free set. They live in `kvcc/extensions/<id>/
 | Id | Job | Notes |
 |---|---|---|
 | `app-shell` | Sidebar nav, top bar and content region for a signed-in product | Collapses to an icon rail, drawer under 768px. `title` is the page h1. `brand` and `footer` take a node or `({ rail }) => node`. Not for marketing pages. |
+| `settings-page` | Sectioned preferences page: sticky section nav, grouped rows, save bar with dirty tracking and async save | Use inside `app-shell`. `SettingsField` for fields that carry their own label, `SettingsRow` for switches and selects. `useSettingsDraft` holds the draft; `onSave` returns a promise. Not for a single one-submit form. |
 
 Full docs per extension: `kvcc/extensions/<id>/README.md`.

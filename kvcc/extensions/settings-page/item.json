@@ -1,0 +1,10 @@
+{
+  "name": "settings-page",
+  "title": "Settings page",
+  "description": "Sectioned settings layout: sticky section nav, grouped rows, and a save bar with dirty tracking and async save.",
+  "categories": ["layout", "forms"],
+  "dependencies": ["motion"],
+  "registryDependencies": ["arc-motion-tokens", "button"],
+  "files": ["settings-page.tsx", "settings-page.module.css"],
+  "tags": ["settings", "forms", "layout"]
+}

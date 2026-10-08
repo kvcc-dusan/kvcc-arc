@@ -1,0 +1,41 @@
+/* Layout: a sticky section nav beside one column of grouped rows. Under 768px the nav becomes a scrolling row above the content. */
+.page { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: var(--space-10); align-items: start; max-width: 56rem; }
+.nav { position: sticky; top: calc(56px + var(--space-6)); }
+.navList { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.navLink { display: block; padding: var(--space-2) var(--space-3); border-radius: calc(var(--radius-control) - 4px); color: var(--text-secondary); font-size: var(--text-sm); font-weight: 500; line-height: var(--leading-body); text-decoration: none; transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard); }
+.navLink[aria-current="location"] { color: var(--foreground); background: var(--accent-subtle); }
+@media (hover: hover) and (pointer: fine) { .navLink:not([aria-current]):hover { color: var(--foreground); background: var(--surface-muted); } }
+
+.content { display: grid; gap: var(--space-12); min-width: 0; padding-bottom: var(--space-24); }
+.section { display: grid; gap: var(--space-4); scroll-margin-top: calc(56px + var(--space-6)); }
+.section:focus { outline: none; }
+.sectionHeader { display: grid; gap: var(--space-1); }
+.sectionTitle { margin: 0; font-family: var(--font-body); font-size: var(--text-lg); font-weight: 500; letter-spacing: var(--tracking-body); line-height: var(--leading-body); }
+.sectionDescription { margin: 0; max-width: 65ch; color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-body); }
+
+/* One bordered panel per section; rows are separated by hairlines, not cards of their own. */
+.rows { border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-6); padding: var(--space-5); }
+.row + .row { border-top: 1px solid var(--border-subtle); }
+.row[data-stacked] { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); align-items: start; }
+.rowText { display: grid; gap: 2px; min-width: 0; }
+.rowLabel { margin: 0; font-size: var(--text-sm); font-weight: 500; line-height: var(--leading-body); }
+.rowDescription { margin: 0; max-width: 52ch; color: var(--text-muted); font-size: var(--text-sm); line-height: var(--leading-body); }
+.rowControl { min-width: 0; }
+
+/* Save bar: sticks to the viewport bottom over the content column. */
+.saveBar { position: sticky; bottom: var(--space-4); z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5); border: 1px solid var(--border-strong); border-radius: var(--radius-panel); background: var(--surface-raised); }
+.saveMessage { margin: 0; min-width: 0; font-size: var(--text-sm); }
+.saveMessage[data-error] { color: var(--danger); }
+.saveActions { display: flex; flex: none; align-items: center; gap: var(--space-2); }
+
+@media (max-width: 767px) {
+  .page { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+  .nav { position: static; overflow-x: auto; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .navList { display: flex; gap: var(--space-1); width: max-content; }
+  .navLink { white-space: nowrap; }
+  .row { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); align-items: start; padding: var(--space-4); }
+  .saveBar { flex-wrap: wrap; padding: var(--space-3) var(--space-4); }
+}
+@media (prefers-reduced-motion: reduce) { .navLink { transition: none; } }
