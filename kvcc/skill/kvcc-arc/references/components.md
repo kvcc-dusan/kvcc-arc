@@ -1,6 +1,6 @@
 # Component selection
 
-Free items only. Ids are exact (see `COMPONENTS.md` for the full index). Name the job in one line, pick the item, read its markdown (`https://uiarc.dev/components/<id>/markdown`), follow its "when not to use". Use a block for a whole region, a component for one control. Use the same item for the same job across an app. Replace all block sample data.
+Free items only. Ids are exact (see `component-index.md` for the full index). Name the job in one line, pick the item, read its markdown (`https://uiarc.dev/components/<id>/markdown`), follow its "when not to use". Use a block for a whole region, a component for one control. Use the same item for the same job across an app. Replace all block sample data.
 
 ## Actions and menus
 
