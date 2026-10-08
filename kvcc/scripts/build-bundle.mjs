@@ -86,6 +86,28 @@ const designSystem = read(join(src, "design-system.html"))
   .replace("<!--__KVCC_DIALOG__-->", () => dialog);
 writeFileSync(join(dist, "design-system.html"), designSystem);
 
+// Plain-text brief for tools that cannot open the artifact link: the same instructions and exact tokens, attachable or pasteable as one file.
+const decode = text => text.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+const steps = [...read(join(src, "design-system.html")).matchAll(/<li><strong>(.*?)<\/strong>(.*?)<\/li>/g)].filter(m => /^\d+\./.test(m[1])).map(m => `${decode(m[1])}\n${decode(m[2])}`);
+writeFileSync(join(dist, "design-brief.md"), `# kvcc design system brief
+
+Apply this system exactly when designing any screen. Do not approximate: use these variable names and values, not colors picked by eye. Light theme is the default; dark theme is \`data-theme="dark"\` on the root; the accent is \`data-accent\` (neutral, violet, blue, green, amber, orange, coral, rose).
+
+## Rules
+
+${steps.join("\n\n")}
+
+## Token CSS
+
+Paste this into the page as is, then style everything with the variables.
+
+\`\`\`css
+${tokenCss.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\n{2,}/g, "\n").trim()}
+\`\`\`
+
+Also set: \`*, *::before, *::after { box-sizing: border-box; }\`, body background \`var(--background)\`, text \`var(--foreground)\`, font \`var(--font-body)\` (Inter 400 and 500 from Google Fonts), headings 30px and up in \`var(--font-display)\` (Geist 400 and 500).
+`);
+
 // App template: a full-page starter (shell, stats, charts, table) for mini apps.
 writeFileSync(join(dist, "template-app.html"), read(join(src, "template-app.html"))
   .replace("/*__KVCC_CSS__*/", () => css.replace(fontImport + "\n\n", ""))
