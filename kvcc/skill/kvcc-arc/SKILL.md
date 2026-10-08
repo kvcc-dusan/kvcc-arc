@@ -25,7 +25,7 @@ Design system derived from Arc (MIT, uiarc.dev). One visual language across ever
 
 1. State the job, the single primary action, and the regions (see `composition.md`).
 2. Pick an existing item per region from `components.md`. Read its docs before use. Write new UI only when nothing fits, and then follow `rules.md`.
-3. Install (React apps): `npx shadcn@latest add <registry>/arc-foundation` once per app, import `components/arc/foundation.css` in the root layout, load Geist and Inter, then add items by id. Registry is `@uiarc` until the self-hosted `@kvcc` registry exists.
+3. Install (React apps): `npx shadcn@latest add <registry>/arc-foundation` once per app, import `components/arc/foundation.css` in the root layout, load Geist and Inter, then add items by id. Registry: `https://kvcc-arc-registry.netlify.app/r/<id>.json`, or register `"@kvcc": "https://kvcc-arc-registry.netlify.app/r/{name}.json"` in `components.json` and add `@kvcc/<id>`. Extensions install the same way.
 4. Compose with documented props only. Layout through the page container and CSS modules. Never restyle internals.
 5. Design every state (loading, empty, error, success, disabled) in both themes.
 6. Run `checklist.md` and report.
@@ -44,13 +44,22 @@ Design system derived from Arc (MIT, uiarc.dev). One visual language across ever
 
 ## Single-file surfaces (artifacts, prototypes, no npm)
 
-Package installs are unavailable, so Arc components cannot be imported. Keep the system anyway:
+Package installs are unavailable, so use the bundle in `bundle/` (generated from the same tokens and component CSS as the React components):
 
-1. Inline the `:root` and `:root[data-theme="dark"]` blocks plus the accent blocks from `references/tokens.md` (source: `registry/foundation.css`). Use the CSS variables for all color, radius, spacing, type, shadow.
-2. Load Geist and Inter from Google Fonts.
-3. Motion in plain CSS with `--ease-*`, `--duration-*`, and `--ease-spring`. No `motion` library.
-4. Rebuild controls to match the documented behavior of the corresponding Arc item (read its markdown). Follow every rule above. Do not claim the result is the Arc component.
-5. Set `data-theme` before first paint and honor `prefers-color-scheme`.
+| File | Use |
+|---|---|
+| `bundle/template-app.html` | Start here for a mini app: app shell, stat cards, charts, table, wired up. Copy it and replace the sample content. |
+| `bundle/kvcc-bundle.html` | Markup reference: one working example of every component (buttons, fields, tabs, dialog, toast, select, table, charts). Copy the markup, keep the class names. |
+| `bundle/kvcc.css`, `bundle/kvcc.js` | The inlinable parts. Inline both into the artifact's `<style>` and `<script>`, and load Geist and Inter from Google Fonts. |
+| `bundle/README.md` | How the bundle works: class naming, `window.kvcc` API, what is not covered. |
+
+Rules for single-file work:
+
+1. Inline the CSS and JS; never link them. Only Google Fonts and allowlisted CDNs load externally.
+2. Set theme with `kvcc.setTheme("light" | "dark")`, following `prefers-color-scheme` unless the host sets one. Accent with `kvcc.setAccent(name)`.
+3. Builders (`kvcc.select`, `kvcc.table`, `kvcc.barChart`, `kvcc.sparkline`, `kvcc.appShell`) render the same markup as the React components. Behaviors (tabs, dialog, toast, tooltip, switch, checkbox, progress) wire from data attributes.
+4. For anything the bundle lacks, build to `rules.md` with semantic tokens only. Do not claim a hand-built control is the Arc component.
+5. Sample data stays labeled as sample data.
 
 ## Do not
 

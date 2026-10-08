@@ -38,4 +38,5 @@
   .row { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); align-items: start; padding: var(--space-4); }
   .saveBar { flex-wrap: wrap; padding: var(--space-3) var(--space-4); }
 }
+@media (pointer: coarse) { .navLink { padding-block: var(--space-3); } }
 @media (prefers-reduced-motion: reduce) { .navLink { transition: none; } }

@@ -868,6 +868,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
 .kv-app-shell__sidebar[data-drawer][data-open] { transform: none; visibility: visible; box-shadow: var(--shadow-floating); transition: transform var(--duration-standard) var(--ease-enter), visibility 0s; }
 @media (max-width: 767px) { .kv-app-shell__main { padding: var(--space-4); } }
 @keyframes kv-app-shell__backdrop-in { from { opacity: 0; } }
+@media (pointer: coarse), (max-width: 767px) { .kv-app-shell__item { min-height: var(--control-height-md); } .kv-app-shell__iconButton { width: var(--control-height-md); height: var(--control-height-md); } }
 @media (prefers-reduced-motion: reduce) {
   .kv-app-shell__sidebar[data-drawer], .kv-app-shell__sidebar[data-drawer][data-open] { transition: none; }
   .kv-app-shell__backdrop { animation: none; }

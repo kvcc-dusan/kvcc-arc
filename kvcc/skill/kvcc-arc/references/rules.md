@@ -7,7 +7,10 @@ Condensed from the Arc agent skill files (uiarc.dev, MIT). Wording is rewritten;
 - Use semantic roles only: `--background`, `--surface`, `--surface-raised`, `--surface-muted`, `--foreground`, `--text-secondary`, `--text-muted`, `--border`, `--border-subtle`, `--border-strong`, `--accent`, `--accent-strong`, `--accent-subtle`, `--success`, `--warning`, `--danger`.
 - Never use the `--neutral-*` ramp, raw hex, `rgb()`, `hsl()`, or Tailwind color classes in product code.
 - Most of a screen is neutral. Accent marks: active nav item, selected rows, key data series, progress, small interaction cues.
-- Status colors mean real status and always ship with a text label.
+- Status colors mean real status and always ship with a text label. Put most of the color on the icon with a faint tint behind it. Never green for "nice" or red for "important". `badge` tone `info` uses the accent and may mark emphasis ("New", "Recommended"); other tones are status only.
+- Spend the accent on: active nav item, selected row or option, the one data series that matters, progress, a link, a count that just changed. Do not color headings, card backgrounds or every icon with it. Tint with `--accent-subtle` behind accent text. Text on a solid accent uses `--accent-foreground`.
+- `--border` is the default line, `--border-subtle` sits inside a surface, `--border-strong` is for inputs and emphasis.
+- Chart series use `--series-1` to `--series-4` (they follow the accent).
 - Custom selection controls use the `--control-*` tokens.
 - Third-party logos keep their real brand colors.
 - Gradient (`--arc-gradient-soft`): one subtle backdrop behind a marketing section. Never inside components or product UI. No glows, no colored shadows.
@@ -15,7 +18,7 @@ Condensed from the Arc agent skill files (uiarc.dev, MIT). Wording is rewritten;
 
 ## Type
 
-- Geist (`--font-display`) for headings at 30px and above. Inter (`--font-body`) for everything else.
+- Geist (`--font-display`, letter-spacing `--tracking-display`, line-height `--leading-display`) for headings at 30px and above. Inter (`--font-body`, `--tracking-body`, `--leading-body`) for everything else. Keep Geist out of controls and small labels, Inter out of hero headlines.
 - Weights 400 and 500 only. Never 600 and above.
 - Sizes from `--text-xs` to `--text-5xl`. No arbitrary sizes, nothing below `--text-xs`.
 - `font-variant-numeric: tabular-nums` for changing or column-aligned numbers.
@@ -37,7 +40,7 @@ Condensed from the Arc agent skill files (uiarc.dev, MIT). Wording is rewritten;
 
 ## Spacing and size
 
-- 4px grid, `--space-N` tokens.
+- 4px grid, `--space-N` tokens: N = 1 to 6, 8, 10, 12, 16, 20, 24 (no `--space-7` or `--space-9`). Internal control spacing stays fixed as the viewport grows; only outer gutters grow.
 - Control heights: `--control-height-sm` 36px, `--control-height-md` 44px (touch default), `--control-height-lg` 50px.
 - Product pages: 16px inside a group, 24px between regions, 32 to 48px between sections of long forms, 24 to 32px page padding (16px phones).
 - Marketing sections: 64 to 120px vertical padding (64px phones).
@@ -70,12 +73,23 @@ Condensed from the Arc agent skill files (uiarc.dev, MIT). Wording is rewritten;
 - Presets from `components/arc/lib/motion-tokens`: `snappy` (presses, toggles, small indicators), `smooth` (panels, heights, layout; bounce 0), `morph` (shared highlights, shape and width morphs). CSS equivalents: `--ease-*`, `--duration-*`, `--ease-spring`.
 - State-reporting UI (switches, drawers, panel heights, progress) never overshoots (`bounce: 0`). Visible bounce only for playful moments.
 - Animate `transform` and `opacity`. Animate size only when the size change is the information, and only on a spring.
-- One continuous movement per interaction. Springs so reversal does not jump. Exits faster than entrances.
+- One continuous movement per interaction, not a fade then a slide then a scale. Everything the user can reverse is interruptible, so use springs and reversal never jumps. Nothing resizes in one frame: animate the size or reserve the space. Exits faster than entrances.
 - Press scale about 0.97, except on elements that anchor a popover or menu (respond with color).
 - Counters count to the new value with tabular numerals and stable width.
+- Foreground saves confirm in place: pass the promise or set `loading` on the button, then change the label to "Saved". No toast for a foreground action.
+- CSS durations: `--duration-instant`, `-fast`, `-standard`, `-considered`, `-spring`. There is no `--duration-exit`. Transforms use `--duration-spring` with `--ease-spring`; color and opacity use `--duration-fast` with `--ease-standard`.
 - At most one orchestrated entrance per page. No scroll-reveal on every section. No loops unless they show live status.
 - Keep animated elements mounted with stable keys. Changing key or swapping component type restarts the animation.
 - Every animation has a reduced-motion branch: remove travel, loops, parallax, autoplay; keep final state, focus, feedback. Counters jump, panels appear at full height.
+
+## Responsive and touch
+
+- Check 390, 768, 1024 and 1440px, plus 320px for long labels or tables. No sideways page scroll; only code blocks, wide tables and segmented rows scroll, each inside its own container.
+- Gutters 16px on phones, growing with `clamp(16px, 4vw, 32px)`. Collapse multi-column layouts to one column below about 800px. Settings rows stack label above control below about 560px.
+- Grid and flex children get `min-width: 0`; user content `overflow-wrap: anywhere`. Never `width: 100vw` inside the page. Reading measure near 65ch. Prefer container queries for components, media queries for page layout.
+- Touch targets are at least 44px (`--control-height-md`) with at least 8px between neighbors. A 36px control needs a coarse-pointer rule (`@media (pointer: coarse)`) that raises it to 44px.
+- Hover is an enhancement: anything shown on hover is also reachable by tap or focus. Gestures always have a button path. On phones prefer `bottom-sheet` for tasks and long menus, `popover` for small choices.
+- Read an item's "Responsive behavior" section before putting it in a narrow column, and pass its props (`stackBelow`, `stickyTop`) instead of wrapping it in your own media queries.
 
 ## Accessibility
 
@@ -84,6 +98,7 @@ Condensed from the Arc agent skill files (uiarc.dev, MIT). Wording is rewritten;
 - Buttons for actions, links for navigation. Every field has a visible label. Icon-only controls have specific names.
 - One `h1` per page, headings in order, landmarks present.
 - Everything clickable is reachable by Tab and works with Enter or Space. Composite widgets: one Tab stop, arrow keys inside. Overlays trap focus, return it, close on Escape. Gestures have a button or menu alternative. Shortcuts never capture keys from text fields.
+- A switch in a settings row with its own title and description points at them with `aria-labelledby` and `aria-describedby`; use the `label` prop only when the switch stands alone.
 - Errors tied to fields. Background status via `role="status"` or `aria-live="polite"`; blocking errors `role="alert"`. State never by color alone. `aria-busy="true"` on loading regions.
 - Contrast: text 4.5:1 (3:1 large), icons and control borders 3:1. Check both themes, muted and disabled text included.
 

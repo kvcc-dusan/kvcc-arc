@@ -51,5 +51,8 @@
 .disclaimer { margin: var(--space-2) var(--space-2) 0; color: var(--text-muted); font-size: var(--text-xs); text-align: center; line-height: var(--leading-body); }
 .jump { position: absolute; left: 50%; bottom: calc(100% + var(--space-1)); display: inline-flex; align-items: center; gap: var(--space-2); height: var(--control-height-sm); padding: 0 var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface-raised); color: var(--foreground); box-shadow: var(--shadow-floating); font: inherit; font-size: var(--text-sm); font-weight: 500; cursor: pointer; translate: -50% 0; }
 
+/* Touch: 44px targets on coarse pointers. */
+@media (pointer: coarse) { .iconAction, .send { width: var(--control-height-md); height: var(--control-height-md); } .suggestion, .jump, .retry { min-height: var(--control-height-md); } .jump { height: var(--control-height-md); } .field { padding-block: calc((var(--control-height-md) - var(--text-base) * var(--leading-body)) / 2); } }
+
 @keyframes blink { to { visibility: hidden; } }
 @media (prefers-reduced-motion: reduce) { .assistantBody[data-streaming] .markdown > :last-child:not(.mdCode)::after { animation: none; } .iconAction, .suggestion, .composer, .send { transition: none; } }

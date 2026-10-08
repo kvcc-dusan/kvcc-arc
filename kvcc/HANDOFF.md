@@ -87,6 +87,8 @@ Verified since:
 - Bundle rendered in the browser pane (light theme); dialog, toast, switch, tabs verified by script. Dark theme and accents verified by computed values only (pane does not repaint snapshots). No phone-width or keyboard-flow check beyond tab arrows.
 - Design system page published as a private artifact: https://claude.ai/artifact/CmxhiyWeLiS3ULcAVGnDnB (version 1).
 
+Upstream skill diff done (2026-10-08): `references/rules.md` now includes the rules the first rewrite had dropped (accent intent, 44px touch targets, responsive widths, interruptible motion, save-in-place, space token range, Geist/Inter placement). Verbatim originals are fetched from `https://uiarc.dev/r/skills/arc/<name>.md`; not stored in the repo.
+
 Not verified:
 - Whether Claude Design applies the design system page to a new design. Test: link the artifact in a Claude Design prompt, ask for a small screen, check radii, weights, copy against the rules.
 - Skill content fidelity: Arc's skill files were read through a summarizing fetch, not copied byte for byte. `references/` is a rewrite. Verbatim originals: `npx shadcn@latest add https://uiarc.dev/r/arc-skill.json`.
@@ -106,12 +108,14 @@ Not verified:
 
 ## 6. Next steps
 
-1. Test the design system page in Claude Design (see "Not verified"). Adjust `kvcc/bundle/src/design-system.html` based on what Claude Design actually picks up, rebuild, republish to the same URL.
-2. Bundle gaps: line chart with axes, donut chart, command palette, dropdown menu, popover. Add a check that classes used in `demo.html` exist in the generated CSS.
-3. Propose the skill as a claude.ai account skill (single `SKILL.md` with the rules) so it applies in chats. Confirm the local skill auto-loads in a fresh Claude Code project.
-4. **Extensions**: `app-shell`, `settings-page` and `ai-chat` are built (only `app-shell` has a bundle port). Remaining: data grid, advanced charts, command-heavy dashboards. Recipe, as done for `app-shell`: component + CSS module in `kvcc/extensions/<id>/` (import motion tokens as `../lib/motion-tokens`), `item.json` manifest, `README.md`, a row in `kvcc/skill/kvcc-arc/references/extensions.md` (checked by `check-skill-ids.mjs`), optional vanilla port in `kvcc/bundle/src/` and an id in `COMPONENTS` of `build-bundle.mjs`. Redeploy the registry afterwards (needs a Netlify token, see section 5).
-5. Optional: fetch verbatim upstream skill files into `kvcc/upstream-skills/` and diff against `references/` for drift.
-6. Upstream sync routine: `git fetch upstream && git merge upstream/main`, rerun `extract-tokens`, `build-index`, `build-bundle`, `build-registry`, redeploy the registry, republish the design system artifact.
+Done since the first session: skill packaged for claude.ai, upstream skill diff, sync script, extension verifier (see section 4 and `CLAUDE.md` commands).
+
+1. **You: redeploy the registry** (needs a Netlify token, section 5). `app-shell`, `settings-page` and `ai-chat` are not installable from the live URL until you do. Then verify against the live URL: `npx shadcn@latest add https://kvcc-arc-registry.netlify.app/r/app-shell.json` in a scratch project.
+2. **You: upload `kvcc/skill/dist/kvcc-arc.zip`** (`bash kvcc/scripts/package-skill.sh` rebuilds it) in claude.ai, Settings, Capabilities, Skills, so chats and artifacts get the rules and the bundle. Then ask a chat for a small dashboard and check it follows the rules.
+3. **You: test the design system artifact in Claude Design**: link it in a prompt, ask for a small screen, check radii, weights and copy against the rules. Adjust `kvcc/bundle/src/design-system.html`, rebuild, republish to the same URL.
+4. **Extensions**: `app-shell`, `settings-page` and `ai-chat` are built (only `app-shell` has a bundle port). Remaining: data grid, advanced charts, command-heavy dashboards. Recipe: component + CSS module in `kvcc/extensions/<id>/` (import motion tokens as `../lib/motion-tokens`, reuse Arc items by relative path), `item.json` manifest, `README.md`, a row in `kvcc/skill/kvcc-arc/references/extensions.md`, optional vanilla port in `kvcc/bundle/src/` and an id in `COMPONENTS` of `build-bundle.mjs`. Gate: `node kvcc/scripts/verify-extension.mjs <id>` passes, then look at it in the browser (empty, filled, error, mobile, dark) before committing. Controls must be 44px on coarse pointers (`@media (pointer: coarse)`).
+5. **Bundle gaps**: line chart with axes, donut chart, command palette, dropdown menu, popover. Add a check that classes used in `demo.html` exist in the generated CSS.
+6. **Upstream sync**: `bash kvcc/scripts/sync-upstream.sh --verify`, then redeploy the registry and republish the design system artifact. Upstream was fully merged as of 2026-10-08.
 
 ## 6b. Open questions
 

@@ -181,8 +181,8 @@ export function SettingsSaveBar({ dirty, saving, error, onSave, onDiscard, saveL
     >
       <p className={styles.saveMessage} role={error ? "alert" : "status"} data-error={error ? "" : undefined}>{error ?? "You have unsaved changes."}</p>
       <div className={styles.saveActions}>
-        <Button variant="ghost" size="sm" type="button" onClick={onDiscard} disabled={saving}>Discard</Button>
-        <Button variant="primary" size="sm" type="button" loading={saving} onClick={() => { void onSave(); }}>{saveLabel}</Button>
+        <Button variant="ghost" size="md" type="button" onClick={onDiscard} disabled={saving}>Discard</Button>
+        <Button variant="primary" size="md" type="button" loading={saving} onClick={() => { void onSave(); }}>{saveLabel}</Button>
       </div>
     </motion.div> : null}
   </AnimatePresence>;

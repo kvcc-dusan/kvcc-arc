@@ -51,6 +51,9 @@
 @media (max-width: 767px) { .main { padding: var(--space-4); } }
 @keyframes backdrop-in { from { opacity: 0; } }
 
+/* Touch: 44px targets on coarse pointers and on the phone drawer. */
+@media (pointer: coarse), (max-width: 767px) { .item { min-height: var(--control-height-md); } .iconButton { width: var(--control-height-md); height: var(--control-height-md); } }
+
 @media (prefers-reduced-motion: reduce) {
   .sidebar[data-drawer], .sidebar[data-drawer][data-open] { transition: none; }
   .backdrop { animation: none; }
