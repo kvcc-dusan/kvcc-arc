@@ -74,7 +74,11 @@ writeFileSync(join(dist, "kvcc-bundle.html"), page);
 const between = (text, from, to) => text.slice(text.indexOf(from), text.lastIndexOf(to) + to.length);
 const sections = between(demo, "<section", "</section>").replaceAll("<section ", '<section class="block" ');
 const dialog = between(demo, "<div data-kv-dialog", "</div>\n\n<script>").replace(/\n\n<script>$/, "");
+// Printed as text so a reader of the page gets the exact values (the swatches above it are computed at runtime). Comments are stripped to keep it short.
+const escapeHtml = text => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const tokenText = escapeHtml(tokenCss.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\n{2,}/g, "\n").trim());
 const designSystem = read(join(src, "design-system.html"))
+  .replace("<!--__KVCC_TOKEN_CSS__-->", () => tokenText)
   .replace("/*__KVCC_CSS__*/", () => css.replace(fontImport + "\n\n", ""))
   .replace("/*__KVCC_JS__*/", () => js)
   .replace("/*__KVCC_DEMO_JS__*/", () => demoJs)
