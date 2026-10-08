@@ -69,8 +69,8 @@ Contents of the kvcc layer:
 | `kvcc/scripts/install-skill.sh` | Copies the skill plus generated references into `~/.claude/skills/kvcc-arc`. Tested against a temp HOME only. |
 | `kvcc/scripts/build-registry.mjs` | `node kvcc/scripts/build-registry.mjs --base <url>` writes `kvcc/registry-dist/` (132 items, `registry.json` index, `_headers`, `index.html`). Output is gitignored via `kvcc/.gitignore`. |
 | `kvcc/scripts/build-bundle.mjs` | Writes `kvcc/bundle/dist/{kvcc.css,kvcc.js,kvcc-bundle.html,design-system.html}`. CSS is derived from `registry/foundation.css`, `kvcc/theme.css` and 15 registry CSS modules (classes scoped to `kv-<id>__<class>`). |
-| `kvcc/bundle/src/` | Hand-written inputs: `extras.css` (CSS versions of Motion/Radix states), `behaviors.js` (vanilla `window.kvcc`: theme, accent, toast, dialog, tooltip, tabs, progress, toggles), `demo.html` (starter template with markup per component), `design-system.html` (reference page shell). |
-| `kvcc/bundle/dist/` | Generated, committed. Components: button, input, textarea, checkbox, switch, badge, card, tabs, alert, progress, skeleton, metric-card, dialog, toast, tooltip. |
+| `kvcc/bundle/src/` | Hand-written inputs: `extras.css` (CSS versions of Motion/Radix states), `behaviors.js` (vanilla `window.kvcc`: theme, accent, toast, dialog, tooltip, tabs, progress, toggles), `select.js`, `table.js`, `charts.js` (builder functions `kvcc.select/table/barChart/sparkline` that emit the React markup so registry CSS applies), `demo-data.js` (sample data), `demo.html` (starter template with markup per component), `design-system.html` (reference page shell). |
+| `kvcc/bundle/dist/` | Generated, committed. Components (19): button, input, textarea, checkbox, switch, badge, card, tabs, alert, progress, skeleton, metric-card, dialog, toast, tooltip, select, sortable-data-table, bar-chart, sparkline. The generator unwraps `:global(...)` and the base styles set global `border-box`, which registry CSS assumes. |
 | `kvcc/extensions/` | Home for components not in the free set. Empty. |
 | `kvcc/upstream-skills/README.md` | How to fetch verbatim upstream skill files. |
 | `CLAUDE.md` | Repo-level agent instructions. |
@@ -106,7 +106,7 @@ Not verified:
 ## 6. Next steps
 
 1. Test the design system page in Claude Design (see "Not verified"). Adjust `kvcc/bundle/src/design-system.html` based on what Claude Design actually picks up, rebuild, republish to the same URL.
-2. Finish the bundle: select, data table, chart basics (the original step 3 list). Add a check that classes used in `demo.html` exist in the generated CSS.
+2. Bundle gaps: line chart with axes, donut chart, command palette, dropdown menu, popover. Add a check that classes used in `demo.html` exist in the generated CSS.
 3. Propose the skill as a claude.ai account skill (single `SKILL.md` with the rules) so it applies in chats. Confirm the local skill auto-loads in a fresh Claude Code project.
 4. **Extensions**: components absent from the free set (data grid, app shell, sidebar, settings page, AI chat, advanced charts, command-heavy dashboards) built natively to the rules in `kvcc/extensions/<id>/`, and added to the registry build and the bundle.
 5. Optional: fetch verbatim upstream skill files into `kvcc/upstream-skills/` and diff against `references/` for drift.

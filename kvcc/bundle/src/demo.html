@@ -123,6 +123,16 @@
     </div>
   </section>
 
+  <section aria-labelledby="h-data2">
+    <h2 id="h-data2">Select, table, charts</h2>
+    <div class="grid">
+      <div id="demo-select"></div>
+      <div id="demo-spark"></div>
+    </div>
+    <div id="demo-table" style="margin-top: var(--space-6)"></div>
+    <div id="demo-bars" style="margin-top: var(--space-6)"></div>
+  </section>
+
   <section aria-labelledby="h-overlays">
     <h2 id="h-overlays">Dialog, toast, tooltip</h2>
     <div class="row">
@@ -149,6 +159,7 @@
 
 <script>
 /*__KVCC_JS__*/
+/*__KVCC_DEMO_JS__*/
 document.getElementById("accents").append(...kvcc.accents.map(name => {
   const b = document.createElement("button");
   b.type = "button"; b.className = "swatch"; b.setAttribute("aria-label", `Accent: ${name}`);

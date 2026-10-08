@@ -13,6 +13,7 @@ const dist = join(root, "kvcc", "bundle", "dist");
 const COMPONENTS = [
   "button", "input", "textarea", "checkbox", "switch", "badge", "card", "tabs",
   "alert", "progress", "skeleton", "metric-card", "dialog", "toast", "tooltip",
+  "select", "sortable-data-table", "bar-chart", "sparkline",
 ];
 
 const FONTS_URL = "https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Inter:wght@400;500&display=swap";
@@ -20,13 +21,15 @@ const FONTS_URL = "https://fonts.googleapis.com/css2?family=Geist:wght@400;500&f
 const read = path => readFileSync(path, "utf8");
 
 // Registry CSS leans on the font tokens' variable-font names; Google Fonts serves plain family names.
-const fontOverride = `:root { --font-display: "Geist", sans-serif; --font-body: "Inter", sans-serif; }
+const fontOverride = `*, *::before, *::after { box-sizing: border-box; }
+:root { --font-display: "Geist", sans-serif; --font-body: "Inter", sans-serif; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-body); letter-spacing: var(--tracking-body); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: var(--tracking-display); line-height: var(--leading-display); }`;
 
 // Prefix every class selector and keyframe name with the component id. Strips comments first so prose never matches.
 const scope = (id, css) => {
-  const clean = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  // CSS modules wrap theme selectors in :global(...); plain CSS needs them bare or the whole rule is dropped.
+  const clean = css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/:global\(([^)]*)\)/g, "$1");
   const keyframes = [...clean.matchAll(/@keyframes\s+([\w-]+)/g)].map(m => m[1]);
   let out = clean.replace(/\.([A-Za-z_][\w-]*)/g, (_, name) => `.kv-${id}__${name}`);
   for (const name of keyframes) out = out.replace(new RegExp(`(?<![\\w-])${name}(?![\\w-])`, "g"), `kv-${id}__${name}`);
@@ -47,8 +50,11 @@ const css = [
   tokenCss, fontOverride, componentCss, read(join(src, "extras.css")),
 ].join("\n\n");
 
-const js = read(join(src, "behaviors.js"));
+// behaviors.js defines window.kvcc; the rest extend it, so order matters.
+const JS_FILES = ["behaviors.js", "select.js", "table.js", "charts.js"];
+const js = JS_FILES.map(f => read(join(src, f))).join("\n");
 const demo = read(join(src, "demo.html"));
+const demoJs = read(join(src, "demo-data.js"));
 
 mkdirSync(dist, { recursive: true });
 writeFileSync(join(dist, "kvcc.css"), css);
@@ -58,6 +64,7 @@ writeFileSync(join(dist, "kvcc.js"), js);
 const page = demo
   .replace("/*__KVCC_CSS__*/", () => css.replace(fontImport + "\n\n", ""))
   .replace("/*__KVCC_JS__*/", () => js)
+  .replace("/*__KVCC_DEMO_JS__*/", () => demoJs)
   .replace("<!--__KVCC_FONTS__-->", `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${FONTS_URL}">`);
 writeFileSync(join(dist, "kvcc-bundle.html"), page);
 
@@ -68,6 +75,7 @@ const dialog = between(demo, "<div data-kv-dialog", "</div>\n\n<script>").replac
 const designSystem = read(join(src, "design-system.html"))
   .replace("/*__KVCC_CSS__*/", () => css.replace(fontImport + "\n\n", ""))
   .replace("/*__KVCC_JS__*/", () => js)
+  .replace("/*__KVCC_DEMO_JS__*/", () => demoJs)
   .replace("<!--__KVCC_SECTIONS__-->", () => sections)
   .replace("<!--__KVCC_DIALOG__-->", () => dialog);
 writeFileSync(join(dist, "design-system.html"), designSystem);

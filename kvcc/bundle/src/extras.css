@@ -49,12 +49,30 @@
 /* tooltip: positioned by JS */
 .kv-tooltip__tooltip { position: fixed; pointer-events: none; }
 
+/* table: selection box mirrors the checkbox bridge; sort arrow turns on a transform */
+.kv-sortable-data-table__selectFill { opacity: 0; transform: scale(.6); transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-standard) var(--ease-standard); }
+.kv-sortable-data-table__selectBox[data-on] .kv-sortable-data-table__selectFill { opacity: 1; transform: none; }
+.kv-sortable-data-table__selectMark path { stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; transition: stroke-dashoffset var(--duration-standard) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard); }
+.kv-sortable-data-table__selectBox[data-on]:not([data-mixed]) .kv-sortable-data-table__selectMark path[data-glyph="check"], .kv-sortable-data-table__selectBox[data-mixed] .kv-sortable-data-table__selectMark path[data-glyph="dash"] { stroke-dashoffset: 0; opacity: 1; }
+.kv-sortable-data-table__sortArrow, .kv-sortable-data-table__sortHint { transition: transform var(--duration-standard) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard); }
+.kv-sortable-data-table__wrapper { background: var(--surface); }
+.kv-sortable-data-table__clear { cursor: pointer; }
+
+/* bar chart: bars grow from the baseline once, each a beat after its neighbour (JS removes data-intro after the reveal) */
+.kv-bar-chart__figure[data-intro] .kv-bar-chart__bar { transform-box: fill-box; transform-origin: 50% 100%; animation: kv-bar-grow var(--duration-considered) var(--ease-standard) both; animation-delay: calc(var(--i, 0) * 28ms); }
+@keyframes kv-bar-grow { from { transform: scaleY(0); } }
+
+/* sparkline: the end dot and cursor answer a scrub */
+.kv-sparkline__end { transition: stroke var(--duration-standard) var(--ease-standard), stroke-width var(--duration-fast) var(--ease-standard); }
+.kv-sparkline__cursor { transition: opacity var(--duration-fast) var(--ease-standard); }
+
 /* shared helpers */
 .kv-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .kv-icon { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 
 @media (prefers-reduced-motion: reduce) {
-  .kv-switch__thumb, .kv-checkbox__fill, .kv-checkbox__mark path, .kv-progress__fill, .kv-tabs__selection { transition: none; }
+  .kv-switch__thumb, .kv-checkbox__fill, .kv-checkbox__mark path, .kv-progress__fill, .kv-tabs__selection, .kv-sortable-data-table__selectFill, .kv-sortable-data-table__selectMark path { transition: none; }
+  .kv-bar-chart__figure[data-intro] .kv-bar-chart__bar { animation: none; }
   .kv-button__button:active:not(:disabled) { transform: none; }
   .kv-toast__toast { animation: kv-toast-fade var(--duration-instant) linear both; }
   .kv-toast__toast[data-state="closed"] { animation: kv-toast-fade-out var(--duration-instant) linear both; }
