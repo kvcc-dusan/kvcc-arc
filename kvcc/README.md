@@ -13,7 +13,7 @@ Personal design system. Fork of Arc (https://github.com/kuratlielia/arc-library,
 | Design System reference page (`kvcc/bundle/dist/design-system.html`, published as a private artifact) | Done. The Artifact "Design System" type is not offered on this account |
 | Single-file bundle for artifacts and mini apps (`kvcc/bundle/`) | 19 components: CSS derived from registry, vanilla JS (`kvcc.select`, `kvcc.table`, `kvcc.barChart`, `kvcc.sparkline`). Not yet: line chart with axes, donut, command palette |
 | Claude Design System artifact | Not started |
-| Extensions (components absent from free set, `kvcc/extensions/`) | Started: `app-shell` (React + registry item + bundle port + `template-app.html`), `settings-page` (React + registry item). Next: AI chat, data grid, advanced charts |
+| Extensions (components absent from free set, `kvcc/extensions/`) | Started: `app-shell` (React + registry item + bundle port + `template-app.html`), `settings-page`, `ai-chat` (React + registry items). Next: data grid, advanced charts |
 
 ## Surfaces
 

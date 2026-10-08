@@ -1,0 +1,10 @@
+{
+  "name": "ai-chat",
+  "title": "AI chat",
+  "description": "Conversation UI for a model: streamed replies, stop, regenerate, copy, safe markdown with code blocks. Bring your own transport.",
+  "categories": ["ai", "messaging"],
+  "dependencies": ["lucide-react", "motion"],
+  "registryDependencies": ["arc-motion-tokens", "code-block", "copy-button", "text-shimmer"],
+  "files": ["ai-chat.tsx", "markdown.tsx", "ai-chat.module.css"],
+  "tags": ["ai", "chat", "streaming"]
+}
