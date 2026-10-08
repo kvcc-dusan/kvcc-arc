@@ -5,7 +5,7 @@ Apply this system exactly when designing any screen. Do not approximate: use the
 ## Rules
 
 1. Paste the token CSS as is
-Use the variable names and values from the token reference below. Do not invent your own variables or pick colors by eye. Every color, radius, space, shadow and font comes from a token.
+Including the last block, which maps --font-display and --font-body to the plain family names Geist and Inter. Load both from Google Fonts (400 and 500) under those names, or the text falls back to the system font. Use the variable names and values from the token reference below. Do not invent your own variables or pick colors by eye. Every color, radius, space, shadow and font comes from a token.
 
 2. Type only from the scale
 Sizes are 12, 14, 16, 18, 22, 28, 36, 52 and 72px (--text-xs to --text-5xl). Body text is 14 or 16px, never 15 or 13. Weights 400 and 500 only. Geist for headings of 30px and up, Inter for everything else.
@@ -210,6 +210,10 @@ Paste this into the page as is, then style everything with the variables.
   outline: var(--focus-outline-width, 2px) solid var(--focus-outline, color-mix(in oklab, var(--accent-strong) 72%, transparent)) !important;
   outline-offset: var(--focus-outline-offset, 2px) !important;
 }
+*, *::before, *::after { box-sizing: border-box; }
+:root { --font-display: "Geist", sans-serif; --font-body: "Inter", sans-serif; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-body); letter-spacing: var(--tracking-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: var(--tracking-display); line-height: var(--leading-display); }
 ```
 
-Also set: `*, *::before, *::after { box-sizing: border-box; }`, body background `var(--background)`, text `var(--foreground)`, font `var(--font-body)` (Inter 400 and 500 from Google Fonts), headings 30px and up in `var(--font-display)` (Geist 400 and 500).
+The last block of the CSS maps the font tokens to the plain family names `Inter` and `Geist`. Load them from Google Fonts (weights 400 and 500) under exactly those names, or the text silently falls back to the system font.

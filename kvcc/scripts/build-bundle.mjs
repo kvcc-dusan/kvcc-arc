@@ -76,7 +76,9 @@ const sections = between(demo, "<section", "</section>").replaceAll("<section ",
 const dialog = between(demo, "<div data-kv-dialog", "</div>\n\n<script>").replace(/\n\n<script>$/, "");
 // Printed as text so a reader of the page gets the exact values (the swatches above it are computed at runtime). Comments are stripped to keep it short.
 const escapeHtml = text => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const tokenText = escapeHtml(tokenCss.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\n{2,}/g, "\n").trim());
+// The tokens expect next/font or fontsource family names; Google Fonts serve "Inter" and "Geist", so the override is part of the printed CSS.
+const printedCss = `${tokenCss}\n${fontOverride}`.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\n{2,}/g, "\n").trim();
+const tokenText = escapeHtml(printedCss);
 const designSystem = read(join(src, "design-system.html"))
   .replace("<!--__KVCC_TOKEN_CSS__-->", () => tokenText)
   .replace("/*__KVCC_CSS__*/", () => css.replace(fontImport + "\n\n", ""))
@@ -102,10 +104,10 @@ ${steps.join("\n\n")}
 Paste this into the page as is, then style everything with the variables.
 
 \`\`\`css
-${tokenCss.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\n{2,}/g, "\n").trim()}
+${printedCss}
 \`\`\`
 
-Also set: \`*, *::before, *::after { box-sizing: border-box; }\`, body background \`var(--background)\`, text \`var(--foreground)\`, font \`var(--font-body)\` (Inter 400 and 500 from Google Fonts), headings 30px and up in \`var(--font-display)\` (Geist 400 and 500).
+The last block of the CSS maps the font tokens to the plain family names \`Inter\` and \`Geist\`. Load them from Google Fonts (weights 400 and 500) under exactly those names, or the text silently falls back to the system font.
 `);
 
 // App template: a full-page starter (shell, stats, charts, table) for mini apps.
