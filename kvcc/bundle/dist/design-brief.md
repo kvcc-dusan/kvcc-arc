@@ -37,6 +37,21 @@ Sentence case, no em dashes, verb plus object on buttons, label sample data as s
 11. Phones
 Controls 44px tall, 16px gutters, one column, no sideways scroll. Navigation is a drawer or a bottom bar with 44px targets.
 
+12. Menus and popovers
+Container --surface-raised, 1px --border, --radius-panel (26px), padding --space-1, --shadow-floating. Items are --control-height-sm (36px) tall with radius calc(var(--radius-panel) - 6px); hover and keyboard highlight use --surface-muted. A destructive item has --danger text and a faint danger tint highlight. Arrow keys move between items, Enter picks, Escape closes and returns focus to the trigger, Tab closes.
+
+13. Charts
+Colors only from --series-1 to --series-4, never the accent as decoration. Gridlines --border, baseline --border-strong, the average as a 1px dashed --text-secondary line with an "Avg N" label. Axis text --text-xs in --text-muted with tabular numerals. Bars have a 4px rounded top. The value of a bar is readable by hover, focus or arrow keys, not only in a tooltip attribute.
+
+14. Tables
+Header cells --text-sm in --text-muted, weight 500. Rows at least --control-height-lg tall, divided by 1px --border-subtle. Numbers right-aligned with tabular numerals. Status is a pill with a dot in --success, --warning or --danger and always a text label. A selected row uses --accent-subtle. Sortable headers are buttons with aria-sort.
+
+15. Stat cards
+Label --text-sm in --text-secondary, value in Geist --text-3xl with tabular numerals, then a change line with an arrow and text. Color the change --success only when the change is good and --danger only when it is bad. An up arrow on overdue tasks is bad, so the direction of the arrow never decides the color.
+
+16. Destructive actions
+Never delete on the first click. Open a dialog that names the object and the consequence ("Delete Partner portal? Its 19 open tasks are removed for everyone.") with a secondary Cancel and a danger button that repeats the verb and object.
+
 ## Token CSS
 
 Paste this into the page as is, then style everything with the variables.
