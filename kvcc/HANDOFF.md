@@ -124,6 +124,7 @@ Done since the first session: skill packaged for claude.ai, upstream skill diff,
 
 ## 7. Operational notes
 
+- Upstream-path exception: `registry/components/calendar/calendar.tsx` and `registry/components/date-picker/date-picker.tsx` carry a kvcc additive change, the optional `weekStartsOn` prop (0 = Sunday default, so existing behavior is unchanged), and `public/r/calendar.json` and `public/r/date-picker.json` were regenerated to match. These files may conflict on `git merge upstream/main`: keep upstream, re-apply the prop, then re-embed the content in the two JSON files (`npm run check:registry` fails when they drift).
 - Earlier chat session ran in a cloud sandbox that blocked uiarc.dev, netlify and ui.shadcn.com. Claude Code on the user's Mac reaches them.
 - Git identity is set repo-locally (not global): `Dušan Kovačić <dusankvcc@gmail.com>`. Commit trailers used: `Co-Authored-By: Claude ...`.
 - Do not edit `registry/foundation.css` or other upstream paths. Regenerate generated files instead of editing them.

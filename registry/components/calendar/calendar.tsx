@@ -11,6 +11,8 @@ import styles from "./calendar.module.css";
 
 export type CalendarDateMatcher = (date: Date) => boolean;
 
+export type CalendarWeekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
 export interface CalendarProps {
   value?: Date;
   onChange?: (date: Date) => void;
@@ -23,6 +25,8 @@ export interface CalendarProps {
   className?: string;
   /** Adds a Today button that slides back to the current month and selects today when it is available. */
   showToday?: boolean;
+  /** First day of the week: 0 is Sunday (default), 1 is Monday, up to 6 for Saturday. Sets the weekday header, the grid, and Home and End. */
+  weekStartsOn?: CalendarWeekday;
 }
 
 const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -36,9 +40,11 @@ const shiftMonths = (date: Date, amount: number) => new Date(date.getFullYear(),
 const isBefore = (a: Date, b?: Date) => Boolean(b && startOfDay(a).getTime() < startOfDay(b).getTime());
 const isAfter = (a: Date, b?: Date) => Boolean(b && startOfDay(a).getTime() > startOfDay(b).getTime());
 const dateKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+/** The column (0 to 6) a date falls in when weeks begin on `weekStartsOn`. */
+const weekdayColumn = (date: Date, weekStartsOn: number) => (date.getDay() - weekStartsOn + 7) % 7;
 /** Every month shows six weeks, so the grid keeps one height and never jumps while months change. */
-const makeWeeks = (month: Date) => {
-  const start = addDays(month, -month.getDay());
+const makeWeeks = (month: Date, weekStartsOn: number) => {
+  const start = addDays(month, -weekdayColumn(month, weekStartsOn));
   return Array.from({ length: 6 }, (_, week) => Array.from({ length: 7 }, (_, day) => addDays(start, week * 7 + day)));
 };
 
@@ -113,6 +119,7 @@ export function Calendar({
   locale = "en-US",
   className,
   showToday = false,
+  weekStartsOn = 0,
 }: CalendarProps) {
   const titleId = useId();
   const today = useToday();
@@ -136,7 +143,7 @@ export function Calendar({
     setShownMonth(monthTime);
     setDirection(shownMonth === undefined || monthTime === undefined ? 0 : monthTime > shownMonth ? 1 : -1);
   }
-  const weeks = useMemo(() => (monthTime === undefined ? [] : makeWeeks(new Date(monthTime))), [monthTime]);
+  const weeks = useMemo(() => (monthTime === undefined ? [] : makeWeeks(new Date(monthTime), weekStartsOn)), [monthTime, weekStartsOn]);
   // The strip position is measured in months. The panes on either side of it render, plus the month being navigated to.
   const target = month ? monthIndex(month) : 0;
   const position = useMotionValue(target);
@@ -161,7 +168,7 @@ export function Calendar({
   const paneIndexes = Array.from(new Set([span[0], span[1], target])).sort((a, b) => a - b);
   const formatter = useMemo(() => new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }), [locale]);
   const weekdayFormatter = useMemo(() => new Intl.DateTimeFormat(locale, { weekday: "short" }), [locale]);
-  const weekdays = useMemo(() => Array.from({ length: 7 }, (_, index) => weekdayFormatter.format(new Date(2024, 0, 7 + index))), [weekdayFormatter]);
+  const weekdays = useMemo(() => Array.from({ length: 7 }, (_, index) => weekdayFormatter.format(new Date(2024, 0, 7 + weekStartsOn + index))), [weekdayFormatter, weekStartsOn]);
   const monthLabel = month ? formatter.format(month) : "";
   // The selected disc glides between days, so each number flips color as the disc actually passes it:
   // the day it leaves waits longer on short hops, the day it lands on waits longer on long ones.
@@ -170,7 +177,7 @@ export function Calendar({
   const [handoff, setHandoff] = useState({ from: "", to: "", distance: 0 });
   if (last.key !== valueKey) {
     const days = last.date && value ? Math.round((startOfDay(value).getTime() - startOfDay(last.date).getTime()) / 864e5) : 0;
-    const columns = last.date && value ? value.getDay() - last.date.getDay() : 0;
+    const columns = last.date && value ? weekdayColumn(value, weekStartsOn) - weekdayColumn(last.date, weekStartsOn) : 0;
     setLast({ key: valueKey, date: value });
     setHandoff({ from: last.key, to: valueKey, distance: Math.hypot(columns, (days - columns) / 7) });
   }
@@ -229,8 +236,8 @@ export function Calendar({
       ArrowRight: [addDays(date, 1), 1],
       ArrowUp: [addDays(date, -7), -1],
       ArrowDown: [addDays(date, 7), 1],
-      Home: [addDays(date, -date.getDay()), 1],
-      End: [addDays(date, 6 - date.getDay()), -1],
+      Home: [addDays(date, -weekdayColumn(date, weekStartsOn)), 1],
+      End: [addDays(date, 6 - weekdayColumn(date, weekStartsOn)), -1],
       PageUp: [shiftMonths(date, event.shiftKey ? -12 : -1), -1],
       PageDown: [shiftMonths(date, event.shiftKey ? 12 : 1), 1],
     };
@@ -251,7 +258,7 @@ export function Calendar({
   // Six fixed weeks per month, so a day's cell is its distance from the first day on the grid.
   const cellOf = (paneMonth: Date) => {
     if (!value) return -1;
-    const first = addDays(paneMonth, -paneMonth.getDay());
+    const first = addDays(paneMonth, -weekdayColumn(paneMonth, weekStartsOn));
     const index = Math.round((startOfDay(value).getTime() - first.getTime()) / 864e5);
     return index >= 0 && index < 42 ? index : -1;
   };
@@ -259,7 +266,7 @@ export function Calendar({
   const renderMonth = (paneMonth: Date, present: boolean) => <>
     <SelectionDisc cell={cellOf(paneMonth)} reduced={reducedMotion} />
     <div className={styles.grid} role="grid" aria-label={formatter.format(paneMonth)}>
-    {makeWeeks(paneMonth).map((week) => <div key={dateKey(week[0]!)} className={styles.week} role="row">
+    {makeWeeks(paneMonth, weekStartsOn).map((week) => <div key={dateKey(week[0]!)} className={styles.week} role="row">
       {week.map((date) => {
         const key = dateKey(date);
         const selected = sameDay(date, value);
