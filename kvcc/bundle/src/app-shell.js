@@ -1,4 +1,5 @@
-/* kvcc.appShell(host, { brand, groups, activeId, title, onNavigate, actions, footer, navLabel }) -> { main, setActive, setTitle }.
+/* kvcc.appShell(host, { brand, groups, activeId, title, onNavigate, actions, footer, navLabel, rail, onRailChange }) -> { main, setActive, setTitle, setBadge, setGroups, setRail }.
+   An item has { id, label, icon | mark, href, badge }: `mark` is a short text (initials) shown instead of an icon. `activeId` may be null. setGroups rebuilds the nav in place (for data-driven items), setBadge updates one count.
    Vanilla port of the kvcc app-shell extension: same markup and classes, so kvcc/extensions/app-shell/app-shell.module.css styles it.
    brand and footer are Nodes or (state: { rail }) => Node. Icons are lucide 24px path data (string or array of strings). Hand-written. */
 (() => {
@@ -22,10 +23,10 @@
   const slot = (value, state) => typeof value === "function" ? value(state) : value;
   let uid = 0;
 
-  const appShell = (host, { brand, groups, activeId, title, onNavigate, actions, footer, navLabel = "Main" }) => {
+  const appShell = (host, { brand, groups, activeId, title, onNavigate, actions, footer, navLabel = "Main", rail: initialRail = false, onRailChange }) => {
     const mainId = `kvcc-shell-main-${++uid}`;
     const media = matchMedia(MOBILE_QUERY);
-    let rail = false, drawerOpen = false, active = activeId;
+    let rail = initialRail, drawerOpen = false, active = activeId;
 
     const shell = el("div", `${A}shell`);
     const skip = el("a", `${A}skip`, { href: `#${mainId}`, textContent: "Skip to content" });
@@ -35,23 +36,28 @@
     const indicator = el("span", `${A}indicator`);
     nav.append(indicator);
     const items = new Map();
-    groups.forEach(group => {
-      const g = el("div", `${A}group`);
-      if (group.label) g.append(el("p", `${A}groupLabel`, { textContent: group.label }));
-      const list = el("ul", `${A}list`);
-      group.items.forEach(item => {
-        const node = el(item.href ? "a" : "button", `${A}item`);
-        if (item.href) node.href = item.href; else node.type = "button";
-        node.dataset.id = item.id;
-        node.dataset.label = item.label;
-        node.append(icon(item.icon, `${A}icon`), el("span", `${A}label`, { textContent: item.label }));
-        if (item.badge !== undefined) node.append(el("span", `${A}badge`, { textContent: String(item.badge) }));
-        node.addEventListener("click", () => { setActive(item.id); onNavigate?.(item.id); if (media.matches) closeDrawer(); });
-        const li = el("li"); li.append(node); list.append(li);
-        items.set(item.id, node);
+    const buildGroups = list => {
+      nav.querySelectorAll(`.${A}group`).forEach(n => n.remove());
+      items.clear();
+      list.forEach(group => {
+        const g = el("div", `${A}group`);
+        if (group.label) g.append(el("p", `${A}groupLabel`, { textContent: group.label }));
+        const ul = el("ul", `${A}list`);
+        group.items.forEach(item => {
+          const node = el(item.href ? "a" : "button", `${A}item`);
+          if (item.href) node.href = item.href; else node.type = "button";
+          node.dataset.id = item.id;
+          node.dataset.label = item.label;
+          node.append(item.mark !== undefined ? el("span", `${A}ini`, { textContent: item.mark }) : icon(item.icon, `${A}icon`), el("span", `${A}label`, { textContent: item.label }));
+          if (item.badge !== undefined && item.badge !== null && item.badge !== "") node.append(el("span", `${A}badge`, { textContent: String(item.badge) }));
+          node.addEventListener("click", event => { if (item.href && onNavigate) event.preventDefault(); setActive(item.id); onNavigate?.(item.id); if (media.matches) closeDrawer(); });
+          const li = el("li"); li.append(node); ul.append(li);
+          items.set(item.id, node);
+        });
+        g.append(ul); nav.append(g);
       });
-      g.append(list); nav.append(g);
-    });
+    };
+    buildGroups(groups);
     const footerEl = footer ? el("div", `${A}footer`) : null;
     sidebar.append(brandEl, nav, ...(footerEl ? [footerEl] : []));
 
@@ -69,12 +75,13 @@
 
     const place = () => {
       const node = items.get(active);
+      indicator.style.display = node ? "" : "none";
       if (!node) return;
       indicator.style.setProperty("--y", `${node.offsetTop}px`);
       indicator.style.setProperty("--h", `${node.offsetHeight}px`);
     };
     function setActive(id) {
-      active = id;
+      active = id ?? null;
       items.forEach((node, key) => {
         if (key === id) { node.setAttribute("aria-current", "page"); node.setAttribute("data-active", ""); }
         else { node.removeAttribute("aria-current"); node.removeAttribute("data-active"); }
@@ -108,7 +115,7 @@
 
     toggle.addEventListener("click", () => {
       if (media.matches) { drawerOpen = true; paint(); (items.get(active) ?? sidebar.querySelector(FOCUSABLE))?.focus(); }
-      else { rail = !rail; paint(); }
+      else { rail = !rail; paint(); onRailChange?.(rail); }
     });
     sidebar.addEventListener("keydown", event => {
       if (!drawerOpen) return;
@@ -124,7 +131,20 @@
 
     setActive(active);
     paint();
-    return { main, setActive, setTitle: text => { heading.textContent = text; } };
+    const setBadge = (id, value) => {
+      const node = items.get(id);
+      if (!node) return;
+      let badge = node.querySelector(`.${A}badge`);
+      if (value === null || value === undefined || value === "" || value === 0) { badge?.remove(); return; }
+      if (!badge) { badge = el("span", `${A}badge`); node.append(badge); }
+      badge.textContent = String(value);
+    };
+    return {
+      main, setActive, setBadge,
+      setTitle: text => { heading.textContent = text; },
+      setGroups: next => { buildGroups(next); setActive(active); paint(); },
+      setRail: next => { rail = !!next; paint(); },
+    };
   };
 
   Object.assign(window.kvcc ??= {}, { appShell });
