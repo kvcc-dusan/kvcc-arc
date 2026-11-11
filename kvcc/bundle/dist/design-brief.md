@@ -228,6 +228,36 @@ Paste this into the page as is, then style everything with the variables.
   outline: var(--focus-outline-width, 2px) solid var(--focus-outline, color-mix(in oklab, var(--accent-strong) 72%, transparent)) !important;
   outline-offset: var(--focus-outline-offset, 2px) !important;
 }
+:root {
+  --text-muted: oklch(54% 0 0);
+  --warning: oklch(52% .18 75);
+  
+  --border-control: oklch(64% 0 0);
+}
+:root[data-theme="dark"] { --border-control: oklch(55% 0 0); } 
+:root[data-theme="dark"][data-variant="black"] {
+  --background: oklch(0% 0 0);
+  --surface: oklch(7% 0 0);
+  --surface-raised: oklch(10% 0 0);
+  --surface-muted: oklch(14% 0 0); 
+  --foreground: oklch(98% 0 0);
+  --text-secondary: oklch(80% 0 0);
+  --text-muted: oklch(62% 0 0);
+  
+  --border: oklch(30% 0 0);
+  --border-subtle: oklch(25% 0 0);
+  --border-strong: oklch(44% 0 0);
+  --border-control: oklch(48% 0 0); 
+  --control-track: oklch(24% 0 0);
+  --control-track-hover: oklch(29% 0 0);
+  
+  --shadow-resting: none;
+  --shadow-raised: 0 0 0 1px oklch(30% 0 0);
+  --shadow-floating: 0 0 0 1px oklch(34% 0 0), 0 18px 48px oklch(0% 0 0 / .8);
+  
+  --heatmap-empty: color-mix(in oklab, var(--foreground) 17%, var(--surface));
+}
+:root[data-theme="dark"][data-variant="black"]:is(:not([data-accent]), [data-accent="neutral"]) { --control-glyph: oklch(0% 0 0); --control-thumb-on: oklch(0% 0 0); }
 *, *::before, *::after { box-sizing: border-box; }
 :root { --font-display: "Geist", sans-serif; --font-body: "Inter", sans-serif; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-body); letter-spacing: var(--tracking-body); -webkit-font-smoothing: antialiased; }

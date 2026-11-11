@@ -201,10 +201,46 @@
  * kvcc theme overrides.
  * Import after components/arc/foundation.css. registry/foundation.css stays identical to upstream so upstream merges stay clean.
  * Override semantic roles only (see kvcc/tokens/TOKENS.md). Set light and dark values separately and check contrast in both.
- *
- * :root { --accent: #0f766e; --accent-strong: #0b5a54; --accent-subtle: rgb(15 118 110 / .12); }
- * :root[data-theme="dark"] { --accent: #2dd4bf; --accent-strong: #5eead4; }
  */
+
+/* Light contrast. Foundation's --text-muted (59%) gave 4.1:1 on white and 3.9:1 on --surface-muted, and --warning (58%) as
+   text 4.4:1: all under WCAG AA 4.5:1. Now 5.1:1 and 4.8:1 for muted text, 5.6:1 for warning. Both stay distinct from
+   --text-secondary (46%). Dark values come from foundation's dark rule, which outranks this one. */
+:root {
+  --text-muted: oklch(54% 0 0);
+  --warning: oklch(52% .18 75);
+  /* --border (93.5%) is 1.2:1, fine for dividers and cards but too faint for the edge of a field (WCAG 1.4.11 wants 3:1).
+     --border-control is for input, select and search-field outlines: 3.4:1 on white, 3.2:1 on --surface-muted. */
+  --border-control: oklch(64% 0 0);
+}
+:root[data-theme="dark"] { --border-control: oklch(55% 0 0); } /* 3.6:1 on --surface, 3.2:1 on --surface-muted */
+
+/* Black: a variant of dark, not a fourth theme. Keep data-theme="dark" on <html> so every dark rule, chart and canvas still
+   applies; data-variant="black" only swaps the palette for pure black surfaces with white text. */
+:root[data-theme="dark"][data-variant="black"] {
+  --background: oklch(0% 0 0);
+  --surface: oklch(7% 0 0);
+  --surface-raised: oklch(10% 0 0);
+  --surface-muted: oklch(14% 0 0); /* hover and selected rows: just visible against pure black */
+  --foreground: oklch(98% 0 0);
+  --text-secondary: oklch(80% 0 0);
+  --text-muted: oklch(62% 0 0);
+  /* Shell dividers use --border-subtle, so it has to stay visible on pure black. */
+  --border: oklch(30% 0 0);
+  --border-subtle: oklch(25% 0 0);
+  --border-strong: oklch(44% 0 0);
+  --border-control: oklch(48% 0 0); /* 3.2:1 on --surface, 3:1 on --surface-muted */
+  --control-track: oklch(24% 0 0);
+  --control-track-hover: oklch(29% 0 0);
+  /* Black shadows disappear on black: floating layers rely on their raised surface and a hairline instead. */
+  --shadow-resting: none;
+  --shadow-raised: 0 0 0 1px oklch(30% 0 0);
+  --shadow-floating: 0 0 0 1px oklch(34% 0 0), 0 18px 48px oklch(0% 0 0 / .8);
+  /* The empty heatmap day needs more lift on black than dark's 12%. */
+  --heatmap-empty: color-mix(in oklab, var(--foreground) 17%, var(--surface));
+}
+/* The neutral accent draws dark glyphs on a light fill; on black they go fully black. Colored accents keep their own glyph colors. */
+:root[data-theme="dark"][data-variant="black"]:is(:not([data-accent]), [data-accent="neutral"]) { --control-glyph: oklch(0% 0 0); --control-thumb-on: oklch(0% 0 0); }
 
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -1283,6 +1319,36 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
   outline: var(--focus-outline-width, 2px) solid var(--focus-outline, color-mix(in oklab, var(--accent-strong) 72%, transparent)) !important;
   outline-offset: var(--focus-outline-offset, 2px) !important;
 }
+:root {
+  --text-muted: oklch(54% 0 0);
+  --warning: oklch(52% .18 75);
+  
+  --border-control: oklch(64% 0 0);
+}
+:root[data-theme="dark"] { --border-control: oklch(55% 0 0); } 
+:root[data-theme="dark"][data-variant="black"] {
+  --background: oklch(0% 0 0);
+  --surface: oklch(7% 0 0);
+  --surface-raised: oklch(10% 0 0);
+  --surface-muted: oklch(14% 0 0); 
+  --foreground: oklch(98% 0 0);
+  --text-secondary: oklch(80% 0 0);
+  --text-muted: oklch(62% 0 0);
+  
+  --border: oklch(30% 0 0);
+  --border-subtle: oklch(25% 0 0);
+  --border-strong: oklch(44% 0 0);
+  --border-control: oklch(48% 0 0); 
+  --control-track: oklch(24% 0 0);
+  --control-track-hover: oklch(29% 0 0);
+  
+  --shadow-resting: none;
+  --shadow-raised: 0 0 0 1px oklch(30% 0 0);
+  --shadow-floating: 0 0 0 1px oklch(34% 0 0), 0 18px 48px oklch(0% 0 0 / .8);
+  
+  --heatmap-empty: color-mix(in oklab, var(--foreground) 17%, var(--surface));
+}
+:root[data-theme="dark"][data-variant="black"]:is(:not([data-accent]), [data-accent="neutral"]) { --control-glyph: oklch(0% 0 0); --control-thumb-on: oklch(0% 0 0); }
 *, *::before, *::after { box-sizing: border-box; }
 :root { --font-display: "Geist", sans-serif; --font-body: "Inter", sans-serif; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-body); letter-spacing: var(--tracking-body); -webkit-font-smoothing: antialiased; }

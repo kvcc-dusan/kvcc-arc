@@ -54,7 +54,8 @@ Condensed from the Arc agent skill files (uiarc.dev, MIT). Wording is rewritten;
 
 - Dark: `data-theme="dark"` on `<html>`, set before first paint. Accent: `data-accent` on `<html>` (neutral, violet, blue, green, amber, orange, coral, rose).
 - Check every screen in both themes and at least two accents: neutral and one saturated hue.
-- Brand overrides go in `kvcc/theme.css`, never in `foundation.css`.
+- Black: `data-variant="black"` together with `data-theme="dark"` (a dark variant, never on its own): pure black surfaces, white text, hairlines instead of shadows. Check it like a third theme.
+- Brand overrides go in `kvcc/theme.css`, never in `foundation.css`. It is installed as `kvcc-theme` and also carries the AA fixes for light `--text-muted` and `--warning`, the Black palette and `--border-control`.
 
 ## Copy
 
@@ -114,7 +115,7 @@ The tokens expect next/font (`--font-inter`, `--font-geist`) or fontsource names
 - Everything clickable is reachable by Tab and works with Enter or Space. Composite widgets: one Tab stop, arrow keys inside. Overlays trap focus, return it, close on Escape. Gestures have a button or menu alternative. Shortcuts never capture keys from text fields.
 - A switch in a settings row with its own title and description points at them with `aria-labelledby` and `aria-describedby`; use the `label` prop only when the switch stands alone.
 - Errors tied to fields. Background status via `role="status"` or `aria-live="polite"`; blocking errors `role="alert"`. State never by color alone. `aria-busy="true"` on loading regions.
-- Contrast: text 4.5:1 (3:1 large), icons and control borders 3:1. Check both themes, muted and disabled text included.
+- Contrast: text 4.5:1 (3:1 large), icons and control borders 3:1. Check both themes, muted and disabled text included. `--border` is 1.2:1 and only for dividers and cards; the edge of a field with no fill uses `--border-control` (3:1 in every theme).
 
 ## React
 

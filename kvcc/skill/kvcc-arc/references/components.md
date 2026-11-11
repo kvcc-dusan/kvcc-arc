@@ -53,7 +53,7 @@ Free items only. Ids are exact (see `component-index.md` for the full index). Na
 - Sort and compare records: `sortable-data-table`. Filters above a collection: `filter-toolbar`.
 - Trend: `line-chart` (`null` in a datum's `values` is a gap: the line breaks and readouts say "No value"; a missing key counts as zero); beside a value: `sparkline`. Categories or days: `bar-chart`.
 - Share of whole (about 5 parts or fewer): `donut-chart`; percentages: `waffle-chart`; hierarchy: `treemap`.
-- Dense time series with zoom: `brush-chart`. Before and after: `slope-chart`. Distributions: `ridgeline`. Layered totals: `streamgraph`. Value against range: `gauge`. Year of daily activity: `activity-heatmap`.
+- Dense time series with zoom: `brush-chart`. Before and after: `slope-chart`. Distributions: `ridgeline`. Layered totals: `streamgraph`. Value against range: `gauge`. Year of daily activity: `activity-heatmap` (cells size to the weeks shown, capped at 15px; set `--heatmap-cell-max` on it to fill a wide card with a short range, and `--heatmap-empty` to restyle the empty day).
 - Events newest first: `timeline`. Nested structure: `tree-view`. Code or JSON: `code-block`, `json-viewer`.
 - Comments and chat: `comment-thread`, `chat-thread`.
 - Plan or product comparison: `comparison-table` (block). Slides: `carousel`. Image before and after: `image-compare`. Touch row actions: `swipe-actions` (always with a menu path).
