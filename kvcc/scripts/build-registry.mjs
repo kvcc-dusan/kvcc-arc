@@ -17,7 +17,11 @@ mkdirSync(path.join(out, "r"), { recursive: true });
 
 const rewrite = url => (url.startsWith(UPSTREAM) ? `${base}/r/${url.slice(UPSTREAM.length)}` : url);
 const written = [];
-const write = (name, item) => { writeFileSync(path.join(out, "r", `${name}.json`), JSON.stringify(item, null, 2) + "\n"); written.push(item); };
+// The shadcn CLI runs every file that is not "registry:file" or "registry:item" through its code transform, which in a
+// JavaScript project ("tsx": false) parses CSS as JS and aborts the install. Stylesheets carry no imports to rewrite, so
+// ship them as "registry:file" (copied verbatim to their explicit target) and installs work in JS and TS projects alike.
+const verbatimCss = item => ({ ...item, files: item.files?.map(f => (f.path.endsWith(".css") && f.target ? { ...f, type: "registry:file" } : f)) });
+const write = (name, item) => { item = verbatimCss(item); writeFileSync(path.join(out, "r", `${name}.json`), JSON.stringify(item, null, 2) + "\n"); written.push(item); };
 
 // 1. Upstream items, with registryDependencies pointed at this registry.
 const srcDir = path.join(root, "public/r");
